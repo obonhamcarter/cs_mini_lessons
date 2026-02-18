@@ -15,7 +15,7 @@ format:
 
 - 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=02-data-types.ipynb)** - Full Jupyter environment in your browser
 - ▶️ **Run code directly below** - All code cells on this page are editable and runnable
-- 📥 **[Download Notebook](../jupyterlite/content/02-data-types.ipynb)** - For use in local Jupyter or Google Colab
+- 📥 **[Download Notebook](../files/lessons/02-data-types.ipynb)** - For use in local Jupyter or Google Colab
 :::
 
 ## 📖 Introduction: The Shape-Shifting Treasure

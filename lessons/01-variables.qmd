@@ -15,7 +15,7 @@ format:
 
 - 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=01-variables.ipynb)** - Full Jupyter environment in your browser
 - ▶️ **Run code directly below** - All code cells on this page are editable and runnable
-- 📥 **[Download Notebook](../jupyterlite/content/01-variables.ipynb)** - For use in local Jupyter or Google Colab
+- 📥 **[Download Notebook](../files/lessons/01-variables.ipynb)** - For use in local Jupyter or Google Colab
 :::
 
 ## 📖 Introduction: The Adventurer's Backpack

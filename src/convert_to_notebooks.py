@@ -6,6 +6,9 @@ This allows students to run the lessons in JupyterLite or download them.
 import json
 import re
 import os
+import shutil
+
+DOWNLOADS_DIR = "files/lessons"
 
 def create_notebook_cell(cell_type, source):
     """Create a notebook cell"""
@@ -77,6 +80,12 @@ def save_notebook(notebook, filepath):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(notebook, f, indent=2, ensure_ascii=False)
     print(f"✅ Created: {filepath}")
+
+    if filepath.startswith("jupyterlite/content/") and filepath.endswith(".ipynb"):
+        os.makedirs(DOWNLOADS_DIR, exist_ok=True)
+        download_path = os.path.join(DOWNLOADS_DIR, os.path.basename(filepath))
+        shutil.copy2(filepath, download_path)
+        print(f"📥 Synced download copy: {download_path}")
 
 if __name__ == "__main__":
     print("Run create_all_notebooks.py to generate all lesson notebooks")

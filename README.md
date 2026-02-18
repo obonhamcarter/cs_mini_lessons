@@ -105,6 +105,25 @@ python -m http.server 8000
 Then visit:
 - Main site: `http://localhost:8000`
 - JupyterLite: `http://localhost:8000/jupyterlite/lab/index.html`
+
+### Notebook Sync Helper
+
+Use the helper script to generate/sync notebooks in one command:
+
+```bash
+python3 src/sync_notebooks.py
+```
+
+This updates notebooks in both locations:
+- `jupyterlite/content/` (for JupyterLite)
+- `files/lessons/` (for direct downloads)
+
+To sync and render the site in one run:
+
+```bash
+python3 src/sync_notebooks.py --render
+```
+
 ## 🌐 Deploy to GitHub Pages
 
 ### Automatic Deployment with GitHub Actions
@@ -200,7 +219,7 @@ jupyter-lite build --output-dir _site/jupyterlite
 3. **Download & Use Locally**
    - Each lesson has a downloadable `.ipynb` file
    - Use in local Jupyter, VS Code, or Google Colab
-   - Available in `jupyterlite/content/` directory
+  - Available in `files/lessons/` directory
 
 ### Interactive Code on Lesson Pages
 
@@ -215,7 +234,7 @@ Example from a lesson page:
 **💻 Interactive Options:**
 - 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=01-variables.ipynb)**
 - ▶️ **Run code directly below**
-- 📥 **[Download Notebook](../jupyterlite/content/01-variables.ipynb)**
+- 📥 **[Download Notebook](../files/lessons/01-variables.ipynb)**
 :::
 ```
 

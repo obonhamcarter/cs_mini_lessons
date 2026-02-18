@@ -3,6 +3,8 @@
 Generate Jupyter notebooks for lessons 13-16
 """
 import json
+import os
+import shutil
 
 def create_notebook(lesson_num, lesson_title, lesson_slug):
     """Create a notebook template for a lesson"""
@@ -127,9 +129,16 @@ for lesson_num, title, slug in lessons_data:
     notebook = create_notebook(lesson_num, title, slug)
     
     filename = f"jupyterlite/content/{slug}.ipynb"
+    download_filename = f"files/lessons/{slug}.ipynb"
+    os.makedirs("jupyterlite/content", exist_ok=True)
+    os.makedirs("files/lessons", exist_ok=True)
+
     with open(filename, 'w') as f:
         json.dump(notebook, f, indent=2)
+
+    shutil.copy2(filename, download_filename)
     
     print(f"✅ Created {filename}")
+    print(f"📥 Synced {download_filename}")
 
 print("\n🎉 All notebooks created successfully!")

@@ -1,6 +1,12 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd"
+    - "lessons/*.qmd"
+    - "sitedocs/*.md"
+  resources:
+    - files/**
 
 website:
   title: "CS Quest - Coding Adventures"

@@ -116,9 +116,10 @@ git push origin main
 
 1. Create new file: `lessons/17-your-topic.qmd`
 2. Add entry to `_quarto.yml` sidebar
-3. Create notebook: `jupyterlite/content/17-your-topic.ipynb`
-4. Update `index.qmd` and `all-quests.qmd`
-5. Commit and push
+3. Create notebook for JupyterLite: `jupyterlite/content/17-your-topic.ipynb`
+4. Copy notebook for downloads: `files/lessons/17-your-topic.ipynb`
+5. Update `index.qmd` and `all-quests.qmd`
+6. Commit and push
 
 The CI/CD pipeline handles the rest! 🎉
 

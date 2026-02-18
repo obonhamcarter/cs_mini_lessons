@@ -17,7 +17,7 @@ Your CS Quest website now has **three ways** for students to run code interactiv
 ### 3. 📥 Downloadable Notebooks (New!)
 - Each lesson is now available as a `.ipynb` file
 - Students can download and use in local Jupyter or Google Colab
-- Files are in `jupyterlite/content/`
+- Files are in `files/lessons/`
 
 ## 🚀 Quick Start for Instructors
 
@@ -106,7 +106,7 @@ This opens JupyterLite with the specific notebook loaded.
 
 Direct links to `.ipynb` files:
 ```
-jupyterlite/content/01-variables.ipynb
+files/lessons/01-variables.ipynb
 ```
 
 Students can download and open in:
@@ -144,14 +144,33 @@ Just upload the `_site` folder to any web server.
 ### Add More Notebooks
 
 1. Create `.ipynb` file in `jupyterlite/content/`
-2. Rebuild JupyterLite: `./build.sh`
-3. Link from lesson pages
+2. Copy the lesson notebook to `files/lessons/` for direct download links
+3. Rebuild JupyterLite: `./build.sh`
+4. Link from lesson pages
 
 ### Update Existing Notebooks
 
-1. Edit files in `jupyterlite/content/`
+1. Edit files in `jupyterlite/content/` and `files/lessons/` as needed
 2. Rebuild: `./build.sh`
-3. Changes appear in JupyterLite
+3. Changes appear in JupyterLite and download links
+
+### Notebook Sync Helper
+
+Use the helper script to generate and sync notebooks in one command:
+
+```bash
+python3 src/sync_notebooks.py
+```
+
+This updates both:
+- `jupyterlite/content/` (for JupyterLite)
+- `files/lessons/` (for direct downloads)
+
+To sync and render in one run:
+
+```bash
+python3 src/sync_notebooks.py --render
+```
 
 ### Change JupyterLite Theme
 
@@ -217,6 +236,10 @@ Create a simple guide for students:
 - Ensure files are in `jupyterlite/content/`
 - Rebuild: `./build.sh`
 - Check `jupyterlite_build/` was created
+
+### Download Links Not Working
+- Ensure files are in `files/lessons/`
+- Run `quarto render` and verify `_site/files/lessons/` exists
 
 ## ✅ Testing Checklist
 

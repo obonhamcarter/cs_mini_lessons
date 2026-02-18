@@ -5,6 +5,7 @@ These can be filled in with full content later or generated from the .qmd files.
 
 import json
 import os
+import shutil
 
 # Lesson metadata
 lessons = [
@@ -143,11 +144,21 @@ def create_basic_notebook(quest_num, slug, title, emoji):
     
     return notebook
 
+
+def sync_to_downloads(source_path, downloads_dir):
+    """Copy a generated notebook into files/lessons for direct downloads."""
+    os.makedirs(downloads_dir, exist_ok=True)
+    destination_path = os.path.join(downloads_dir, os.path.basename(source_path))
+    shutil.copy2(source_path, destination_path)
+    return destination_path
+
 def main():
     """Generate all notebook files"""
     
     output_dir = "jupyterlite/content"
+    downloads_dir = "files/lessons"
     os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(downloads_dir, exist_ok=True)
     
     print("=" * 60)
     print("CS QUEST - NOTEBOOK GENERATOR")
@@ -155,21 +166,20 @@ def main():
     print()
     
     for quest_num, slug, title, emoji in lessons:
-        # Skip if already exists (like 01-variables.ipynb)
         filename = f"{output_dir}/{quest_num:02d}-{slug}.ipynb"
         
         if os.path.exists(filename):
             print(f"⏭️  Skipping Quest {quest_num} (already exists): {filename}")
-            continue
-        
-        # Create notebook
-        notebook = create_basic_notebook(quest_num, slug, title, emoji)
-        
-        # Save to file
-        with open(filename, 'w', encoding='utf-8') as f:
-            json.dump(notebook, f, indent=2, ensure_ascii=False)
-        
-        print(f"✅ Created Quest {quest_num}: {filename}")
+        else:
+            notebook = create_basic_notebook(quest_num, slug, title, emoji)
+
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(notebook, f, indent=2, ensure_ascii=False)
+
+            print(f"✅ Created Quest {quest_num}: {filename}")
+
+        synced_file = sync_to_downloads(filename, downloads_dir)
+        print(f"📥 Synced download copy: {synced_file}")
     
     print()
     print("=" * 60)
@@ -177,6 +187,7 @@ def main():
     print("=" * 60)
     print()
     print(f"📁 Notebooks saved in: {output_dir}/")
+    print(f"📁 Download copies saved in: {downloads_dir}/")
     print()
     print("Next steps:")
     print("1. Review and enhance notebooks with full lesson content")

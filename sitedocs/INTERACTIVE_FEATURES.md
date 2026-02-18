@@ -23,7 +23,7 @@ Your CS Quest website now has **complete interactive coding capabilities** with 
 3. **📥 Downloadable Notebooks**
    - All 12 quests as `.ipynb` files
    - Can be used in local Jupyter, VS Code, or Google Colab
-   - Located in: `jupyterlite/content/`
+   - Located in: `files/lessons/`
 
 4. **📚 Documentation**
    - New "Interactive" page explaining all options
@@ -130,7 +130,7 @@ To add interactive options to lessons 6-12, add this after the quest-badge:
 
 - 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=XX-LESSON-NAME.ipynb)** - Full Jupyter environment in your browser
 - ▶️ **Run code directly below** - All code cells on this page are editable and runnable
-- 📥 **[Download Notebook](../jupyterlite/content/XX-LESSON-NAME.ipynb)** - For use in local Jupyter or Google Colab
+- 📥 **[Download Notebook](../files/lessons/XX-LESSON-NAME.ipynb)** - For use in local Jupyter or Google Colab
 :::
 ```
 
