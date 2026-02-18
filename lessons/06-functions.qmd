@@ -1,0 +1,351 @@
+---
+title: "Quest 6: Functions - Magic Spells"
+subtitle: "Create Reusable Code with Functions"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+✨ QUEST 6 | Difficulty: Beginner | Time: 5 minutes
+:::
+
+## 📖 Introduction: The Spell Book
+
+Imagine being a wizard who needs to cast the same spell repeatedly. Would you say the entire incantation every time?
+
+"By the power of the ancient stars, I summon thee, healing light!"
+"By the power of the ancient stars, I summon thee, healing light!"
+"By the power of the ancient stars, I summon thee, healing light!"
+
+No way! You'd create a magic word like "HEAL!" that triggers the whole spell. That's exactly what **functions** do in programming!
+
+::: {.story-box}
+**🧙 Story Time**: You're a coding wizard learning to create magical spells (functions). Each spell has a name, might need some ingredients (parameters), and produces a result. Once you create a spell, you can use it over and over with just one word!
+:::
+
+## 💡 Explanation: What are Functions?
+
+A **function** is a reusable block of code that performs a specific task. Think of it as a recipe or a machine:
+- **Input** (ingredients/parameters) → **Process** (your code) → **Output** (result/return value)
+
+### Basic Function Structure
+
+```python
+def function_name():
+    # Code goes here
+    print("This function does something!")
+
+# Call (use) the function
+function_name()
+```
+
+### Function with Parameters
+
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Alice")  # Output: Hello, Alice!
+```
+
+### Function with Return Value
+
+```python
+def add_numbers(a, b):
+    result = a + b
+    return result
+
+total = add_numbers(5, 3)  # total = 8
+```
+
+::: {.concept-box}
+**🎯 Key Parts of a Function**:
+
+1. **def** - Keyword that starts a function definition
+2. **function_name** - What you call the function
+3. **parameters** - Inputs the function needs (optional)
+4. **code block** - Indented code that runs when called
+5. **return** - Sends a value back to the caller (optional)
+
+**Example dissected**:
+```python
+def calculate_damage(attack_power, defense):  # parameters
+    damage = attack_power - defense            # calculation
+    return damage                               # return value
+```
+:::
+
+## 🎮 Activity: Create Your Spells
+
+Let's create some useful game functions:
+
+```{pyodide-python}
+# Define some magic spells (functions)
+
+def cast_heal(health, heal_amount):
+    """Heal spell that restores health"""
+    new_health = health + heal_amount
+    print(f"✨ Casting Heal! +{heal_amount} HP")
+    return new_health
+
+def cast_fireball(target_name, damage):
+    """Attack spell that deals damage"""
+    print(f"🔥 FIREBALL at {target_name}!")
+    print(f"   Dealt {damage} damage!")
+    return damage
+
+def check_level_up(experience, level):
+    """Check if player should level up"""
+    xp_needed = level * 100
+    if experience >= xp_needed:
+        print(f"⭐ LEVEL UP! You are now level {level + 1}!")
+        return level + 1
+    else:
+        print(f"Need {xp_needed - experience} more XP to level up")
+        return level
+
+# Use the spells!
+print("=== SPELL CASTING DEMO ===")
+print()
+
+player_health = 50
+player_health = cast_heal(player_health, 30)
+print(f"Current health: {player_health}")
+print()
+
+damage_dealt = cast_fireball("Dragon", 45)
+print()
+
+player_level = 3
+player_xp = 250
+player_level = check_level_up(player_xp, player_level)
+
+# Try calling these functions with different values!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: Create your own function:
+
+1. Make a function called `calculate_total_gold` that takes two parameters: `old_gold` and `new_gold`
+2. It should return the sum of both
+3. Test it by calling `calculate_total_gold(50, 25)`
+4. Print the result
+:::
+
+## 👨‍💻 Code Example: Functions Working Together
+
+Functions can call other functions!
+
+```{pyodide-python}
+# A combat system using multiple functions
+
+def calculate_damage(attack, defense):
+    """Calculate damage after defense reduction"""
+    damage = max(attack - defense, 0)  # Damage can't be negative
+    return damage
+
+def apply_critical_hit(damage, is_critical):
+    """Apply critical hit bonus"""
+    if is_critical:
+        return damage * 2
+    return damage
+
+def attack_enemy(attacker_name, attack_power, defender_name, defense_power, critical=False):
+    """Complete attack sequence"""
+    print(f"⚔️ {attacker_name} attacks {defender_name}!")
+    
+    # Calculate damage using other functions
+    base_damage = calculate_damage(attack_power, defense_power)
+    final_damage = apply_critical_hit(base_damage, critical)
+    
+    if critical:
+        print(f"💥 CRITICAL HIT!")
+    
+    print(f"   Damage dealt: {final_damage}")
+    return final_damage
+
+# Battle simulation
+print("=== BATTLE SIMULATION ===")
+print()
+
+damage1 = attack_enemy("Knight", 50, "Goblin", 10)
+print()
+
+damage2 = attack_enemy("Archer", 40, "Dragon", 30, critical=True)
+print()
+
+total_damage = damage1 + damage2
+print(f"Total damage in battle: {total_damage}")
+```
+
+::: {.tip-box}
+**💡 Function Best Practices**:
+
+1. **Good names**: Use descriptive names that say what the function does
+   - ✅ `calculate_score()`, `heal_player()`
+   - ❌ `func1()`, `do_stuff()`
+
+2. **One task**: Each function should do ONE thing well
+   - ✅ Separate functions for calculating damage and applying effects
+   - ❌ One giant function that does everything
+
+3. **Documentation**: Add docstrings to explain what the function does
+   ```python
+   def my_function():
+       """This string explains what the function does"""
+       pass
+   ```
+:::
+
+## 🧩 Puzzle Time!
+
+What will this code print? Follow the flow carefully:
+
+```{pyodide-python}
+def multiply_by_two(number):
+    return number * 2
+
+def add_five(number):
+    return number + 5
+
+def process_number(num):
+    result = multiply_by_two(num)
+    result = add_five(result)
+    return result
+
+answer = process_number(10)
+print(f"The answer is: {answer}")
+
+# Can you trace through the function calls?
+# What value is returned at each step?
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The output is: **"The answer is: 25"**
+
+**Step-by-step trace**:
+
+1. **Call** `process_number(10)`
+   - `num = 10`
+
+2. **Inside `process_number`**, call `multiply_by_two(num)`
+   - `multiply_by_two(10)` returns `10 * 2 = 20`
+   - `result = 20`
+
+3. **Still inside `process_number`**, call `add_five(result)`
+   - `add_five(20)` returns `20 + 5 = 25`
+   - `result = 25`
+
+4. **Return** `result` (which is 25)
+   - `answer = 25`
+
+5. **Print** `answer`
+
+**The flow**: 10 → multiply by 2 → 20 → add 5 → 25
+
+This demonstrates how functions can chain together, with one function's output becoming another's input!
+:::
+
+## 🎮 Bonus: Default Parameters
+
+Functions can have default values for parameters:
+
+```{pyodide-python}
+def create_character(name, level=1, health=100, mana=50):
+    """Create a character with default stats"""
+    print(f"=== CHARACTER CREATED ===")
+    print(f"Name: {name}")
+    print(f"Level: {level}")
+    print(f"Health: {health}")
+    print(f"Mana: {mana}")
+    print("=" * 25)
+    print()
+
+# Use defaults
+create_character("Rookie")
+
+# Override some defaults
+create_character("Veteran", level=10)
+
+# Override all defaults
+create_character("Champion", level=20, health=500, mana=200)
+
+# You can even specify parameters by name in any order!
+create_character("Wizard", mana=300, health=80, level=15)
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 6 Complete! ✨
+
+You've learned:
+
+✅ Functions are reusable blocks of code  
+✅ Define functions with `def` keyword  
+✅ Functions can take parameters (inputs)  
+✅ Functions can return values (outputs)  
+✅ Functions can call other functions  
+✅ Use default parameters for flexibility  
+✅ Good function names are descriptive and clear
+
+**Next Quest**: Ready for key-value pairs? Try [Quest 7: Dictionaries](07-dictionaries.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a simple calculator using functions:
+
+```python
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    if b != 0:
+        return a / b
+    else:
+        return "Error: Cannot divide by zero"
+
+# Test your calculator
+print("Calculator Test:")
+print(f"10 + 5 = {add(10, 5)}")
+print(f"10 - 5 = {subtract(10, 5)}")
+print(f"10 * 5 = {multiply(10, 5)}")
+print(f"10 / 5 = {divide(10, 5)}")
+```
+
+Or create a character stats generator:
+
+```python
+import random
+
+def roll_stat():
+    """Roll a random stat between 1-20"""
+    return random.randint(1, 20)
+
+def generate_character(name):
+    return {
+        "name": name,
+        "strength": roll_stat(),
+        "intelligence": roll_stat(),
+        "agility": roll_stat()
+    }
+
+hero = generate_character("Merlin")
+print(hero)
+```
+
+---
+
+::: {.tip-box}
+**📱 You're on Fire!** Functions are the building blocks of organized code. Master them! 🔥
+:::

@@ -1,0 +1,234 @@
+---
+title: "Quest 14: Functions Part 2 - Side Effects & Procedures"
+subtitle: "Functions That Do Things Without Returning Values"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+✨ QUEST 14 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=14-functions-non-returning.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/14-functions-non-returning.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: Actions vs Rewards
+
+In Quest 6, we learned functions that **return values** (like spells that give you rewards). But not all functions need to return something. Some just need to **do something**.
+
+**Two types of function outcomes:**
+
+1. **With Return** 🎁: The function calculates and gives you a result
+   ```python
+   def calculate_damage(attack, defense):
+       return attack - defense  # Returns a value
+   ```
+
+2. **Without Return** 🎭: The function performs an action (side effect)
+   ```python
+   def announce_victory(winner_name):
+       print(f"{winner_name} wins!")  # Doesn't return anything
+   ```
+
+::: {.story-box}
+**🎪 Story Time**: Imagine a tavern where the Barkeep has two jobs. One job is mixing a potion (returns the potion). Another job is announcing the next quest to the crowd (just tells everyone, doesn't hand you anything). Both are important functions!
+:::
+
+## 💡 Explanation: Side Effects
+
+A **side effect** is something a function does *besides* returning a value:
+- Print to screen
+- Modify a list or variable
+- Write to a file
+- Display an image
+- Update game state
+
+::: {.concept-box}
+**🎯 Functions Without Return Values**
+
+These functions often have `print()` statements or modify variables **outside** the function.
+
+```python
+def level_up_player(player_stats):
+    """Modifies player_stats in place"""
+    player_stats['level'] += 1
+    player_stats['experience'] = 0
+    print(f"🌟 Level up! Now level {player_stats['level']}")
+    # Notice: No 'return' statement!
+
+# The function CHANGED the data but didn't return anything
+```
+
+**When return is omitted, the function returns `None`**:
+```python
+result = level_up_player(player)
+print(result)  # Prints: None
+```
+:::
+
+## 🎮 Activity 1: Display Functions
+
+Functions that show information to the player:
+
+```{pyodide-python}
+def display_character_sheet(name, level, health, mana):
+    """Display a formatted character sheet"""
+    print("╔════════════════════════════╗")
+    print(f"║ CHARACTER: {name:<19}║")
+    print("╠════════════════════════════╣")
+    print(f"║ Level: {level:<21}║")
+    print(f"║ Health: {health:<20}║")
+    print(f"║ Mana: {mana:<23}║")
+    print("╚════════════════════════════╝")
+    # No return statement!
+
+def announce_battle(player_name, enemy_name):
+    """Announce the start of battle"""
+    print(f"\n⚔️  BATTLE START! ⚔️")
+    print(f"  {player_name} vs {enemy_name}")
+    print()
+
+# Use the functions
+display_character_sheet("Hero", 5, 80, 40)
+announce_battle("Hero", "Dark Knight")
+```
+
+## 🎮 Activity 2: Modifier Functions
+
+Functions that **change** data:
+
+```{pyodide-python}
+def add_to_inventory(inventory, item, quantity=1):
+    """Add items to an inventory list"""
+    for _ in range(quantity):
+        inventory.append(item)
+    print(f"  ✅ Added {quantity} {item}(s) to inventory")
+    # No return - we modified the list directly!
+
+def remove_from_inventory(inventory, item):
+    """Remove an item from inventory"""
+    if item in inventory:
+        inventory.remove(item)
+        print(f"  ❌ Removed: {item}")
+    else:
+        print(f"  ⚠️  {item} not found!")
+
+# Create an inventory
+my_items = []
+
+print("Starting adventure...")
+add_to_inventory(my_items, "Sword", 1)
+add_to_inventory(my_items, "Health Potion", 3)
+add_to_inventory(my_items, "Rope", 1)
+
+print(f"\n📦 Inventory: {my_items}")
+
+remove_from_inventory(my_items, "Rope")
+print(f"📦 Inventory: {my_items}")
+```
+
+## 🎮 Activity 3: Mixed Functions
+
+Often you'll want both: side effects AND return values:
+
+```{pyodide-python}
+def take_damage(current_health, damage):
+    """Take damage and return new health"""
+    new_health = current_health - damage
+    
+    # Side effect: Print what happened
+    print(f"  ⚡ DAMAGE: -{damage}")
+    print(f"  Current health: {new_health}")
+    
+    # Also return the new value
+    return new_health
+
+def heal_player(current_health, heal_amount, max_health=100):
+    """Heal and return new health"""
+    new_health = min(current_health + heal_amount, max_health)
+    
+    # Side effect: Show the healing
+    healed = new_health - current_health
+    if healed > 0:
+        print(f"  💚 HEALED: +{healed}")
+        print(f"  Current health: {new_health}")
+    else:
+        print(f"  ⚠️  Already at max health!")
+    
+    # Return the result
+    return new_health
+
+# Battle scenario
+health = 100
+print("⚔️  In battle!")
+health = take_damage(health, 25)
+health = take_damage(health, 15)
+print()
+health = heal_player(health, 30)
+```
+
+## 🧩 Challenge: Build a Logging Function
+
+Write a function that:
+1. Takes 3 parameters: `message`, `log_level` (like "INFO", "WARNING", "ERROR"), and `player_name`
+2. Prints a formatted log message with timestamp-like format
+3. Does **not** return anything
+4. Shows different emoji based on log level:
+   - INFO: 📝
+   - WARNING: ⚠️
+   - ERROR: 🔴
+
+```{pyodide-python}
+# Challenge: Create a logging function
+
+def log_message(message, log_level, player_name):
+    """Log a game message with level and player name"""
+    # YOUR CODE HERE
+    # Hint: Use if/elif to choose emoji based on level
+    # Print something like: "[INFO] Player's Name: message"
+    pass
+
+# Test your function:
+# log_message("Found treasure!", "INFO", "Hero")
+# log_message("Low health!", "WARNING", "Hero")
+# log_message("Defeated!", "ERROR", "Hero")
+```
+
+## ✅ Solution
+
+```{pyodide-python}
+def log_message(message, log_level, player_name):
+    """Log a game message with level and player name"""
+    emoji_map = {
+        "INFO": "📝",
+        "WARNING": "⚠️",
+        "ERROR": "🔴"
+    }
+    
+    emoji = emoji_map.get(log_level, "❓")
+    print(f"[{emoji} {log_level}] {player_name}: {message}")
+    # No return statement!
+
+# Test the function
+log_message("Found treasure!", "INFO", "Hero")
+log_message("Low health!", "WARNING", "Hero")
+log_message("Defeated by dragon!", "ERROR", "Hero")
+```
+
+## 🎓 Key Concepts
+
+✨ Functions can do things **without** returning values (side effects)
+✨ Common side effects: printing, modifying lists, updating state
+✨ Some functions do BOTH: side effects AND return values
+✨ A function without `return` returns `None`
+✨ Side effect functions are great for "actions" in games!
+
+## 🚀 What's Next?
+
+You've learned functions that don't return, and earlier you learned functions that do. Next up: **Quest 15: Functions Part 3 - Returning Functions** where we dive deeper into writing excellent return-value functions!

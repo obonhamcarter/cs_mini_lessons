@@ -1,0 +1,11 @@
+{
+  "jupyter-config-data": {
+    "appName": "CS Quest - Interactive Notebooks",
+    "appVersion": "0.1.0",
+    "settingsOverrides": {
+      "@jupyterlab/apputils-extension:themes": {
+        "theme": "JupyterLab Light"
+      }
+    }
+  }
+}

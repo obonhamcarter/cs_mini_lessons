@@ -1,0 +1,456 @@
+---
+title: "Quest 12: Big O - Speed Matters"
+subtitle: "Learn Why Some Code is Faster Than Others"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+⚡ QUEST 12 | Difficulty: Advanced | Time: 5 minutes
+:::
+
+## 📖 Introduction: The Race
+
+You need to find your friend Alex in a phone book with 1 million names. You have two methods:
+
+**Method 1**: Start at page 1 and check every name until you find Alex  
+**Method 2**: Open to the middle. If Alex comes before that, search the left half. Otherwise, search the right half. Repeat.
+
+Which is faster? **Method 2** wins by a landslide! This is what **Big O notation** helps us understand: How does the time to complete a task grow as the input size increases?
+
+::: {.story-box}
+**📊 Story Time**: You're a developer building the next big game. You have two ways to find the high score from 1 million players. One takes hours, the other takes milliseconds. The difference? Algorithm efficiency! Learning Big O helps you write code that scales from 10 users to 10 million.
+:::
+
+## 💡 Explanation: What is Big O?
+
+**Big O notation** describes how the runtime of an algorithm grows relative to the input size.
+
+Think of it as asking: "If I double the input, how much slower does my code get?"
+
+### Common Big O Complexities
+
+| Notation | Name | Example | Speed |
+|----------|------|---------|-------|
+| O(1) | Constant | Access array item by index | ⚡ Fastest |
+| O(log n) | Logarithmic | Binary search | 🚀 Very Fast |
+| O(n) | Linear | Loop through array once | ✅ Fast |
+| O(n log n) | Linearithmic | Merge sort, good sorting | 👍 Decent |
+| O(n²) | Quadratic | Nested loops | 🐌 Slow |
+| O(2ⁿ) | Exponential | Recursive Fibonacci | 🐢 Very Slow |
+
+::: {.concept-box}
+**🎯 Understanding Big O**:
+
+**O(1) - Constant Time:**
+```python
+def get_first(array):
+    return array[0]  # Always takes same time
+```
+No matter if array has 10 or 10 million items!
+
+**O(n) - Linear Time:**
+```python
+def find_max(array):
+    max_val = array[0]
+    for num in array:  # Check every element
+        if num > max_val:
+            max_val = num
+    return max_val
+```
+Double the array size → double the time
+
+**O(n²) - Quadratic Time:**
+```python
+def print_pairs(array):
+    for i in array:      # n times
+        for j in array:  # n times for each i
+            print(i, j)  # n × n = n² operations
+```
+Double the array size → 4× the time!
+:::
+
+## 🎮 Activity: Measure Performance
+
+Let's compare different algorithms:
+
+```{pyodide-python}
+import time
+
+def measure_time(func, *args):
+    """Measure execution time of a function"""
+    start = time.time()
+    result = func(*args)
+    end = time.time()
+    return result, (end - start) * 1000  # Convert to milliseconds
+
+# O(n) - Linear Search
+def linear_search(arr, target):
+    """Find target by checking each element"""
+    for i, num in enumerate(arr):
+        if num == target:
+            return i
+    return -1
+
+# O(log n) - Binary Search
+def binary_search(arr, target):
+    """Find target by dividing search space in half"""
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return -1
+
+# Test with increasingly large arrays
+print("=== PERFORMANCE COMPARISON ===\n")
+print("Searching for last element in sorted array:\n")
+
+for size in [100, 1000, 10000, 100000]:
+    test_array = list(range(size))
+    target = size - 1  # Last element
+    
+    # Linear search
+    _, linear_time = measure_time(linear_search, test_array, target)
+    
+    # Binary search
+    _, binary_time = measure_time(binary_search, test_array, target)
+    
+    print(f"Array size: {size:,}")
+    print(f"  Linear search:  {linear_time:.4f} ms")
+    print(f"  Binary search:  {binary_time:.4f} ms")
+    print(f"  Speedup: {linear_time/binary_time:.1f}x faster")
+    print()
+
+print("Notice how the gap widens as size increases!")
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: 
+
+1. Observe how linear search time grows proportionally to array size
+2. Notice binary search stays relatively constant even as size grows
+3. Calculate: If array size increases 10×, how does each search time change?
+:::
+
+## 👨‍💻 Code Example: Loop Complexities
+
+Understanding nested loops and complexity:
+
+```{pyodide-python}
+def demonstrate_complexities(n):
+    """Show different time complexities with operation counts"""
+    
+    # O(1) - Constant
+    count_o1 = 0
+    x = n * 2  # One operation, regardless of n
+    count_o1 = 1
+    
+    # O(n) - Linear
+    count_on = 0
+    for i in range(n):
+        x = i * 2
+        count_on += 1
+    
+    # O(n²) - Quadratic
+    count_on2 = 0
+    for i in range(n):
+        for j in range(n):
+            x = i * j
+            count_on2 += 1
+    
+    # O(log n) - Logarithmic
+    count_olog = 0
+    temp = n
+    while temp > 1:
+        temp = temp // 2
+        count_olog += 1
+    
+    # O(n log n) - Linearithmic
+    count_onlogn = 0
+    for i in range(n):
+        temp = n
+        while temp > 1:
+            temp = temp // 2
+            count_onlogn += 1
+    
+    print(f"n = {n}")
+    print(f"O(1):       {count_o1:,} operations")
+    print(f"O(log n):   {count_olog:,} operations")
+    print(f"O(n):       {count_on:,} operations")
+    print(f"O(n log n): {count_onlogn:,} operations")
+    print(f"O(n²):      {count_on2:,} operations")
+    print()
+
+print("=== OPERATION COUNTS ===\n")
+demonstrate_complexities(10)
+demonstrate_complexities(100)
+demonstrate_complexities(1000)
+
+print("See how O(n²) explodes as n grows!")
+```
+
+::: {.tip-box}
+**💡 Quick Rules for Big O**:
+
+1. **Drop constants**: O(2n) → O(n)
+2. **Drop smaller terms**: O(n² + n) → O(n²)
+3. **Different inputs, different variables**: 
+   ```python
+   for i in array1:      # O(n)
+       for j in array2:  # O(m)
+   # Total: O(n × m), not O(n²)
+   ```
+4. **Sequential = add, Nested = multiply**:
+   ```python
+   for i in range(n):     # O(n)
+       ...
+   for j in range(n):     # O(n)
+       ...
+   # Total: O(n + n) = O(n)
+   
+   for i in range(n):     # O(n)
+       for j in range(n): # O(n)
+           ...
+   # Total: O(n × n) = O(n²)
+   ```
+:::
+
+## 🧩 Puzzle Time!
+
+What's the Big O of this code? Analyze before running:
+
+```{pyodide-python}
+def mystery_algorithm(arr):
+    """What's the time complexity?"""
+    n = len(arr)
+    result = 0
+    
+    # Part 1
+    for i in range(n):
+        result += arr[i]
+    
+    # Part 2
+    for i in range(n):
+        for j in range(n):
+            result += arr[i] * arr[j]
+    
+    # Part 3
+    i = n
+    while i > 0:
+        result += 1
+        i = i // 2
+    
+    return result
+
+# Count operations for different sizes
+for size in [10, 100, 1000]:
+    test_arr = list(range(size))
+    result = mystery_algorithm(test_arr)
+    print(f"n = {size}: completed")
+
+# What's the overall Big O?
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The Big O is **O(n²)**
+
+**Analysis**:
+
+**Part 1**: Loop through array once
+```python
+for i in range(n):  # n times
+    result += arr[i]
+# Complexity: O(n)
+```
+
+**Part 2**: Nested loops
+```python
+for i in range(n):      # n times
+    for j in range(n):  # n times for each i
+        result += arr[i] * arr[j]
+# Complexity: O(n × n) = O(n²)
+```
+
+**Part 3**: Halving loop (binary division)
+```python
+i = n
+while i > 0:  # log₂(n) times
+    result += 1
+    i = i // 2
+# Complexity: O(log n)
+```
+
+**Total**: O(n) + O(n²) + O(log n)
+
+**Simplify**: Drop smaller terms → **O(n²)**
+
+Why? Because as n grows large:
+- n² dominates everything else
+- If n = 1000: n² = 1,000,000 vs n = 1,000
+- The n² term makes other terms negligible
+
+**General rule**: Take the worst (slowest-growing) term!
+:::
+
+## 🎮 Bonus: Space Complexity
+
+Big O also applies to **memory usage**:
+
+```{pyodide-python}
+def space_examples(n):
+    """Demonstrate different space complexities"""
+    
+    # O(1) - Constant space
+    def constant_space(arr):
+        total = 0  # Single variable
+        for num in arr:
+            total += num
+        return total
+    
+    # O(n) - Linear space
+    def linear_space(arr):
+        doubled = []  # New array of size n
+        for num in arr:
+            doubled.append(num * 2)
+        return doubled
+    
+    # O(n²) - Quadratic space
+    def quadratic_space(arr):
+        matrix = []  # n × n matrix
+        for i in range(len(arr)):
+            row = []
+            for j in range(len(arr)):
+                row.append(arr[i] * arr[j])
+            matrix.append(row)
+        return matrix
+    
+    test_arr = list(range(n))
+    
+    print(f"n = {n}")
+    
+    result1 = constant_space(test_arr)
+    print(f"  O(1) space: stores {1} value")
+    
+    result2 = linear_space(test_arr)
+    print(f"  O(n) space: stores {len(result2)} values")
+    
+    result3 = quadratic_space(test_arr)
+    total_vals = sum(len(row) for row in result3)
+    print(f"  O(n²) space: stores {total_vals} values")
+    print()
+
+space_examples(10)
+space_examples(100)
+```
+
+## 📊 Visual Comparison
+
+How different complexities scale:
+
+```{pyodide-python}
+import math
+
+def compare_growth(n_values):
+    """Compare how different complexities grow"""
+    print("n".ljust(8), end="")
+    print("O(1)".ljust(12), end="")
+    print("O(log n)".ljust(12), end="")
+    print("O(n)".ljust(12), end="")
+    print("O(n log n)".ljust(12), end="")
+    print("O(n²)".ljust(12))
+    print("-" * 68)
+    
+    for n in n_values:
+        o1 = 1
+        olog = int(math.log2(n)) if n > 1 else 0
+        on = n
+        onlogn = n * olog
+        on2 = n * n
+        
+        print(f"{n:<8}", end="")
+        print(f"{o1:<12,}", end="")
+        print(f"{olog:<12,}", end="")
+        print(f"{on:<12,}", end="")
+        print(f"{onlogn:<12,}", end="")
+        print(f"{on2:<12,}")
+
+print("=== COMPLEXITY GROWTH COMPARISON ===\n")
+compare_growth([10, 100, 1000, 10000])
+print("\nNotice how O(n²) explodes!")
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 12 Complete! ✨
+
+**You've learned:**
+
+✅ Big O describes how algorithms scale with input size  
+✅ O(1) is fastest, O(2ⁿ) is slowest  
+✅ Common complexities: O(1), O(log n), O(n), O(n²)  
+✅ Drop constants and smaller terms when simplifying  
+✅ Nested loops usually mean O(n²) or worse  
+✅ Binary operations are usually O(log n)  
+✅ Big O applies to both time AND space
+
+### 🎊 CONGRATULATIONS! 🎊
+
+**You've completed all 12 CS Quest adventures!**
+
+You now know:
+- Variables, data types, and operations
+- Control flow (if/else, loops)
+- Data structures (lists, dictionaries)
+- Functions and recursion
+- Algorithms (Fibonacci, sorting, searching)
+- Complexity analysis
+
+**You're ready to build amazing things!** 🚀
+:::
+
+## 🚀 Try This at Home!
+
+Analyze the complexity of your own code:
+
+```python
+# What's the Big O of each function?
+
+def example1(arr):
+    return arr[0]  # ?
+
+def example2(arr):
+    for item in arr:
+        print(item)  # ?
+
+def example3(arr, target):
+    for i, item in enumerate(arr):
+        if item == target:
+            return i
+    return -1  # ?
+
+def example4(n):
+    for i in range(n):
+        for j in range(n):
+            print(i, j)  # ?
+
+# Answers: O(1), O(n), O(n), O(n²)
+```
+
+Practice identifying patterns and you'll write more efficient code naturally!
+
+---
+
+::: {.tip-box}
+**📱 You Did It!** You're now a CS Quest Master! Keep coding and exploring! 🏆✨
+:::

@@ -1,0 +1,344 @@
+---
+title: "Quest 9: Sorting - Organizing Chaos"
+subtitle: "Learn How Computers Put Things in Order"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+📊 QUEST 9 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+## 📖 Introduction: The Messy Library
+
+Imagine a library where books are thrown everywhere randomly. Finding "Harry Potter" could take hours! But in a sorted library—books arranged alphabetically—you can find any book in seconds.
+
+Computers face this problem millions of times per day: How do you organize data efficiently?
+
+::: {.story-box}
+**📚 Story Time**: You're a librarian in a magical library with 1000 books scattered on the floor. You need to organize them by title. How do you do it? Do you compare every book with every other book? Or is there a smarter way? That's what sorting algorithms are all about!
+:::
+
+## 💡 Explanation: What is Sorting?
+
+**Sorting** is arranging items in a specific order (usually smallest to largest, or alphabetically).
+
+Python makes sorting easy with built-in methods:
+
+```python
+# Sort a list
+numbers = [64, 34, 25, 12, 22, 11, 90]
+numbers.sort()  # Sorts in place
+print(numbers)  # [11, 12, 22, 25, 34, 64, 90]
+
+# Or create a new sorted list
+original = [5, 2, 8, 1, 9]
+sorted_list = sorted(original)
+# original is unchanged, sorted_list is sorted
+```
+
+::: {.concept-box}
+**🔍 Common Sorting Algorithms**:
+
+1. **Bubble Sort**: Repeatedly swap adjacent elements if they're in wrong order
+   - Simple but slow for large lists
+   - Good for learning!
+
+2. **Selection Sort**: Find the smallest element and move it to the front
+   - Also slow but easy to understand
+
+3. **Merge Sort**: Divide list in half, sort each half, then merge
+   - Fast and used in real systems!
+
+4. **Quick Sort**: Pick a 'pivot', partition around it, sort recursively
+   - Very fast on average
+
+**Python's built-in sort uses "Timsort"**: a hybrid of merge sort and insertion sort!
+:::
+
+## 🎮 Activity: Bubble Sort in Action
+
+Let's implement and visualize Bubble Sort:
+
+```{pyodide-python}
+def bubble_sort(arr):
+    """Sort array using bubble sort algorithm"""
+    n = len(arr)
+    comparisons = 0
+    swaps = 0
+    
+    print("🫧 Starting Bubble Sort!")
+    print(f"Initial array: {arr}")
+    print()
+    
+    # Traverse through all array elements
+    for i in range(n):
+        swapped = False
+        
+        # Last i elements are already sorted
+        for j in range(0, n - i - 1):
+            comparisons += 1
+            
+            # Swap if element found is greater than next element
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+                swaps += 1
+        
+        print(f"Pass {i + 1}: {arr}")
+        
+        # If no swaps happened, array is sorted
+        if not swapped:
+            print("Array is sorted!")
+            break
+    
+    print()
+    print(f"✅ Sorted array: {arr}")
+    print(f"Total comparisons: {comparisons}")
+    print(f"Total swaps: {swaps}")
+    return arr
+
+# Test bubble sort
+scores = [64, 34, 25, 12, 22, 11, 90]
+bubble_sort(scores.copy())
+
+# Try with different arrays!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: 
+
+1. Sort this array: `[100, 50, 75, 25, 10, 90]`
+2. Try sorting an already sorted array: `[1, 2, 3, 4, 5]`
+3. Notice how many swaps happen in each case
+4. Try a reverse-sorted array: `[5, 4, 3, 2, 1]`
+:::
+
+## 👨‍💻 Code Example: Selection Sort
+
+Another simple sorting algorithm to understand:
+
+```{pyodide-python}
+def selection_sort(arr):
+    """Sort array using selection sort algorithm"""
+    n = len(arr)
+    
+    print("🎯 Starting Selection Sort!")
+    print(f"Initial array: {arr}")
+    print()
+    
+    for i in range(n):
+        # Find the minimum element in remaining unsorted array
+        min_idx = i
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        
+        # Swap the found minimum with the first element
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+        
+        print(f"Step {i + 1}: Found min={arr[i]}, array: {arr}")
+    
+    print()
+    print(f"✅ Sorted array: {arr}")
+    return arr
+
+# Test selection sort
+player_levels = [42, 15, 83, 27, 61, 9]
+selection_sort(player_levels.copy())
+```
+
+::: {.tip-box}
+**💡 Sorting Different Types**:
+
+You can sort different types of data:
+
+```python
+# Numbers
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+numbers.sort()
+
+# Strings (alphabetically)
+names = ["Charlie", "Alice", "Bob", "Diana"]
+names.sort()
+
+# Reverse order
+numbers.sort(reverse=True)
+
+# Custom sorting (by string length)
+words = ["python", "is", "awesome", "fun"]
+words.sort(key=len)
+```
+:::
+
+## 🧩 Puzzle Time!
+
+Predict the output before running:
+
+```{pyodide-python}
+# Sorting puzzle
+data = [
+    {"name": "Warrior", "level": 10},
+    {"name": "Mage", "level": 15},
+    {"name": "Rogue", "level": 8},
+    {"name": "Healer", "level": 12}
+]
+
+# Sort by level
+sorted_data = sorted(data, key=lambda x: x["level"])
+
+print("Sorted by level:")
+for character in sorted_data:
+    print(f"  {character['name']}: Level {character['level']}")
+
+print()
+
+# Sort by name alphabetically
+sorted_by_name = sorted(data, key=lambda x: x["name"])
+
+print("Sorted by name:")
+for character in sorted_by_name:
+    print(f"  {character['name']}: Level {character['level']}")
+
+# What order will they be in?
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+**Sorted by level**:
+```
+Rogue: Level 8
+Warrior: Level 10
+Healer: Level 12
+Mage: Level 15
+```
+
+**Sorted by name**:
+```
+Healer: Level 12
+Mage: Level 15
+Rogue: Level 8
+Warrior: Level 10
+```
+
+**How it works**:
+
+The `key` parameter tells Python what to sort by:
+
+1. `key=lambda x: x["level"]` - Sort by the "level" value
+   - Extracts the level from each dictionary
+   - Compares: 10, 15, 8, 12
+   - Sorts to: 8, 10, 12, 15
+
+2. `key=lambda x: x["name"]` - Sort alphabetically by "name"
+   - Extracts the name from each dictionary
+   - Compares: "Warrior", "Mage", "Rogue", "Healer"
+   - Sorts alphabetically: "Healer", "Mage", "Rogue", "Warrior"
+
+**The lambda function** is a small anonymous function that extracts the sorting criteria!
+:::
+
+## 🎮 Bonus: Comparing Sorting Efficiency
+
+Let's see visualization different sorting behaviors:
+
+```{pyodide-python}
+import random
+
+# Compare sorting on different types of arrays
+def test_bubble_sort_efficiency(arr, description):
+    """Test bubble sort and count operations"""
+    n = len(arr)
+    comparisons = 0
+    swaps = 0
+    working_arr = arr.copy()
+    
+    for i in range(n):
+        swapped = False
+        for j in range(0, n - i - 1):
+            comparisons += 1
+            if working_arr[j] > working_arr[j + 1]:
+                working_arr[j], working_arr[j + 1] = working_arr[j + 1], working_arr[j]
+                swaps += 1
+                swapped = True
+        if not swapped:
+            break
+    
+    print(f"{description}:")
+    print(f"  Comparisons: {comparisons}, Swaps: {swaps}")
+    return comparisons, swaps
+
+# Test different scenarios
+size = 10
+
+print("=== BUBBLE SORT EFFICIENCY TEST ===\n")
+
+# Already sorted
+already_sorted = list(range(size))
+test_bubble_sort_efficiency(already_sorted, "Already sorted array")
+
+# Reverse sorted (worst case)
+reverse_sorted = list(range(size, 0, -1))
+test_bubble_sort_efficiency(reverse_sorted, "Reverse sorted (worst case)")
+
+# Random array
+random_array = [random.randint(1, 100) for _ in range(size)]
+test_bubble_sort_efficiency(random_array, "Random array")
+
+print("\n💡 Notice how the number of operations changes!")
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 9 Complete! ✨
+
+You've learned:
+
+✅ Sorting arranges data in order (ascending/descending)  
+✅ Python has built-in `sort()` and `sorted()` methods  
+✅ Bubble Sort: repeatedly swap adjacent elements  
+✅ Selection Sort: find minimum and move to front  
+✅ Can sort by custom criteria using `key` parameter  
+✅ Different algorithms have different efficiency
+
+**Next Quest**: Ready to build a game? Try [Quest 10: Number Game](10-number-game.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a high score leaderboard:
+
+```python
+scores = [
+    {"player": "Alice", "score": 1500},
+    {"player": "Bob", "score": 2300},
+    {"player": "Charlie", "score": 1800},
+    {"player": "Diana", "score": 2100}
+]
+
+# Sort by score (highest first)
+leaderboard = sorted(scores, key=lambda x: x["score"], reverse=True)
+
+print("🏆 HIGH SCORE LEADERBOARD 🏆")
+for rank, entry in enumerate(leaderboard, 1):
+    print(f"{rank}. {entry['player']}: {entry['score']} points")
+```
+
+Or sort a list of words by length:
+
+```python
+words = ["python", "is", "amazing", "fun", "powerful", "easy"]
+sorted_by_length = sorted(words, key=len)
+
+for word in sorted_by_length:
+    print(f"{word} ({len(word)} letters)")
+```
+
+---
+
+::: {.tip-box}
+**📱 Fantastic!** Understanding sorting helps you organize data efficiently! 🗂️
+:::

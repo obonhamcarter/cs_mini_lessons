@@ -1,0 +1,285 @@
+---
+title: "Quest 4: Loops - The Power of Repetition"
+subtitle: "Master the Art of Repeating Actions in Python"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🔄 QUEST 4 | Difficulty: Beginner | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=04-loops.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/04-loops.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Repetitive Task
+
+Imagine you need to knock on 100 doors to find the magic door. Would you write:
+
+```python
+knock_on_door_1()
+knock_on_door_2()
+knock_on_door_3()
+# ... 97 more lines ... 😱
+knock_on_door_100()
+```
+
+That's ridiculous! There's a better way: **loops**! Loops let you repeat actions without writing the same code over and over.
+
+::: {.story-box}
+**🚪 Story Time**: You're searching for a magic portal in a hallway with 100 doors. Instead of checking each door one by one in your code, you can tell your program: "Check all doors until you find the magic one!" That's the power of loops!
+:::
+
+## 💡 Explanation: Two Types of Loops
+
+Python has two main types of loops:
+
+### 🔁 For Loops
+Use when you know how many times to repeat (or when iterating through a collection).
+
+```python
+# Repeat exactly 5 times
+for i in range(5):
+    print(f"This is repetition {i}")
+```
+
+### 🔄 While Loops
+Use when you repeat until a condition becomes False.
+
+```python
+# Repeat while condition is True
+count = 0
+while count < 5:
+    print(f"Count is {count}")
+    count += 1
+```
+
+::: {.concept-box}
+**🎯 The `range()` Function**:
+
+`range()` generates a sequence of numbers:
+
+```python
+range(5)        # 0, 1, 2, 3, 4 (5 numbers starting from 0)
+range(1, 6)     # 1, 2, 3, 4, 5 (from 1 to 5)
+range(0, 10, 2) # 0, 2, 4, 6, 8 (from 0 to 8, step by 2)
+```
+
+**Remember**: `range(5)` starts at 0 and stops BEFORE 5!
+:::
+
+## 🎮 Activity: Countdown to Launch!
+
+Let's create a rocket launch countdown:
+
+```{pyodide-python}
+# Countdown with a for loop
+print("🚀 ROCKET LAUNCH COUNTDOWN 🚀")
+print()
+
+for seconds in range(10, 0, -1):
+    print(f"T-minus {seconds} seconds...")
+
+print("🔥 LIFTOFF! 🔥")
+print()
+
+# Counting treasures
+treasures = ["Gold Coin", "Ruby", "Diamond", "Emerald", "Ancient Scroll"]
+
+print("📦 Inventory Check:")
+for treasure in treasures:
+    print(f"  ✨ Found: {treasure}")
+
+print()
+print(f"Total treasures: {len(treasures)}")
+
+# Try adding more treasures to the list!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: Modify the code to:
+
+1. Make the countdown start from 5 instead of 10
+2. Add two more treasures to the list
+3. Make the countdown say "Get ready!" when it reaches 3
+:::
+
+## 👨‍💻 Code Example: While Loop Adventure
+
+While loops are great when you don't know exactly how many times to repeat:
+
+```{pyodide-python}
+# Searching for treasure with a while loop
+import random
+
+print("🗺️ TREASURE HUNT ADVENTURE")
+print()
+
+# Set a random target location between 1 and 10
+treasure_location = random.randint(1, 10)
+current_location = 1
+steps = 0
+
+print("Searching for treasure...")
+print()
+
+while current_location != treasure_location:
+    steps += 1
+    print(f"Step {steps}: Checking location {current_location}... ❌ No treasure here!")
+    current_location += 1
+
+print(f"Step {steps + 1}: Checking location {current_location}... 💎 TREASURE FOUND!")
+print()
+print(f"Total steps taken: {steps + 1}")
+
+# Run this multiple times - the number of steps changes each time!
+```
+
+::: {.tip-box}
+**💡 Avoid Infinite Loops!**
+
+Be careful with while loops. If the condition never becomes False, your loop runs forever!
+
+**Bad example** (don't run this!):
+```python
+# while True:     # Never ends!
+#     print("Forever...")
+```
+
+Always make sure your loop has a way to stop!
+:::
+
+## 🧩 Puzzle Time!
+
+What will this code print? Predict it, then run:
+
+```{pyodide-python}
+# The Mystery Loop
+total = 0
+count = 1
+
+while count <= 5:
+    total = total + count
+    count = count + 1
+
+print(f"Final total: {total}")
+print(f"Final count: {count}")
+
+# Can you figure out why total is that number?
+# Trace through the loop step by step!
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The output is:
+```
+Final total: 15
+Final count: 6
+```
+
+**Let's trace through each iteration**:
+
+| Iteration | count | total before | total after |
+|-----------|-------|--------------|-------------|
+| Start     | 1     | 0            | 0           |
+| 1st loop  | 1     | 0            | 0+1 = 1     |
+| 2nd loop  | 2     | 1            | 1+2 = 3     |
+| 3rd loop  | 3     | 3            | 3+3 = 6     |
+| 4th loop  | 4     | 6            | 6+4 = 10    |
+| 5th loop  | 5     | 10           | 10+5 = 15   |
+| Loop ends | 6     | 15           | 15          |
+
+**Why count is 6**: After the 5th iteration, count becomes 6 (count = 5 + 1), which makes the condition `count <= 5` False, so the loop stops.
+
+**Pattern recognized**: The code calculates 1+2+3+4+5 = 15!
+:::
+
+## 🎮 Bonus: Nested Loops
+
+You can put loops inside loops! This is great for grids and patterns:
+
+```{pyodide-python}
+# Draw a grid pattern
+print("Drawing a 5x5 grid of stars:")
+print()
+
+for row in range(5):
+    for col in range(5):
+        print("⭐", end=" ")
+    print()  # New line after each row
+
+print()
+print("Now a pyramid:")
+print()
+
+for row in range(1, 6):
+    for star in range(row):
+        print("⭐", end=" ")
+    print()
+
+# Try changing the range values to make different patterns!
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 4 Complete! ✨
+
+You've learned:
+
+✅ `for` loops repeat a specific number of times  
+✅ `while` loops repeat while a condition is True  
+✅ `range()` generates sequences of numbers  
+✅ Loops can iterate through lists and other collections  
+✅ Avoid infinite loops by ensuring your condition can become False  
+✅ Nested loops create patterns and grids
+
+**Next Quest**: Ready to organize data? Try [Quest 5: Lists](05-lists.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a simple times table generator:
+
+```python
+# Times table for any number
+number = 7  # Change this to any number
+
+print(f"Times table for {number}:")
+for i in range(1, 11):
+    result = number * i
+    print(f"{number} × {i} = {result}")
+```
+
+Or make a guessing game hint system:
+
+```python
+secret_number = 42
+guesses = 0
+max_guesses = 5
+
+while guesses < max_guesses:
+    guesses += 1
+    guess = int(input(f"Guess {guesses}/{max_guesses}: "))
+    
+    if guess == secret_number:
+        print("🎉 You got it!")
+        break
+    elif guess < secret_number:
+        print("📈 Too low!")
+    else:
+        print("📉 Too high!")
+```
+
+---
+
+::: {.tip-box}
+**📱 Awesome Work!** Loops are one of the most powerful tools in programming. You're doing great! 🌟
+:::

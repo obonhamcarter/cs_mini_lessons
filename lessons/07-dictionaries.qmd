@@ -1,0 +1,337 @@
+---
+title: "Quest 7: Dictionaries - The Key Keeper"
+subtitle: "Store Data in Key-Value Pairs"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🗝️ QUEST 7 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+## 📖 Introduction: The Magic Phonebook
+
+You're keeping track of your friends' phone numbers. With a list, you'd have:
+```python
+names = ["Alice", "Bob", "Charlie"]
+phones = ["555-1234", "555-5678", "555-9012"]
+# Which number belongs to who? Confusing!
+```
+
+What if you could look up numbers by name, like a phonebook? That's what **dictionaries** do! They store data in **key-value pairs**.
+
+::: {.story-box}
+**🗃️ Story Time**: You've discovered a magical filing cabinet. Instead of folders numbered 0, 1, 2 (like lists), each folder has a label: "Health Potions", "Gold Coins", "Magic Spells". You can instantly find what you need by its name, not by remembering its position!
+:::
+
+## 💡 Explanation: What are Dictionaries?
+
+A **dictionary** stores data as key-value pairs:
+- **Key**: The label (like "name" or "health")
+- **Value**: The data (like "Hero" or 100)
+
+```python
+# Creating dictionaries
+player = {
+    "name": "Hero",
+    "level": 5,
+    "health": 100,
+    "inventory": ["sword", "shield"]
+}
+
+# Access values by key
+print(player["name"])  # "Hero"
+print(player["level"]) # 5
+```
+
+::: {.concept-box}
+**🎯 Dictionary vs List**:
+
+**List**: Ordered, accessed by numeric index
+```python
+items = ["sword", "shield", "potion"]
+print(items[0])  # "sword"
+```
+
+**Dictionary**: Key-value pairs, accessed by key
+```python
+stats = {"strength": 10, "speed": 15}
+print(stats["strength"])  # 10
+```
+
+**When to use what?**
+- **List**: When order matters, or you have simple collections
+- **Dictionary**: When you need to look up values by name/label
+:::
+
+## 🎮 Activity: Character Stats
+
+Create and manage a character using a dictionary:
+
+```{pyodide-python}
+# Create a character dictionary
+character = {
+    "name": "Dragon Slayer",
+    "class": "Warrior",
+    "level": 10,
+    "health": 150,
+    "mana": 50,
+    "strength": 25,
+    "intelligence": 12
+}
+
+print("=== CHARACTER SHEET ===")
+for key, value in character.items():
+    print(f"{key.title()}: {value}")
+print("=" * 30)
+print()
+
+# Update values
+character["health"] = 200
+print(f"Health increased to {character['health']}!")
+print()
+
+# Add new key-value pairs
+character["gold"] = 1000
+character["location"] = "Dark Forest"
+print("Added gold and location!")
+print(f"Gold: {character['gold']}")
+print(f"Current location: {character['location']}")
+print()
+
+# Check if a key exists
+if "magic_resistance" in character:
+    print("Has magic resistance")
+else:
+    print("No magic resistance - adding it now!")
+    character["magic_resistance"] = 10
+
+# Try adding your own stats!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: 
+
+1. Create a dictionary for a wizard character with different stats
+2. Give the wizard high intelligence (30) but low strength (5)
+3. Add a "spells" key with a list of spell names
+4. Print the wizard's info in a nice format
+:::
+
+## 👨‍💻 Code Example: Inventory System
+
+Dictionaries are perfect for managing game inventories:
+
+```{pyodide-python}
+# Item database using nested dictionaries
+items = {
+    "health_potion": {
+        "name": "Health Potion",
+        "effect": "heal",
+        "power": 50,
+        "price": 25
+    },
+    "mana_potion": {
+        "name": "Mana Potion",
+        "effect": "restore_mana",
+        "power": 30,
+        "price": 20
+    },
+    "sword": {
+        "name": "Iron Sword",
+        "effect": "attack",
+        "power": 35,
+        "price": 100
+    }
+}
+
+# Player inventory (item_id: quantity)
+player_inventory = {
+    "health_potion": 3,
+    "mana_potion": 2,
+    "sword": 1
+}
+
+print("=== INVENTORY ===")
+for item_id, quantity in player_inventory.items():
+    item_info = items[item_id]
+    print(f"{item_info['name']} x{quantity}")
+    print(f"  Effect: {item_info['effect']} (+{item_info['power']})")
+    print()
+
+# Calculate total inventory value
+total_value = 0
+for item_id, quantity in player_inventory.items():
+    total_value += items[item_id]["price"] * quantity
+
+print(f"Total inventory value: {total_value} gold")
+```
+
+::: {.tip-box}
+**💡 Dictionary Methods**:
+
+- `dict.keys()` - Get all keys
+- `dict.values()` - Get all values
+- `dict.items()` - Get all key-value pairs
+- `dict.get(key, default)` - Safely get value (returns default if key doesn't exist)
+- `dict.pop(key)` - Remove and return value
+- `dict.update(other_dict)` - Merge dictionaries
+
+```python
+stats = {"hp": 100, "mp": 50}
+print(stats.keys())    # dict_keys(['hp', 'mp'])
+print(stats.values())  # dict_values([100, 50])
+print(stats.get("hp", 0))  # 100
+print(stats.get("xp", 0))  # 0 (default since "xp" doesn't exist)
+```
+:::
+
+## 🧩 Puzzle Time!
+
+What will this code create? Predict the output:
+
+```{pyodide-python}
+# The Score Tracker
+scores = {}
+
+# Add scores
+scores["level_1"] = 100
+scores["level_2"] = 150
+scores["level_1"] = scores["level_1"] + 50  # Update level_1
+
+# Add total
+scores["total"] = scores["level_1"] + scores["level_2"]
+
+print("Scores Dictionary:")
+for level, score in scores.items():
+    print(f"  {level}: {score}")
+
+# What's in the dictionary?
+# What's the total?
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The output is:
+```
+Scores Dictionary:
+  level_1: 150
+  level_2: 150
+  total: 300
+```
+
+**Step-by-step trace**:
+
+1. Start with empty dictionary: `{}`
+
+2. Add `level_1`: `{"level_1": 100}`
+
+3. Add `level_2`: `{"level_1": 100, "level_2": 150}`
+
+4. **Update** `level_1` to 100 + 50 = 150:
+   `{"level_1": 150, "level_2": 150}`
+
+5. Add `total` = 150 + 150 = 300:
+   `{"level_1": 150, "level_2": 150, "total": 300}`
+
+**Key insight**: When you assign to an existing key (like `scores["level_1"]`), it **updates** the value instead of creating a duplicate key. Dictionary keys are unique!
+:::
+
+## 🎮 Bonus: Nested Dictionaries
+
+Dictionaries can contain other dictionaries for complex data:
+
+```{pyodide-python}
+# RPG party system
+party = {
+    "warrior": {
+        "name": "Thorin",
+        "level": 12,
+        "stats": {"strength": 25, "intelligence": 10},
+        "equipment": ["sword", "shield", "armor"]
+    },
+    "mage": {
+        "name": "Gandalf",
+        "level": 15,
+        "stats": {"strength": 8, "intelligence": 30},
+        "equipment": ["staff", "robe", "hat"]
+    },
+    "rogue": {
+        "name": "Shadow",
+        "level": 10,
+        "stats": {"strength": 15, "intelligence": 18},
+        "equipment": ["dagger", "cloak", "lockpicks"]
+    }
+}
+
+print("=== PARTY ROSTER ===")
+for role, character in party.items():
+    print(f"\n{role.upper()}: {character['name']} (Level {character['level']})")
+    print(f"  Strength: {character['stats']['strength']}")
+    print(f"  Intelligence: {character['stats']['intelligence']}")
+    print(f"  Equipment: {', '.join(character['equipment'])}")
+
+# Access nested data
+print(f"\n🧙 The mage's intelligence is: {party['mage']['stats']['intelligence']}")
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 7 Complete! ✨
+
+You've learned:
+
+✅ Dictionaries store key-value pairs  
+✅ Access values using keys: `dict[key]`  
+✅ Keys must be unique; values can be any type  
+✅ Use `.items()`, `.keys()`, `.values()` to iterate  
+✅ Dictionaries can be nested for complex data  
+✅ Use `.get()` for safe access with defaults
+
+**Next Quest**: Ready for beautiful patterns? Try [Quest 8: Fibonacci](08-fibonacci.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a contacts app:
+
+```python
+contacts = {
+    "Alice": {"phone": "555-1234", "email": "alice@email.com"},
+    "Bob": {"phone": "555-5678", "email": "bob@email.com"},
+    "Charlie": {"phone": "555-9012", "email": "charlie@email.com"}
+}
+
+# Look up a contact
+name = "Alice"
+if name in contacts:
+    print(f"{name}'s phone: {contacts[name]['phone']}")
+```
+
+Or a simple game state manager:
+
+```python
+game_state = {
+    "current_level": 1,
+    "player": {
+        "health": 100,
+        "position": {"x": 0, "y": 0}
+    },
+    "enemies": {
+        "goblin_1": {"health": 30, "position": {"x": 10, "y": 5}},
+        "goblin_2": {"health": 30, "position": {"x": 15, "y": 8}}
+    }
+}
+
+print(f"Level: {game_state['current_level']}")
+print(f"Player health: {game_state['player']['health']}")
+```
+
+---
+
+::: {.tip-box}
+**📱 Outstanding!** Dictionaries are everywhere in real programs. You're becoming a pro! 💼
+:::

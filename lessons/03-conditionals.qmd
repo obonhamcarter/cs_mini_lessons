@@ -1,0 +1,285 @@
+---
+title: "Quest 3: Conditionals - Choose Your Path"
+subtitle: "Make Decisions in Your Code with If/Else"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🛤️ QUEST 3 | Difficulty: Beginner | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=03-conditionals.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/03-conditionals.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Fork in the Road
+
+You're walking through an enchanted forest when you come to a fork in the road. A sign says:
+- **Left path**: "If you have a key, go this way to the treasure"
+- **Right path**: "If you don't have a key, go this way to find one"
+
+Your choice depends on a condition: Do you have a key or not? This kind of decision-making is exactly what **conditionals** do in programming!
+
+::: {.story-box}
+**🌳 Story Time**: Every adventure is full of choices. Should you fight the dragon or sneak around it? That depends on your health. Should you buy the magic sword? That depends on your gold. Conditionals help your program make these smart decisions!
+:::
+
+## 💡 Explanation: If Statements
+
+A **conditional statement** lets your program choose different paths based on whether something is true or false.
+
+### Basic If Statement
+
+```python
+if condition:
+    # Do this if condition is True
+    print("Condition was true!")
+```
+
+### If-Else Statement
+
+```python
+if condition:
+    # Do this if condition is True
+    print("Yes!")
+else:
+    # Do this if condition is False
+    print("No!")
+```
+
+### If-Elif-Else Statement
+
+```python
+if condition1:
+    # Do this if condition1 is True
+    print("First choice!")
+elif condition2:
+    # Do this if condition2 is True
+    print("Second choice!")
+else:
+    # Do this if all conditions are False
+    print("Default choice!")
+```
+
+::: {.concept-box}
+**🔍 Comparison Operators**:
+
+Use these to create conditions:
+
+- `==` equal to
+- `!=` not equal to
+- `>` greater than
+- `<` less than
+- `>=` greater than or equal to
+- `<=` less than or equal to
+
+**Examples**:
+```python
+health > 50        # Is health more than 50?
+age == 15          # Is age exactly 15?
+name != "Guest"    # Is name not equal to "Guest"?
+```
+:::
+
+## 🎮 Activity: The Health Check
+
+Run this code to see conditionals in action. Try changing the `health` value!
+
+```{pyodide-python}
+# Your character's health
+health = 75
+
+print(f"Your health: {health}")
+print()
+
+# Simple if statement
+if health > 0:
+    print("✅ You're alive!")
+
+# If-else statement
+if health >= 50:
+    print("💚 You're in good shape!")
+else:
+    print("❤️ You should find a health potion!")
+
+# If-elif-else statement
+if health >= 80:
+    print("🌟 Excellent health! Ready for any battle!")
+elif health >= 50:
+    print("👍 Decent health. You can continue your quest.")
+elif health >= 20:
+    print("⚠️ Low health. Be careful!")
+else:
+    print("🚨 Critical! Find healing immediately!")
+
+# Try changing health to 100, 60, 30, or 10 and run again!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: Modify the code to check different health thresholds:
+
+1. Change health to different values: 100, 60, 30, 10, 0
+2. Add a new condition for health exactly equal to 100
+3. What happens if health is 50? Which message appears?
+:::
+
+## 👨‍💻 Code Example: The Treasure Room
+
+Let's build a more complex decision system:
+
+```{pyodide-python}
+# Player stats
+gold = 45
+has_key = True
+level = 3
+
+print("=== THE TREASURE ROOM ===")
+print(f"Gold: {gold} | Has key: {has_key} | Level: {level}")
+print()
+
+# Check if player can enter the treasure room
+if has_key and level >= 3:
+    print("🚪 The door opens! You have the key and sufficient level.")
+    print("💎 You found the legendary Diamond of Coding!")
+elif has_key and level < 3:
+    print("🚪 You have the key, but you're not experienced enough.")
+    print("📚 Come back when you reach level 3!")
+elif not has_key and level >= 3:
+    print("🔒 The door is locked. You need a key!")
+    print("🔍 Try exploring more to find it.")
+else:
+    print("🔒 You need both a key AND level 3 to enter.")
+    print("⚔️ Keep adventuring!")
+
+print()
+
+# Check if player can buy a magic sword (costs 50 gold)
+magic_sword_cost = 50
+if gold >= magic_sword_cost:
+    print(f"⚔️ You can buy the magic sword for {magic_sword_cost} gold!")
+else:
+    gold_needed = magic_sword_cost - gold
+    print(f"💰 You need {gold_needed} more gold to buy the magic sword.")
+
+# Try changing the values above and see different outcomes!
+```
+
+::: {.tip-box}
+**💡 Logical Operators**:
+
+Combine multiple conditions:
+
+- `and` - both must be True
+- `or` - at least one must be True
+- `not` - reverses True/False
+
+**Examples**:
+```python
+if health > 50 and has_weapon:
+    print("Ready to fight!")
+    
+if is_daytime or has_torch:
+    print("You can see!")
+```
+:::
+
+## 🧩 Puzzle Time!
+
+What will this code print? Think carefully, then run it:
+
+```{pyodide-python}
+# The Mystery Door
+score = 85
+has_completed_tutorial = True
+
+print("Approaching the mystery door...")
+print()
+
+if score >= 80 and has_completed_tutorial:
+    print("Path A")
+elif score >= 80:
+    print("Path B")
+elif has_completed_tutorial:
+    print("Path C")
+else:
+    print("Path D")
+
+# Which path will it take? Why?
+# Try changing the values to explore all paths!
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The code will print: **"Path A"**
+
+**Why?**
+
+Let's trace through the conditions:
+
+1. **First check**: `score >= 80 and has_completed_tutorial`
+   - score is 85, which is >= 80 ✓
+   - has_completed_tutorial is True ✓
+   - Both conditions are True, so this branch executes!
+
+2. Python stops checking after the first `True` condition
+
+**Important**: Even though the second condition (`score >= 80`) is also true, Python never checks it because the first condition already matched. This is called "short-circuit evaluation."
+
+**Experiment**: Try these combinations:
+- `score = 85, has_completed_tutorial = False` → Path B
+- `score = 70, has_completed_tutorial = True` → Path C
+- `score = 70, has_completed_tutorial = False` → Path D
+:::
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 3 Complete! ✨
+
+You've learned:
+
+✅ Use `if` to execute code when a condition is True  
+✅ Use `else` for when the condition is False  
+✅ Use `elif` to check multiple conditions  
+✅ Comparison operators: `==`, `!=`, `>`, `<`, `>=`, `<=`  
+✅ Logical operators: `and`, `or`, `not`  
+✅ Python checks conditions in order and stops at the first True
+
+**Next Quest**: Ready to repeat actions? Try [Quest 4: Loops](04-loops.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a simple game choice system:
+
+```python
+# Create your own adventure!
+player_choice = "forest"  # Try: "forest", "cave", "mountain"
+
+if player_choice == "forest":
+    print("🌲 You enter the dark forest...")
+    print("A wild wolf appears!")
+elif player_choice == "cave":
+    print("🦇 You enter the mysterious cave...")
+    print("You find ancient treasure!")
+elif player_choice == "mountain":
+    print("⛰️ You climb the tall mountain...")
+    print("You meet a wise wizard!")
+else:
+    print("❓ That's not a valid choice!")
+
+# Make it more complex by adding more choices and conditions!
+```
+
+---
+
+::: {.tip-box}
+**📱 Great Progress!** You can now make your programs think and decide. That's powerful! 🧠
+:::

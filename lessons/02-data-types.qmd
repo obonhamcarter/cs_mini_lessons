@@ -1,0 +1,249 @@
+---
+title: "Quest 2: Data Types - Shapes of Information"
+subtitle: "Discover the Different Kinds of Data in Python"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🔷 QUEST 2 | Difficulty: Beginner | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=02-data-types.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/02-data-types.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Shape-Shifting Treasure
+
+You've discovered a mysterious treasure room with different types of treasures: gold coins (numbers), ancient scrolls (text), magical crystals (true/false), and floating price tags (decimals). Each type of treasure has unique properties and uses!
+
+Just like treasures come in different forms, data in Python comes in different **types**. Understanding data types helps you know what you can and can't do with your information.
+
+::: {.story-box}
+**🏺 Story Time**: You find a magic box that only accepts certain types of items. You can't add a scroll to a pile of gold coins—they're different types! Similarly, in Python, you can't always mix different data types without converting them first.
+:::
+
+## 💡 Explanation: The Main Data Types
+
+Python has several built-in data types. Here are the most important ones:
+
+### 🔢 Integers (int)
+Whole numbers, positive or negative, with no decimal point.
+
+```python
+age = 15
+score = 1000
+temperature = -5
+```
+
+### 📏 Floats (float)
+Numbers with decimal points.
+
+```python
+price = 19.99
+pi = 3.14159
+temperature = 98.6
+```
+
+### 📝 Strings (str)
+Text enclosed in quotes (single or double).
+
+```python
+name = "Alex"
+message = 'Hello, World!'
+quote = "To code or not to code"
+```
+
+### ✅ Booleans (bool)
+True or False values (note the capital T and F!).
+
+```python
+is_game_over = False
+has_key = True
+is_raining = False
+```
+
+::: {.concept-box}
+**🔍 How to Check Data Types**:
+
+Use the `type()` function to see what type something is:
+
+```python
+print(type(42))        # <class 'int'>
+print(type(3.14))      # <class 'float'>
+print(type("Hello"))   # <class 'str'>
+print(type(True))      # <class 'bool'>
+```
+:::
+
+## 🎮 Activity: The Data Type Detective
+
+Run this code to explore different data types:
+
+```{pyodide-python}
+# Let's investigate different types of data!
+
+# Numbers
+health = 100
+damage = 15.5
+
+# Text
+player_name = "CodeMaster"
+greeting = "Welcome to the adventure!"
+
+# Boolean
+is_alive = True
+has_sword = False
+
+# Let's see their types
+print("=== DATA TYPE INVESTIGATION ===")
+print(f"health ({health}) is type: {type(health)}")
+print(f"damage ({damage}) is type: {type(damage)}")
+print(f"player_name ({player_name}) is type: {type(player_name)}")
+print(f"greeting ({greeting}) is type: {type(greeting)}")
+print(f"is_alive ({is_alive}) is type: {type(is_alive)}")
+print(f"has_sword ({has_sword}) is type: {type(has_sword)}")
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: Try these experiments:
+
+1. Change `health` to `100.0` - what type is it now?
+2. Change `player_name` to `12345` (without quotes) - what happens?
+3. What happens if you write `is_alive = "True"` (with quotes)?
+
+Run the code after each change and observe!
+:::
+
+## 👨‍💻 Code Example: Working with Different Types
+
+Different types support different operations:
+
+```{pyodide-python}
+# Math with numbers
+coins = 10
+found_coins = 5
+total_coins = coins + found_coins
+print(f"🪙 Math: {coins} + {found_coins} = {total_coins}")
+
+# Combining strings (concatenation)
+first_name = "Code"
+last_name = "Warrior"
+full_name = first_name + " " + last_name
+print(f"📝 Strings: {first_name} + {last_name} = {full_name}")
+
+# String multiplication (yes, really!)
+laugh = "ha"
+big_laugh = laugh * 5
+print(f"😂 String * Number: {laugh} * 5 = {big_laugh}")
+
+# Booleans in action
+has_shield = True
+has_armor = False
+is_protected = has_shield or has_armor
+print(f"🛡️ Boolean Logic: has_shield ({has_shield}) or has_armor ({has_armor}) = {is_protected}")
+```
+
+::: {.tip-box}
+**💡 Watch Out!**: Mixing types can cause errors:
+
+```python
+# This works:
+result = "Score: " + str(100)
+
+# This doesn't work:
+# result = "Score: " + 100  # Error! Can't add string and int
+```
+
+Use `str()`, `int()`, or `float()` to convert between types!
+:::
+
+## 🧩 Puzzle Time!
+
+What will happen with this code? Try to predict, then run it:
+
+```{pyodide-python}
+# Mystery code - what will print?
+a = "10"
+b = "20"
+result1 = a + b
+
+c = 10
+d = 20
+result2 = c + d
+
+print(f"String addition: {a} + {b} = {result1}")
+print(f"Number addition: {c} + {d} = {result2}")
+
+# Why are the results different?
+# Can you explain it?
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The output is:
+```
+String addition: 10 + 20 = 1020
+Number addition: 10 + 20 = 30
+```
+
+**Why?** 
+
+- When you add **strings** (`"10" + "20"`), Python concatenates (joins) them together → `"1020"`
+- When you add **integers** (`10 + 20`), Python performs mathematical addition → `30`
+
+The `+` operator behaves differently depending on the data type! This is why understanding types is so important.
+
+**Bonus**: What if you wanted to add those string numbers? You'd convert them first:
+```python
+result = int("10") + int("20")  # Result: 30
+```
+:::
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 2 Complete! ✨
+
+You've learned:
+
+✅ Python has different data types: int, float, str, bool  
+✅ Use `type()` to check what type a value is  
+✅ Different types support different operations  
+✅ You can convert between types using `int()`, `float()`, `str()`  
+✅ The same operator can behave differently with different types
+
+**Next Quest**: Ready to make decisions? Try [Quest 3: Conditionals](03-conditionals.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a simple "About Me" program using different data types:
+
+```python
+# All about you!
+name = "Your Name"           # string
+age = 15                     # integer
+height = 5.5                 # float (in feet)
+loves_coding = True          # boolean
+favorite_number = 42         # integer
+
+# Print everything with their types
+print(f"Name: {name} (type: {type(name).__name__})")
+print(f"Age: {age} (type: {type(age).__name__})")
+# Add more...
+```
+
+Experiment with converting types and see what happens!
+
+---
+
+::: {.tip-box}
+**📱 Keep Going!** You're building your Python foundation. Each quest makes you stronger! 💪
+:::

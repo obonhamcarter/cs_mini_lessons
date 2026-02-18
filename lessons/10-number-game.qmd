@@ -1,0 +1,401 @@
+---
+title: "Quest 10: Number Game - Can You Guess It?"
+subtitle: "Build Your First Interactive Game"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🎲 QUEST 10 | Difficulty: Beginner | Time: 5 minutes
+:::
+
+## 📖 Introduction: The Guessing Challenge
+
+A mysterious wizard thinks of a number between 1 and 100. Your job? Guess it! After each guess, the wizard gives you a hint: "Too high!" or "Too low!" How many guesses will you need?
+
+This classic game combines everything you've learned: variables, conditionals, loops, and functions!
+
+::: {.story-box}
+**🎮 Story Time**: You've stumbled upon an ancient puzzle door. To open it, you must guess the secret number. The door whispers hints after each attempt. Will you solve it in time? This is your chance to build a real, playable game from scratch!
+:::
+
+## 💡 Explanation: Game Components
+
+Every game needs these elements:
+
+1. **Game State**: Variables to track game data (secret number, guesses, etc.)
+2. **Game Loop**: Repeat until win condition is met
+3. **User Input**: Get player's actions
+4. **Logic**: Process input and determine outcome
+5. **Feedback**: Tell player what happened
+
+```python
+# Basic game structure
+secret = 42
+guesses_left = 5
+
+while guesses_left > 0:
+    # Get input
+    guess = int(input("Guess: "))
+    
+    # Check win condition
+    if guess == secret:
+        print("You win!")
+        break
+    
+    # Provide feedback
+    if guess > secret:
+        print("Too high!")
+    else:
+        print("Too low!")
+    
+    guesses_left -= 1
+```
+
+::: {.concept-box}
+**🎯 Game Design Principles**:
+
+1. **Clear Goal**: Player knows what to accomplish (guess the number)
+2. **Feedback**: Player gets information after each action
+3. **Challenge**: Not too easy, not too hard
+4. **Progression**: Player gets better with each attempt
+5. **Win/Lose Conditions**: Clear ending states
+
+**Our game includes**:
+- Random number generation
+- Limited attempts (optional difficulty)
+- Hints (hot/cold feedback)
+- Score tracking
+:::
+
+## 🎮 Activity: Build the Number Guessing Game
+
+Here's a complete, playable version:
+
+```{pyodide-python}
+import random
+
+def play_number_game():
+    """Complete number guessing game"""
+    # Game setup
+    secret_number = random.randint(1, 100)
+    max_attempts = 7
+    attempts = 0
+    
+    print("🎲 WELCOME TO THE NUMBER GUESSING GAME! 🎲")
+    print()
+    print("I'm thinking of a number between 1 and 100.")
+    print(f"You have {max_attempts} attempts to guess it!")
+    print("Let's begin!\n")
+    
+    # Game loop
+    while attempts < max_attempts:
+        attempts += 1
+        remaining = max_attempts - attempts + 1
+        
+        # Get player input (simulated for demo)
+        # In a real version, you'd use: guess = int(input(f"Attempt {attempts}/{max_attempts}: "))
+        # For demo, let's simulate some guesses
+        if attempts == 1:
+            guess = 50
+        elif attempts == 2:
+            guess = 75 if secret_number > 50 else 25
+        elif attempts == 3:
+            guess = secret_number - 10 if secret_number > guess else secret_number + 10
+        else:
+            guess = secret_number  # Win on 4th attempt for demo
+        
+        print(f"Attempt {attempts}/{max_attempts}: You guessed {guess}")
+        
+        # Check if correct
+        if guess == secret_number:
+            print()
+            print("🎉 CONGRATULATIONS! 🎉")
+            print(f"You found it! The number was {secret_number}!")
+            print(f"You won in {attempts} attempts!")
+            
+            # Calculate score (fewer attempts = higher score)
+            score = (max_attempts - attempts + 1) * 100
+            print(f"Your score: {score} points")
+            return True
+        
+        # Provide hints
+        difference = abs(guess - secret_number)
+        
+        if guess < secret_number:
+            print("📈 Too low!", end=" ")
+        else:
+            print("📉 Too high!", end=" ")
+        
+        # Temperature hints
+        if difference <= 5:
+            print("🔥 You're burning hot!")
+        elif difference <= 10:
+            print("♨️ Getting warm!")
+        elif difference <= 20:
+            print("🌡️ Lukewarm...")
+        else:
+            print("❄️ Cold!")
+        
+        print(f"({remaining} attempts remaining)\n")
+    
+    # Out of attempts
+    print("😔 Game Over!")
+    print(f"The secret number was {secret_number}")
+    print("Better luck next time!")
+    return False
+
+# Play the game!
+play_number_game()
+```
+
+::: {.challenge-box}
+**🎯 Challenge - Enhance the Game**: 
+
+1. Add difficulty levels (Easy: 1-50, Medium: 1-100, Hard: 1-500)
+2. Track high score (fewest attempts ever)
+3. Add a "give up" option
+4. Implement a streak counter for consecutive wins
+:::
+
+## 👨‍💻 Code Example: Game with Statistics
+
+Let's add game statistics tracking:
+
+```{pyodide-python}
+class NumberGame:
+    """Number guessing game with statistics"""
+    
+    def __init__(self):
+        self.games_played = 0
+        self.games_won = 0
+        self.total_attempts = 0
+        self.best_score = float('inf')
+    
+    def play_round(self, max_number=100, max_attempts=10):
+        """Play one round of the game"""
+        secret = random.randint(1, max_number)
+        self.games_played += 1
+        attempts = 0
+        
+        print(f"\n🎮 Game #{self.games_played}")
+        print(f"Guess a number between 1 and {max_number}\n")
+        
+        # Simulate gameplay (use binary search for AI)
+        low, high = 1, max_number
+        
+        while attempts < max_attempts:
+            attempts += 1
+            
+            # AI uses binary search strategy
+            guess = (low + high) // 2
+            print(f"Attempt {attempts}: Guessing {guess}...", end=" ")
+            
+            if guess == secret:
+                print("✅ CORRECT!")
+                self.games_won += 1
+                self.total_attempts += attempts
+                self.best_score = min(self.best_score, attempts)
+                return attempts
+            elif guess < secret:
+                print("📈 Too low")
+                low = guess + 1
+            else:
+                print("📉 Too high")
+                high = guess - 1
+        
+        print(f"\n❌ Failed! The number was {secret}")
+        self.total_attempts += attempts
+        return None
+    
+    def show_statistics(self):
+        """Display game statistics"""
+        print("\n" + "=" * 40)
+        print("📊 GAME STATISTICS")
+        print("=" * 40)
+        print(f"Games Played: {self.games_played}")
+        print(f"Games Won: {self.games_won}")
+        
+        if self.games_played > 0:
+            win_rate = (self.games_won / self.games_played) * 100
+            print(f"Win Rate: {win_rate:.1f}%")
+        
+        if self.games_won > 0:
+            avg_attempts = self.total_attempts / self.games_won
+            print(f"Average Attempts (wins): {avg_attempts:.2f}")
+            print(f"Best Score: {self.best_score} attempts")
+        
+        print("=" * 40)
+
+# Create game and play multiple rounds
+game = NumberGame()
+
+# Play 5 rounds
+for _ in range(5):
+    game.play_round(max_number=100, max_attempts=10)
+
+# Show statistics
+game.show_statistics()
+```
+
+::: {.tip-box}
+**💡 Game Development Tips**:
+
+1. **Start Simple**: Get basic version working first
+2. **Test Often**: Play your game frequently while developing
+3. **Add Features Gradually**: One feature at a time
+4. **Handle Errors**: What if player enters invalid input?
+5. **Make it Fun**: Add personality with messages and emojis!
+
+**Common enhancements**:
+- Difficulty selection
+- Hint system
+- Time limits
+- Multiplayer mode
+- Sound effects (in web version)
+:::
+
+## 🧩 Puzzle Time!
+
+What's the optimal strategy? Figure it out:
+
+```{pyodide-python}
+def linear_search_guessing(secret, max_num):
+    """Guess by trying 1, 2, 3, 4... in order"""
+    attempts = 0
+    for guess in range(1, max_num + 1):
+        attempts += 1
+        if guess == secret:
+            return attempts
+    return attempts
+
+def binary_search_guessing(secret, max_num):
+    """Guess by eliminating half the range each time"""
+    attempts = 0
+    low, high = 1, max_num
+    
+    while low <= high:
+        attempts += 1
+        guess = (low + high) // 2
+        
+        if guess == secret:
+            return attempts
+        elif guess < secret:
+            low = guess + 1
+        else:
+            high = guess - 1
+    
+    return attempts
+
+# Compare strategies
+test_secret = 87
+test_max = 100
+
+linear_attempts = linear_search_guessing(test_secret, test_max)
+binary_attempts = binary_search_guessing(test_secret, test_max)
+
+print(f"Secret number: {test_secret} (out of 1-{test_max})")
+print(f"\nLinear search (1,2,3...): {linear_attempts} attempts")
+print(f"Binary search (divide-and-conquer): {binary_attempts} attempts")
+print(f"\nBinary search is {linear_attempts - binary_attempts} attempts faster!")
+print(f"Efficiency gained: {((linear_attempts - binary_attempts) / linear_attempts * 100):.1f}%")
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+For a number between 1-100:
+
+**Linear Search (Guessing 1, 2, 3...):**
+- Worst case: 100 attempts
+- Average case: 50 attempts
+- If number is 87: exactly 87 attempts
+
+**Binary Search (Dividing in half):**
+- Attempts: ~log₂(100) ≈ 7 attempts maximum!
+- Works by eliminating half the possibilities each time
+
+**Example for secret = 87**:
+1. Guess 50 → Too low, search [51-100]
+2. Guess 75 → Too low, search [76-100]
+3. Guess 87 → FOUND! (or search [88-100] if too high)
+
+**Maximum attempts**: With binary search, you can find any number 1-100 in at most 7 guesses!
+
+**The Math**: Each guess halves the search space:
+- 100 → 50 → 25 → 12 → 6 → 3 → 1
+- That's roughly log₂(100) ≈ 6.64 ≈ 7 guesses
+
+**Lesson**: Smart algorithms make a HUGE difference!
+:::
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 10 Complete! ✨
+
+You've learned:
+
+✅ Games combine variables, loops, conditionals, and functions  
+✅ Game loops run until a win/lose condition is met  
+✅ Good games provide clear feedback to players  
+✅ Binary search is much faster than linear search  
+✅ Track statistics to make games more engaging  
+✅ Start simple and add features gradually
+
+**Next Quest**: Ready for mind-bending recursion? Try [Quest 11: Recursion](11-recursion.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create variations of the game:
+
+**Rock, Paper, Scissors:**
+```python
+import random
+
+choices = ["rock", "paper", "scissors"]
+computer = random.choice(choices)
+player = "rock"  # or get from input
+
+print(f"You: {player}, Computer: {computer}")
+
+if player == computer:
+    print("Tie!")
+elif (player == "rock" and computer == "scissors") or \
+     (player == "paper" and computer == "rock") or \
+     (player == "scissors" and computer == "paper"):
+    print("You win!")
+else:
+    print("Computer wins!")
+```
+
+**Basic Math Quiz Game:**
+```python
+import random
+
+score = 0
+for i in range(5):
+    a = random.randint(1, 10)
+    b = random.randint(1, 10)
+    answer = a + b
+    
+    print(f"Question {i+1}: {a} + {b} = ?")
+    # guess = int(input("Your answer: "))
+    guess = answer  # Simulate correct answer
+    
+    if guess == answer:
+        print("✅ Correct!")
+        score += 1
+    else:
+        print(f"❌ Wrong! Answer was {answer}")
+
+print(f"\nFinal score: {score}/5")
+```
+
+---
+
+::: {.tip-box}
+**📱 You're a Game Developer Now!** Keep building and experimenting! 🎮
+:::

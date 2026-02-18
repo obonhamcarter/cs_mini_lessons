@@ -1,0 +1,361 @@
+---
+title: "Quest 11: Recursion - The Echo Chamber"
+subtitle: "Discover Functions That Call Themselves"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🔁 QUEST 11 | Difficulty: Advanced | Time: 5 minutes
+:::
+
+## 📖 Introduction: The Infinite Mirror
+
+Stand between two mirrors and look—you see yourself reflected infinitely! Each reflection contains another reflection, which contains another reflection...
+
+**Recursion** is like that: a function that calls itself, creating layers of calls until it reaches a stopping point.
+
+::: {.story-box}
+**🪞 Story Time**: You open a mysterious box. Inside is a note that says: "To find the treasure, open the box inside this box." You open that box and find another note: "To find the treasure, open the box inside this box." This continues until you reach the smallest box, which contains the treasure! That's recursion!
+:::
+
+## 💡 Explanation: What is Recursion?
+
+**Recursion** is when a function calls itself. Every recursive function needs:
+
+1. **Base Case**: The stopping condition (smallest box with the treasure)
+2. **Recursive Case**: The function calling itself with a simpler problem
+
+```python
+def countdown(n):
+    # Base case: stop when reaching 0
+    if n <= 0:
+        print("Blastoff! 🚀")
+        return
+    
+    # Recursive case
+    print(n)
+    countdown(n - 1)  # Call itself with smaller number
+
+countdown(5)
+# Prints: 5, 4, 3, 2, 1, Blastoff! 🚀
+```
+
+::: {.concept-box}
+**🎯 How Recursion Works**:
+
+Think of it like a stack of function calls:
+
+```
+countdown(3)
+  ├─ print(3)
+  └─ countdown(2)
+      ├─ print(2)
+      └─ countdown(1)
+          ├─ print(1)
+          └─ countdown(0)
+              └─ print("Blastoff!")
+```
+
+Each function waits for the one it called to finish before continuing.
+
+**Key parts:**
+- **Base case** prevents infinite recursion
+- **Recursive call** solves a smaller version of the problem
+- Results build up as calls return
+:::
+
+## 🎮 Activity: Recursive Countdown
+
+Let's explore recursion with a visual countdown:
+
+```{pyodide-python}
+def visual_countdown(n, indent=0):
+    """Countdown with visual indentation to show recursion depth"""
+    spaces = "  " * indent
+    
+    # Base case
+    if n <= 0:
+        print(f"{spaces}🚀 LIFTOFF!")
+        return
+    
+    # Show entering this level
+    print(f"{spaces}➡️ Entering countdown({n})")
+    print(f"{spaces}   Count: {n}")
+    
+    # Recursive call
+    visual_countdown(n - 1, indent + 1)
+    
+    # Show returning from this level
+    print(f"{spaces}⬅️ Returning from countdown({n})")
+
+print("=== RECURSIVE COUNTDOWN ===\n")
+visual_countdown(5)
+print("\n" + "=" * 40)
+
+# Watch how it goes down, then back up!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: 
+
+1. Modify the countdown to start from 10
+2. Observe the pattern: it goes down to 0, then returns back up
+3. Notice how the indentation shows the depth of recursion
+4. Try starting with 3 to see the pattern more clearly
+:::
+
+## 👨‍💻 Code Example: Factorial
+
+The classic recursive example - calculating factorial (n! = n × (n-1) × (n-2) × ... × 1):
+
+```{pyodide-python}
+def factorial(n):
+    """Calculate factorial recursively"""
+    # Base case
+    if n == 0 or n == 1:
+        return 1
+    
+    # Recursive case
+    return n * factorial(n - 1)
+
+def factorial_with_trace(n, depth=0):
+    """Factorial with trace to see the recursion"""
+    indent = "  " * depth
+    
+    print(f"{indent}factorial({n}) called")
+    
+    # Base case
+    if n == 0 or n == 1:
+        print(f"{indent}factorial({n}) = 1 (base case)")
+        return 1
+    
+    # Recursive case
+    print(f"{indent}Need to calculate: {n} * factorial({n-1})")
+    result = n * factorial_with_trace(n - 1, depth + 1)
+    print(f"{indent}factorial({n}) = {result}")
+    return result
+
+print("=== FACTORIAL CALCULATION ===\n")
+result = factorial_with_trace(5)
+print(f"\n5! = {result}")
+print("\nExplanation: 5! = 5 × 4 × 3 × 2 × 1 = 120")
+
+# Test regular factorial
+print(f"\nQuick calculation: 6! = {factorial(6)}")
+```
+
+::: {.tip-box}
+**💡 Recursion vs Iteration**:
+
+Many recursive problems can also be solved with loops:
+
+**Recursive factorial:**
+```python
+def factorial_recursive(n):
+    if n <= 1:
+        return 1
+    return n * factorial_recursive(n - 1)
+```
+
+**Iterative factorial:**
+```python
+def factorial_iterative(n):
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+```
+
+Both produce the same result! Recursion is often more elegant but uses more memory.
+:::
+
+## 🧩 Puzzle Time!
+
+What does this recursive function do?
+
+```{pyodide-python}
+def mystery_function(n):
+    """Can you figure out what this calculates?"""
+    if n <= 0:
+        return 0
+    if n == 1:
+        return 1
+    return mystery_function(n - 1) + mystery_function(n - 2)
+
+print("Mystery function outputs:")
+for i in range(10):
+    print(f"mystery_function({i}) = {mystery_function(i)}")
+
+# Recognize the pattern?
+# Hint: We saw this sequence in Quest 8!
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+It's the **Fibonacci sequence**!
+
+```
+mystery_function(0) = 0
+mystery_function(1) = 1
+mystery_function(2) = 1
+mystery_function(3) = 2
+mystery_function(4) = 3
+mystery_function(5) = 5
+mystery_function(6) = 8
+...
+```
+
+**How it works:**
+
+For n > 1: `F(n) = F(n-1) + F(n-2)`
+
+**Call tree for mystery_function(5)**:
+```
+                    F(5)
+                   /    \
+                F(4)    F(3)
+               /  \      /  \
+            F(3) F(2)  F(2) F(1)
+           /  \   / \   / \
+        F(2) F(1) ...
+```
+
+**Problem**: Notice this calculates F(3) multiple times, F(2) many times!
+- Very inefficient for large numbers
+- F(40) would take billions of calls!
+
+**Solution**: Use memoization (caching results) or iteration instead.
+
+This shows an important lesson: **recursion can be elegant but not always efficient!**
+:::
+
+## 🎮 Bonus: Practical Recursion - Directory Tree
+
+Recursion is perfect for tree-like structures:
+
+```{pyodide-python}
+def print_tree(tree, indent=0):
+    """Recursively print a tree structure"""
+    spaces = "  " * indent
+    
+    if isinstance(tree, dict):
+        for key, value in tree.items():
+            print(f"{spaces}📁 {key}")
+            print_tree(value, indent + 1)
+    elif isinstance(tree, list):
+        for item in tree:
+            print_tree(item, indent)
+    else:
+        print(f"{spaces}📄 {tree}")
+
+# File system structure
+file_system = {
+    "my_project": {
+        "src": ["main.py", "utils.py", "helpers.py"],
+        "tests": ["test_main.py", "test_utils.py"],
+        "docs": {
+            "guides": ["setup.md", "tutorial.md"],
+            "api": ["reference.md"]
+        },
+        "README.md": "README.md"
+    }
+}
+
+print("=== PROJECT FILE TREE ===\n")
+print_tree(file_system)
+```
+
+## 🎮 More Examples: Sum and Power
+
+```{pyodide-python}
+def recursive_sum(n):
+    """Sum all numbers from 1 to n"""
+    if n <= 0:
+        return 0
+    return n + recursive_sum(n - 1)
+
+def power(base, exponent):
+    """Calculate base^exponent recursively"""
+    if exponent == 0:
+        return 1
+    return base * power(base, exponent - 1)
+
+def count_down_up(n):
+    """Count down then back up"""
+    if n <= 0:
+        print(0)
+        return
+    print(n, end=" ")
+    count_down_up(n - 1)
+    print(n, end=" ")
+
+print("=== MORE RECURSIVE EXAMPLES ===\n")
+
+print(f"Sum 1 to 100: {recursive_sum(100)}")
+print(f"2^10 = {power(2, 10)}")
+
+print("\nCount down and up:")
+count_down_up(5)
+print()
+
+# How does count_down_up work?
+# Try tracing through it with n=3!
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 11 Complete! ✨
+
+You've learned:
+
+✅ Recursion is a function calling itself  
+✅ Every recursive function needs a base case to stop  
+✅ Recursive calls solve smaller versions of the problem  
+✅ Results build up as recursive calls return  
+✅ Recursion is elegant but can be inefficient  
+✅ Perfect for tree structures and divide-and-conquer problems  
+✅ Many recursive problems can also be solved iteratively
+
+**Next Quest**: Ready to measure efficiency? Try [Quest 12: Big O](12-complexity.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a recursive string reverser:
+
+```python
+def reverse_string(s):
+    """Reverse a string recursively"""
+    # Base case: empty or single character
+    if len(s) <= 1:
+        return s
+    
+    # Recursive case: last char + reverse of rest
+    return s[-1] + reverse_string(s[:-1])
+
+print(reverse_string("Python"))  # nohtyP
+print(reverse_string("Recursion"))  # noisruceR
+```
+
+Or calculate GCD (Greatest Common Divisor):
+
+```python
+def gcd(a, b):
+    """Calculate GCD using Euclidean algorithm"""
+    if b == 0:
+        return a
+    return gcd(b, a % b)
+
+print(f"GCD of 48 and 18: {gcd(48, 18)}")  # 6
+print(f"GCD of 100 and 35: {gcd(100, 35)}")  # 5
+```
+
+---
+
+::: {.tip-box}
+**📱 Mind = Blown!** Recursion is powerful once you understand it. Keep practicing! 🧠
+:::

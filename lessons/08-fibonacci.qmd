@@ -1,0 +1,294 @@
+---
+title: "Quest 8: Fibonacci - The Golden Sequence"
+subtitle: "Explore Nature's Most Beautiful Mathematical Pattern"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🌟 QUEST 8 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+## 📖 Introduction: Nature's Secret Code
+
+You're exploring an ancient temple when you notice something amazing:  
+- A spiral seashell 🐚
+- The arrangement of sunflower seeds 🌻
+- The branching of trees 🌳
+- The curve of a nautilus shell 🦑
+
+All of these follow the same mysterious pattern: **the Fibonacci sequence**!
+
+::: {.story-box}
+**🔢 Story Time**: In 1202, mathematician Leonardo Fibonacci described a sequence of numbers that appears everywhere in nature. Each number is the sum of the two before it. This simple rule creates one of the most beautiful patterns in mathematics... and you're about to code it!
+:::
+
+## 💡 Explanation: The Fibonacci Sequence
+
+The **Fibonacci sequence** starts with 0 and 1. Each next number is the sum of the previous two:
+
+```
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144...
+
+0 + 1 = 1
+1 + 1 = 2
+1 + 2 = 3
+2 + 3 = 5
+3 + 5 = 8
+5 + 8 = 13
+...and so on!
+```
+
+::: {.concept-box}
+**🔍 The Pattern**:
+
+Given a position n in the sequence:
+- F(0) = 0
+- F(1) = 1
+- F(n) = F(n-1) + F(n-2)
+
+**Example**:
+- F(6) = F(5) + F(4)
+- F(6) = 5 + 3
+- F(6) = 8
+
+**In nature**: The ratio between consecutive Fibonacci numbers approaches the "Golden Ratio" (≈1.618), which appears in art, architecture, and nature!
+:::
+
+## 🎮 Activity: Generate Fibonacci Sequence
+
+Let's create the Fibonacci sequence using different methods:
+
+```{pyodide-python}
+# Method 1: Using a loop
+def fibonacci_loop(n):
+    """Generate first n Fibonacci numbers using a loop"""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    elif n == 2:
+        return [0, 1]
+    
+    sequence = [0, 1]
+    for i in range(2, n):
+        next_num = sequence[i-1] + sequence[i-2]
+        sequence.append(next_num)
+    
+    return sequence
+
+# Generate first 15 Fibonacci numbers
+fib_sequence = fibonacci_loop(15)
+
+print("🌟 First 15 Fibonacci Numbers:")
+print(fib_sequence)
+print()
+
+# Display them nicely
+print("Position | Value")
+print("-" * 20)
+for i, num in enumerate(fib_sequence):
+    print(f"   {i:2d}    |  {num}")
+
+# Try changing the number to see more or fewer!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: 
+
+1. Generate the first 20 Fibonacci numbers
+2. Find the 10th Fibonacci number (remember: sequence starts at position 0!)
+3. Calculate the sum of the first 10 Fibonacci numbers
+:::
+
+## 👨‍💻 Code Example: Fibonacci in Action
+
+Let's explore interesting properties of the sequence:
+
+```{pyodide-python}
+# Fibonacci explorer
+def fibonacci_up_to(max_value):
+    """Generate Fibonacci numbers up to a maximum value"""
+    sequence = [0, 1]
+    while True:
+        next_num = sequence[-1] + sequence[-2]
+        if next_num > max_value:
+            break
+        sequence.append(next_num)
+    return sequence
+
+# All Fibonacci numbers under 1000
+fib_under_1000 = fibonacci_up_to(1000)
+
+print("🔢 Fibonacci numbers under 1000:")
+print(fib_under_1000)
+print(f"\nCount: {len(fib_under_1000)} numbers")
+print()
+
+# Calculate the Golden Ratio from Fibonacci
+print("📐 Approaching the Golden Ratio:")
+print("(Ratio of consecutive Fibonacci numbers)")
+print()
+
+for i in range(len(fib_under_1000) - 6, len(fib_under_1000) - 1):
+    ratio = fib_under_1000[i+1] / fib_under_1000[i]
+    print(f"F({i+1})/F({i}) = {fib_under_1000[i+1]}/{fib_under_1000[i]} = {ratio:.6f}")
+
+print("\n✨ The Golden Ratio ≈ 1.618034...")
+```
+
+::: {.tip-box}
+**💡 Fun Fibonacci Facts**:
+
+1. **In Nature**: Pinecones, pineapples, and flower petals often have Fibonacci numbers!
+2. **In Art**: The golden ratio (from Fibonacci) is used in painting and architecture
+3. **Even/Odd Pattern**: Every 3rd Fibonacci number is even!
+4. **Square Sum**: F(n)² + F(n+1)² = F(2n+1)
+5. **Divisibility**: F(n) is divisible by F(m) if n is divisible by m
+:::
+
+## 🧩 Puzzle Time!
+
+Can you spot the pattern and predict what this prints?
+
+```{pyodide-python}
+# Fibonacci divisibility puzzle
+fib = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
+
+even_fibs = []
+for num in fib:
+    if num % 2 == 0:
+        even_fibs.append(num)
+
+print("Even Fibonacci numbers:")
+print(even_fibs)
+print()
+
+# Look at the positions of even numbers in the original sequence
+print("Positions of even numbers:")
+for num in even_fibs:
+    position = fib.index(num)
+    print(f"F({position}) = {num}")
+
+# What pattern do you see in the positions?
+# Every ___th Fibonacci number is even!
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The even Fibonacci numbers are:
+```
+Even Fibonacci numbers:
+[0, 2, 8, 34, 144]
+
+Positions of even numbers:
+F(0) = 0
+F(3) = 2
+F(6) = 8
+F(9) = 34
+F(12) = 144
+```
+
+**The Pattern**: Every **3rd** Fibonacci number is even!
+
+**Why?** Let's trace the even/odd pattern:
+- F(0) = 0 (even)
+- F(1) = 1 (odd)
+- F(2) = 1 (odd)
+- F(3) = 2 (even)
+- F(4) = 3 (odd)
+- F(5) = 5 (odd)
+- F(6) = 8 (even)
+
+**Rule**: odd + odd = even, even + odd = odd, odd + even = odd
+
+So the pattern repeats: **even, odd, odd, even, odd, odd...**
+
+Every 3rd position (0, 3, 6, 9...) is even!
+:::
+
+## 🎮 Bonus: Recursive Fibonacci
+
+There's another way to calculate Fibonacci - using recursion (a function that calls itself):
+
+```{pyodide-python}
+def fibonacci_recursive(n):
+    """Calculate nth Fibonacci number using recursion"""
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+
+print("🔄 Recursive Fibonacci:")
+for i in range(10):
+    print(f"F({i}) = {fibonacci_recursive(i)}")
+
+# Warning: This gets slow for large numbers!
+# Can you figure out why?
+# (Hint: it calculates the same values many times)
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 8 Complete! ✨
+
+You've learned:
+
+✅ The Fibonacci sequence: each number is the sum of the previous two  
+✅ Starts with 0, 1, then 1, 2, 3, 5, 8, 13, 21...  
+✅ Can be generated using loops or recursion  
+✅ Appears in nature, art, and architecture  
+✅ Ratio of consecutive numbers approaches Golden Ratio (≈1.618)  
+✅ Every 3rd Fibonacci number is even
+
+**Next Quest**: Ready to organize data? Try [Quest 9: Sorting](09-sorting.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a Fibonacci visualizer:
+
+```python
+def fibonacci_bar_chart(n):
+    """Display Fibonacci numbers as a bar chart"""
+    fib = fibonacci_loop(n)
+    
+    print("Fibonacci Bar Chart:")
+    for i, num in enumerate(fib):
+        if num == 0:
+            bar = ""
+        else:
+            bar = "█" * num
+        print(f"F({i:2d}) = {num:3d} | {bar}")
+
+fibonacci_bar_chart(10)
+```
+
+Or find Fibonacci numbers in a range:
+
+```python
+def is_fibonacci(num):
+    """Check if a number is in Fibonacci sequence"""
+    a, b = 0, 1
+    while b < num:
+        a, b = b, a + b
+    return b == num
+
+# Test numbers
+for n in [1, 2, 3, 4, 5, 8, 10, 13, 20, 21]:
+    if is_fibonacci(n):
+        print(f"{n} is a Fibonacci number! ✓")
+    else:
+        print(f"{n} is not a Fibonacci number ✗")
+```
+
+---
+
+::: {.tip-box}
+**📱 Amazing Work!** You've discovered one of mathematics' most beautiful patterns! 🌺
+:::

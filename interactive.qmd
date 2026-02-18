@@ -1,0 +1,122 @@
+---
+title: "Interactive Jupyter Environment"
+subtitle: "Run Python Code in Your Browser"
+---
+
+## 🎯 Two Ways to Code Interactively
+
+### Option 1: JupyterLite (Full Notebook Experience)
+
+**JupyterLite** provides a complete Jupyter environment running entirely in your browser!
+
+<div style="text-align: center; margin: 2rem 0;">
+  <a href="jupyterlite/lab/index.html" class="btn btn-primary btn-lg" style="padding: 1rem 2rem; font-size: 1.2rem; text-decoration: none; background: linear-gradient(135deg, #6366f1, #ec4899); border-radius: 0.5rem; color: white; display: inline-block;">
+    🚀 Launch JupyterLite
+  </a>
+</div>
+
+**Features:**
+- ✨ Full Jupyter interface with file browser
+- 💾 Save and download your work
+- 🔄 Edit and re-run code unlimited times
+- 📱 Works on phones and tablets
+- 🌐 No installation or account required
+
+### Option 2: Interactive Code on Lesson Pages
+
+Every lesson page has **editable code cells** that run directly in the page:
+
+- Just click on any code block
+- Edit the code
+- Run it instantly
+- See results immediately
+
+## 📚 Available Notebooks
+
+All 12 quests are available as interactive Jupyter notebooks:
+
+1. [Variables - Your Coding Backpack](jupyterlite/lab/index.html?path=01-variables.ipynb)
+2. Data Types - Shapes of Information
+3. Conditionals - Choose Your Path
+4. Loops - The Power of Repetition
+5. Lists - Collecting Treasures
+6. Functions - Magic Spells
+7. Dictionaries - The Key Keeper
+8. Fibonacci - The Golden Sequence
+9. Sorting - Organizing Chaos
+10. Number Game - Can You Guess It?
+11. Recursion - The Echo Chamber
+12. Big O - Speed Matters
+
+## 🛠️ For Instructors: Setting Up JupyterLite
+
+### Installation
+
+```bash
+# Install JupyterLite
+pip install jupyterlite-core jupyterlite-pyodide-kernel
+
+# Build the JupyterLite site
+cd jupyterlite
+jupyter lite build --contents content
+
+# The site will be in jupyterlite/_output
+```
+
+### Deploy to Your Website
+
+1. **Copy the output folder:**
+   ```bash
+   cp -r jupyterlite/_output/* _site/jupyterlite/
+   ```
+
+2. **Or build during Quarto render:**
+   - JupyterLite builds automatically if configured
+   - All notebooks in `jupyterlite/content/` become available
+
+3. **Test locally:**
+   ```bash
+   cd jupyterlite/_output
+   python -m http.server 8000
+   ```
+   Then visit: `http://localhost:8000`
+
+### Adding New Notebooks
+
+Simply add `.ipynb` files to `jupyterlite/content/` and rebuild:
+
+```bash
+jupyter lite build --contents content
+```
+
+## 💡 Tips for Students
+
+### In JupyterLite:
+- **Run a cell**: Press `Shift + Enter`
+- **Add a cell**: Click the `+` button
+- **Save your work**: File → Download
+- **Restart if stuck**: Kernel → Restart Kernel
+
+### On Lesson Pages:
+- Code cells are marked with ▶️ Run buttons
+- Edit code directly in the cell
+- Results appear below the code
+- Refresh page to reset all code
+
+## 🌐 Use on Any Device
+
+Both options work on:
+- 💻 Desktop computers
+- 📱 Smartphones  
+- 🖥️ Tablets
+- 🖥️ Chromebooks
+
+No installation required - just scan the QR code or click the link!
+
+---
+
+<div style="text-align: center; padding: 2rem;">
+  <a href="jupyterlite/lab/index.html" style="font-size: 1.5rem; text-decoration: none;">
+    🚀 **Launch JupyterLite Now** →
+  </a>
+</div>

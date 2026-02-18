@@ -1,0 +1,50 @@
+# Quarto
+/.quarto/
+/_site/
+*_cache/
+*_files/
+
+# JupyterLite
+jupyterlite_build/
+jupyterlite/_output/
+.jupyterlite.doit.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# QR Codes (generated files)
+qr_codes/
+*.pdf
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+**/*.quarto_ipynb

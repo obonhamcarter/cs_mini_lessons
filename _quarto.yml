@@ -1,0 +1,81 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "CS Quest - Coding Adventures"
+  description: "Interactive computer science mini-lessons for beginners"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+      - text: "All Quests"
+        file: all-quests.qmd
+      - text: "🚀 JupyterLite"
+        file: interactive.qmd
+    right:
+      - icon: github
+        href: https://github.com
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Begin Your Journey"
+        contents:
+          - text: "Quest 1: Variables - Your Coding Backpack"
+            file: lessons/01-variables.qmd
+          - text: "Quest 2: Data Types - Shapes of Information"
+            file: lessons/02-data-types.qmd
+          - text: "Quest 3: If/Else - Choose Your Path"
+            file: lessons/03-conditionals.qmd
+          - text: "Quest 4: Loops - The Power of Repetition"
+            file: lessons/04-loops.qmd
+          - text: "Quest 5: Lists - Collecting Treasures"
+            file: lessons/05-lists.qmd
+          - text: "Quest 6: Functions - Magic Spells"
+            file: lessons/06-functions.qmd
+          - text: "Quest 7: Dictionaries - The Key Keeper"
+            file: lessons/07-dictionaries.qmd
+          - text: "Quest 8: Fibonacci - The Golden Sequence"
+            file: lessons/08-fibonacci.qmd
+          - text: "Quest 9: Sorting - Organizing Chaos"
+            file: lessons/09-sorting.qmd
+          - text: "Quest 10: Mini Game - Number Guessing"
+            file: lessons/10-number-game.qmd
+          - text: "Quest 11: Recursion - The Echo Chamber"
+            file: lessons/11-recursion.qmd
+          - text: "Quest 12: Big O - Speed Matters"
+            file: lessons/12-complexity.qmd
+      - section: "Advanced Adventures"
+        contents:
+          - text: "Quest 13: Iterative Loops - Journey vs Destination"
+            file: lessons/13-iterative-loops.qmd
+          - text: "Quest 14: Functions Part 2 - Non-Returning"
+            file: lessons/14-functions-non-returning.qmd
+          - text: "Quest 15: Functions Part 3 - Returning"
+            file: lessons/15-functions-returning.qmd
+          - text: "Quest 16: Lambda Functions - Quick Incantations"
+            file: lessons/16-lambda-functions.qmd
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - custom.scss
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    code-tools: true
+    smooth-scroll: true
+    fontsize: 1.1em
+    linestretch: 1.7
+    fig-cap-location: bottom
+    
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false

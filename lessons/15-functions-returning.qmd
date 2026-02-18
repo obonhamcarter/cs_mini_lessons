@@ -1,0 +1,261 @@
+---
+title: "Quest 15: Functions Part 3 - Pure Functions & Return Values"
+subtitle: "Writing Functions That Compute and Return Results"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+✨ QUEST 15 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=15-functions-returning.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/15-functions-returning.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Pure Spellcaster
+
+In Quest 14, we explored functions that perform actions but don't return values. Now we're going **deeper** into functions that calculate and **return** results. These are the workhorses of programming!
+
+**Analogy**: 
+- **Non-returning function**: A blacksmith sharpens your sword (side effect, no reward)
+- **Returning function**: A merchant appraises your sword and tells you its value (calculation + result)
+
+::: {.story-box}
+**🧙‍♂️ Story Time**: You're training with the Grand Mage who teaches you "Pure Spells" — spells that take certain ingredients and always produce the same result. No randomness, no side effects, just pure calculation. The more you master these, the more powerful your code becomes!
+:::
+
+## 💡 Explanation: Pure Functions & Return Values
+
+A **pure function**:
+1. Takes input (parameters)
+2. Computes a result based ONLY on the input
+3. Returns that result
+4. Has NO side effects (doesn't modify external state)
+
+```python
+# PURE FUNCTION - reliable and predictable
+def add(a, b):
+    return a + b
+
+# Same inputs always give same output
+print(add(3, 4))  # Always 7
+print(add(3, 4))  # Always 7
+```
+
+**Non-pure function** - has side effects:
+
+```python
+# NOT PURE - does stuff besides returning
+score = 0  # External variable
+
+def play_round():
+    global score
+    score += 10  # MODIFIES external state!
+    return score
+```
+
+::: {.concept-box}
+**🎯 Benefits of Pure Functions**
+
+Pure functions are awesome because:
+- ✅ Predictable: Same input = same output (always!)
+- ✅ Testable: Easy to test since no hidden dependencies
+- ✅ Reusable: Works anywhere without side effects
+- ✅ Debuggable: If it fails, you know it's the inputs
+
+**Example: Calculate with confidence**
+```python
+def calculate_damage(base_power, enemy_defense, critical_hit=False):
+    damage = base_power - enemy_defense
+    if critical_hit:
+        damage = damage * 2
+    return damage
+
+# Always works the same way
+damage1 = calculate_damage(50, 10, False)  # 40
+damage2 = calculate_damage(50, 10, False)  # 40 (same!)
+damage3 = calculate_damage(50, 10, True)   # 80
+```
+:::
+
+## 🎮 Activity 1: Math & Calculation Functions
+
+Pure functions for game math:
+
+```{pyodide-python}
+def calculate_total_cost(base_price, quantity, tax_rate=0.1):
+    """Calculate total cost with tax"""
+    subtotal = base_price * quantity
+    tax = subtotal * tax_rate
+    total = subtotal + tax
+    return total
+
+def calculate_experience_needed(current_level):
+    """Calculate XP needed for next level"""
+    # Formula: 100 * level^1.5
+    xp_next = int(100 * (current_level ** 1.5))
+    return xp_next
+
+def is_critical_hit(attack_power, luck_stat=50):
+    """Return True if hit is critical"""
+    critical_threshold = luck_stat
+    return attack_power > critical_threshold
+
+# Use the functions
+print("💰 SHOPPING")
+total = calculate_total_cost(10, 3, tax_rate=0.15)
+print(f"  3 items at $10 each (15% tax): ${total:.2f}")
+
+print("\n⭐ LEVELING")
+for level in [1, 5, 10]:
+    xp = calculate_experience_needed(level)
+    print(f"  Level {level}: Need {xp} XP for next level")
+
+print("\n⚔️  COMBAT")
+print(f"  Attack 45 with luck 40: Critical? {is_critical_hit(45, 40)}")
+print(f"  Attack 45 with luck 50: Critical? {is_critical_hit(45, 50)}")
+```
+
+## 🎮 Activity 2: String Manipulation Functions
+
+Returning functions for text:
+
+```{pyodide-python}
+def shout(message):
+    """Return uppercase message with exclamation"""
+    return message.upper() + "!!!"
+
+def greet_adventurer(name, title="Traveler"):
+    """Create a greeting message"""
+    return f"Welcome, {title} {name}! Your quest awaits."
+
+def count_letters(word):
+    """Count distinct letters in a word"""
+    return len(set(word.lower()))
+
+def create_character_name(first, last):
+    """Combine names and format"""
+    full_name = f"{first.capitalize()}{last.capitalize()}"
+    return f"🧙 {full_name}"
+
+# Use the functions
+print(shout("prepare for battle"))
+print(greet_adventurer("Luna", "Mage"))
+print(f"Word 'programming' has {count_letters('programming')} distinct letters")
+print(create_character_name("aria", "swan"))
+```
+
+## 🎮 Activity 3: Data Processing Functions
+
+Functions that transform data:
+
+```{pyodide-python}
+def average_stats(stats_list):
+    """Calculate average of a list of numbers"""
+    if len(stats_list) == 0:
+        return 0
+    return sum(stats_list) / len(stats_list)
+
+def find_max_value(items):
+    """Find the highest damage value"""
+    return max(items)
+
+def double_all_values(numbers):
+    """Return a new list with all values doubled"""
+    return [x * 2 for x in numbers]
+
+def filter_high_damage(attacks):
+    """Return only attacks that deal 20+ damage"""
+    return [attack for attack in attacks if attack >= 20]
+
+# Use the functions
+damages = [15, 25, 30, 12, 40, 18]
+
+print(f"Average damage: {average_stats(damages):.1f}")
+print(f"Max damage: {find_max_value(damages)}")
+print(f"Doubled damages: {double_all_values(damages)}")
+print(f"High damage attacks only: {filter_high_damage(damages)}")
+```
+
+## 🧩 Challenge: Implement Game Math Functions
+
+Write a function that:
+1. Takes a player level (integer)
+2. Returns the base health for that level
+3. Use formula: `health = 50 + (level * 10)`
+
+Then write another function that:
+1. Takes current health and max health
+2. Returns the percentage as a string like "75%"
+3. Round to nearest integer
+
+```{pyodide-python}
+# Challenge 1: Calculate base health for a level
+def get_base_health(level):
+    """Calculate health based on level"""
+    # YOUR CODE HERE
+    return 0  # Replace with your calculation
+
+# Challenge 2: Calculate health percentage
+def get_health_percentage(current_health, max_health):
+    """Return health as percentage string"""
+    # YOUR CODE HERE
+    return "0%"  # Replace with your calculation
+
+# Test when ready:
+# level_5_health = get_base_health(5)
+# print(f"Level 5 health: {level_5_health}")
+
+# percentage = get_health_percentage(75, 100)
+# print(f"Health: {percentage}")
+```
+
+## ✅ Solution
+
+```{pyodide-python}
+def get_base_health(level):
+    """Calculate base health based on level"""
+    health = 50 + (level * 10)
+    return health
+
+def get_health_percentage(current_health, max_health):
+    """Calculate and return health as percentage string"""
+    if max_health == 0:
+        return "0%"
+    percentage = round((current_health / max_health) * 100)
+    return f"{percentage}%"
+
+# Test the functions
+for level in range(1, 6):
+    health = get_base_health(level)
+    print(f"  Level {level}: {health} HP")
+
+print()
+health_percent = get_health_percentage(75, 100)
+print(f"Current health: {health_percent}")
+
+health_percent = get_health_percentage(20, 100)
+print(f"Critical health: {health_percent}")
+```
+
+## 🎓 Pure Functions vs Side Effects
+
+**Use Pure Functions (return values) when:**
+- ✅ Calculating something (math, transformation)
+- ✅ You want predictable, testable code
+- ✅ Creating new data from inputs
+
+**Use Side Effect Functions (no return) when:**
+- ✅ Displaying information to the player
+- ✅ Updating game state intentionally
+- ✅ Logging or recording actions
+
+## 🚀 What's Next?
+
+You now know regular functions that return values. But Python has one more trick: **Quest 16: Lambda Functions** - tiny anonymous functions perfect for quick calculations!

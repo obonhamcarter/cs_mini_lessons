@@ -1,0 +1,212 @@
+---
+title: "CS Quest - Coding Adventures"
+subtitle: "Interactive Computer Science Mini-Lessons for Beginners"
+format:
+  html:
+    toc: false
+---
+
+::: {.hero}
+# 🚀 Welcome to CS Quest!
+
+Embark on an exciting journey through the world of computer science. Each quest is a 5-minute adventure that teaches you something amazing about coding!
+:::
+
+## 🎯 What is CS Quest?
+
+CS Quest is a collection of interactive mini-lessons designed to make learning computer science **fun**, **engaging**, and **hands-on**. Each quest takes about 5 minutes and includes:
+
+- 📖 An exciting story or scenario
+- 💡 Clear explanations with examples
+- 🎮 Interactive challenges and puzzles
+- 👨‍💻 Python code you can edit and run
+- ✅ Solutions to check your work
+
+
+These lessons are perfect for beginners who want to learn the basics of programming, as well as for anyone looking to refresh their coding skills in a fun way! Questions and feedback are always welcome!
+
+* Contact: Oliver Bonham-Carter
+* Email: obonhamcarter at allegheny.edu
+  * website: [https://www.oliverbonhamcarter.com](https://www.oliverbonhamcarter.com)
+* Allegheny College: Department of Computer and Information Science
+  * website: [https://cs.allegheny.edu](https://cs.allegheny.edu)
+
+## � Three Ways to Code Interactively
+
+::: {.highlight-box .highlight-info}
+**Choose your preferred coding environment:**
+
+1. **📝 On Lesson Pages** - Edit and run code directly in each lesson
+2. **🚀 JupyterLite** - Full Jupyter environment in your browser ([Launch Now →](jupyterlite/lab/index.html))
+3. **📥 Download Notebooks** - Use in local Jupyter or Google Colab
+
+[Learn more about interactive options →](interactive.qmd)
+:::
+
+## �🗺️ Your Quest Map
+
+<div class="quest-grid">
+
+::: {.quest-card}
+### 🎒 Quest 1: Variables
+**Your Coding Backpack**
+
+Learn how to store and use information in your programs. Variables are like labeled containers that hold your data!
+
+[Start Quest →](lessons/01-variables.qmd)
+:::
+
+::: {.quest-card}
+### 🔷 Quest 2: Data Types
+**Shapes of Information**
+
+Discover the different types of data you can work with: numbers, text, and more!
+
+[Start Quest →](lessons/02-data-types.qmd)
+:::
+
+::: {.quest-card}
+### 🛤️ Quest 3: Conditionals
+**Choose Your Path**
+
+Make your programs smart by teaching them to make decisions with if/else statements.
+
+[Start Quest →](lessons/03-conditionals.qmd)
+:::
+
+::: {.quest-card}
+### 🔄 Quest 4: Loops
+**The Power of Repetition**
+
+Why write the same code 100 times when you can use a loop? Master the art of repetition!
+
+[Start Quest →](lessons/04-loops.qmd)
+:::
+
+::: {.quest-card}
+### 📜 Quest 5: Lists
+**Collecting Treasures**
+
+Learn to organize multiple items in a single collection. Lists are like treasure chests for your data!
+
+[Start Quest →](lessons/05-lists.qmd)
+:::
+
+::: {.quest-card}
+### ✨ Quest 6: Functions
+**Magic Spells**
+
+Create reusable code "spells" that you can cast whenever you need them!
+
+[Start Quest →](lessons/06-functions.qmd)
+:::
+
+::: {.quest-card}
+### 🗝️ Quest 7: Dictionaries
+**The Key Keeper**
+
+Store data in key-value pairs for quick lookups. Dictionaries are like super-smart phonebooks!
+
+[Start Quest →](lessons/07-dictionaries.qmd)
+:::
+
+::: {.quest-card}
+### 🌟 Quest 8: Fibonacci
+**The Golden Sequence**
+
+Explore one of nature's most beautiful patterns through code!
+
+[Start Quest →](lessons/08-fibonacci.qmd)
+:::
+
+::: {.quest-card}
+### 📊 Quest 9: Sorting
+**Organizing Chaos**
+
+Learn how computers put things in order, from smallest to largest!
+
+[Start Quest →](lessons/09-sorting.qmd)
+:::
+
+::: {.quest-card}
+### 🎲 Quest 10: Number Game
+**Can You Guess It?**
+
+Build your first interactive game! Test your luck and logic.
+
+[Start Quest →](lessons/10-number-game.qmd)
+:::
+
+::: {.quest-card}
+### 🔁 Quest 11: Recursion
+**The Echo Chamber**
+
+Discover the mind-bending concept of functions that call themselves!
+
+[Start Quest →](lessons/11-recursion.qmd)
+:::
+
+::: {.quest-card}
+### ⚡ Quest 12: Big O
+**Speed Matters**
+
+Learn why some code is faster than others and how to measure efficiency!
+
+[Start Quest →](lessons/12-complexity.qmd)
+:::
+
+::: {.quest-card}
+### 🔄 Quest 13: Iterative Loops
+**Journey vs Destination**
+
+Master the differences between for and while loops, and learn when to use each!
+
+[Start Quest →](lessons/13-iterative-loops.qmd)
+:::
+
+::: {.quest-card}
+### ✨ Quest 14: Functions Part 2
+**Non-Returning Functions**
+
+Learn about functions that perform actions without returning values!
+
+[Start Quest →](lessons/14-functions-non-returning.qmd)
+:::
+
+::: {.quest-card}
+### 🎁 Quest 15: Functions Part 3
+**Pure Functions & Return Values**
+
+Master writing functions that compute and return results!
+
+[Start Quest →](lessons/15-functions-returning.qmd)
+:::
+
+::: {.quest-card}
+### ⚡ Quest 16: Lambda Functions
+**Quick Incantations**
+
+Discover one-line anonymous functions for elegant, concise code!
+
+[Start Quest →](lessons/16-lambda-functions.qmd)
+:::
+
+</div>
+
+## 📱 Access on Your Phone!
+
+Each quest has a unique QR code that you can scan with your phone to access the lesson anywhere, anytime! Ask your instructor for the QR code collection.
+
+## 🎓 Ready to Start?
+
+Pick any quest that interests you, or start from Quest 1 and work your way through. There's no right or wrong way to learn—just have fun and keep coding!
+
+::: {.tip-box}
+**💡 Pro Tip**: Each quest is independent, so you can jump around based on what interests you most. But if you're brand new to coding, starting from Quest 1 is a great idea!
+:::
+
+---
+
+<div style="text-align: center; padding: 2rem;">
+**Happy Coding! May your bugs be few and your solutions elegant.** ✨🐛✨
+</div>

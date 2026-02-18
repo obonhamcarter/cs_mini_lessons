@@ -1,0 +1,61 @@
+---
+title: "All Quests"
+subtitle: "Your Complete Adventure Collection"
+---
+
+## 🗺️ Complete Quest List
+
+Here's your complete collection of CS Quest adventures! Each quest is designed to take about 5 minutes and teaches you something exciting about computer science.
+
+### 🌱 Beginner Quests
+
+1. **[Variables - Your Coding Backpack](lessons/01-variables.qmd)** - Learn to store and use data
+2. **[Data Types - Shapes of Information](lessons/02-data-types.qmd)** - Discover different kinds of data
+3. **[Conditionals - Choose Your Path](lessons/03-conditionals.qmd)** - Make decisions in code
+4. **[Loops - The Power of Repetition](lessons/04-loops.qmd)** - Master repetition
+5. **[Lists - Collecting Treasures](lessons/05-lists.qmd)** - Organize multiple items
+
+### 🌿 Intermediate Quests
+
+6. **[Functions - Magic Spells](lessons/06-functions.qmd)** - Create reusable code
+7. **[Dictionaries - The Key Keeper](lessons/07-dictionaries.qmd)** - Store key-value pairs
+8. **[Fibonacci - The Golden Sequence](lessons/08-fibonacci.qmd)** - Explore beautiful patterns
+
+### 🌳 Advanced Quests
+
+9. **[Sorting - Organizing Chaos](lessons/09-sorting.qmd)** - Put things in order
+10. **[Number Game - Can You Guess It?](lessons/10-number-game.qmd)** - Build an interactive game
+11. **[Recursion - The Echo Chamber](lessons/11-recursion.qmd)** - Functions calling themselves
+12. **[Big O - Speed Matters](lessons/12-complexity.qmd)** - Measure code efficiency
+
+### 🏆 Master Quests
+
+13. **[Iterative Loops - Journey vs Destination](lessons/13-iterative-loops.qmd)** - For vs While loops
+14. **[Functions Part 2 - Non-Returning](lessons/14-functions-non-returning.qmd)** - Functions with side effects
+15. **[Functions Part 3 - Returning](lessons/15-functions-returning.qmd)** - Pure functions and results
+16. **[Lambda Functions - Quick Incantations](lessons/16-lambda-functions.qmd)** - One-line anonymous functions
+
+---
+
+## 📈 Track Your Progress
+
+- [ ] Quest 1: Variables
+- [ ] Quest 2: Data Types
+- [ ] Quest 3: Conditionals
+- [ ] Quest 4: Loops
+- [ ] Quest 5: Lists
+- [ ] Quest 6: Functions
+- [ ] Quest 7: Dictionaries
+- [ ] Quest 8: Fibonacci
+- [ ] Quest 9: Sorting
+- [ ] Quest 10: Number Game
+- [ ] Quest 11: Recursion
+- [ ] Quest 12: Big O
+- [ ] Quest 13: Iterative Loops
+- [ ] Quest 14: Functions Part 2
+- [ ] Quest 15: Functions Part 3
+- [ ] Quest 16: Lambda Functions
+
+::: {.tip-box}
+**🎯 Challenge**: Can you complete all 16 quests? Each one adds a new tool to your coding toolkit!
+:::

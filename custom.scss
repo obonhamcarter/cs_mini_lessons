@@ -1,0 +1,239 @@
+/*-- scss:defaults --*/
+
+// Import fonts
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap');
+
+// Colors - Fun and vibrant palette
+$primary: #6366f1;
+$secondary: #ec4899;
+$success: #10b981;
+$info: #06b6d4;
+$warning: #f59e0b;
+$danger: #ef4444;
+$light: #f8fafc;
+$dark: #1e293b;
+
+// Typography
+$font-family-sans-serif: 'Poppins', system-ui, -apple-system, sans-serif;
+$font-family-monospace: 'Fira Code', monospace;
+$headings-font-weight: 700;
+
+// Spacing
+$spacer: 1rem;
+
+/*-- scss:rules --*/
+
+// Quest theme styling
+.quest-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, $primary, $secondary);
+  color: white;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.story-box {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-left: 4px solid $warning;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.concept-box {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-left: 4px solid $info;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.challenge-box {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+  border-left: 4px solid $secondary;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.solution-box {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-left: 4px solid $success;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.tip-box {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  border-left: 4px solid $primary;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+// Interactive code areas
+.interactive-code {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.code-output {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  font-family: $font-family-monospace;
+  font-size: 0.9rem;
+  border: 1px solid #e5e7eb;
+}
+
+// Quarto code blocks - light background with dark text
+.sourceCode {
+  background: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+pre {
+  background: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+// Pyodide/CodeMirror editor styling
+.cm-editor {
+  background: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+.cm-content {
+  background: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+.cm-gutters {
+  background: #e5e7eb !important;
+  border-right: 1px solid #d1d5db !important;
+  color: #6b7280 !important;
+}
+
+.cm-cursor {
+  border-left-color: #1f2937 !important;
+}
+
+.cm-line {
+  color: #1f2937 !important;
+}
+
+// Syntax highlighting for all code elements
+code {
+  background: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+// Pandoc/Quarto syntax highlighting overrides
+// Keywords
+.kw {
+  color: #7c3aed !important;  // Purple for keywords
+  font-weight: 600;
+}
+
+// Strings
+.st {
+  color: #059669 !important;  // Green for strings
+}
+
+// Comments
+.co {
+  color: #6b7280 !important;  // Grey for comments
+  font-style: italic;
+}
+
+// Numbers
+.dv, .bn, .fl {
+  color: #d97706 !important;  // Orange for numbers
+}
+
+// Functions
+.fu {
+  color: #0369a1 !important;  // Blue for function names
+}
+
+// Built-in functions
+.in {
+  color: #059669 !important;  // Green for built-ins
+}
+
+// Attributes/names
+.at, .bn, .na {
+  color: #1f2937 !important;
+}
+
+// Operators
+.op {
+  color: #6b7280 !important;
+}
+
+// All HLJS classes with light background
+.hljs {
+  background: #f3f4f6 !important;
+  color: #1f2937 !important;
+}
+
+.hljs-literal,
+.hljs-number,
+.hljs-attr {
+  color: #d97706 !important;
+}
+
+.hljs-string {
+  color: #059669 !important;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0369a1 !important;
+}
+
+.hljs-title,
+.hljs-name {
+  color: #1f2937 !important;
+}
+
+.hljs-keyword {
+  color: #7c3aed !important;
+}
+
+.hljs-comment {
+  color: #6b7280 !important;
+}
+
+.hljs-meta {
+  color: #6b7280 !important;
+}
+
+// Quest completion
+.quest-complete {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #d1fae5 100%);
+  border-radius: 1rem;
+  margin: 2rem 0;
+  
+  h3 {
+    color: $success;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+// Emoji styling
+.emoji {
+  font-size: 1.5em;
+  vertical-align: middle;
+}

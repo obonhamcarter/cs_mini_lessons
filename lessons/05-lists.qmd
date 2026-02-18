@@ -1,0 +1,304 @@
+---
+title: "Quest 5: Lists - Collecting Treasures"
+subtitle: "Learn to Organize Multiple Items in Python"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+📜 QUEST 5 | Difficulty: Beginner | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=05-lists.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/05-lists.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Treasure Chest
+
+You're collecting items on your adventure: a sword, a shield, three health potions, a map, and a mysterious key. How do you keep track of everything?
+
+You could use separate variables:
+```python
+item1 = "sword"
+item2 = "shield"
+item3 = "health potion"
+# This gets messy fast! 😵
+```
+
+Or you could use a **list** - a single container that holds all your items in order!
+
+::: {.story-box}
+**🎒 Story Time**: Think of a list like your adventure backpack. It holds multiple items, keeps them in order, and you can add or remove things as you go. You can even check what's at specific positions, like "What's in pocket number 3?"
+:::
+
+## 💡 Explanation: What are Lists?
+
+A **list** is an ordered collection of items. Lists are:
+- Created with square brackets `[]`
+- Can hold different types of data
+- Items are ordered and indexed (starting from 0!)
+- Mutable (you can change them)
+
+```python
+# Creating lists
+inventory = ["sword", "shield", "potion"]
+scores = [100, 95, 87, 92]
+mixed = [1, "hello", True, 3.14]
+empty = []
+```
+
+::: {.concept-box}
+**📊 List Indexing**:
+
+Items in a list have positions (indices) starting from 0:
+
+```python
+fruits = ["apple", "banana", "cherry", "date"]
+#         0        1         2         3
+```
+
+Access items: **Negative indices count from the end**:
+```python
+print(fruits[0])   # "apple"
+print(fruits[2])   # "cherry"
+print(fruits[-1])  # "date" (last item)
+print(fruits[-2])  # "cherry" (second from end)
+```
+:::
+
+## 🎮 Activity: Manage Your Inventory
+
+Let's create and manipulate an adventure inventory:
+
+```{pyodide-python}
+# Start with some basic items
+inventory = ["torch", "rope", "map"]
+
+print("=== INVENTORY SYSTEM ===")
+print(f"Starting inventory: {inventory}")
+print(f"Number of items: {len(inventory)}")
+print()
+
+# Add items
+inventory.append("health potion")
+print("Found a health potion!")
+print(f"Updated inventory: {inventory}")
+print()
+
+# Add multiple items at once
+inventory.extend(["sword", "shield"])
+print("Equipped sword and shield!")
+print(f"Updated inventory: {inventory}")
+print()
+
+# Access specific items
+print(f"First item: {inventory[0]}")
+print(f"Last item: {inventory[-1]}")
+print(f"Third item: {inventory[2]}")
+print()
+
+# Remove items
+used_item = inventory.pop()  # Removes and returns last item
+print(f"Removed: {used_item}")
+print(f"Current inventory: {inventory}")
+
+# Try changing the starting items or adding different ones!
+```
+
+::: {.challenge-box}
+**🎯 Challenge**: 
+
+1. Add a "magic wand" to the inventory
+2. Remove the "rope" using `inventory.remove("rope")`
+3. Insert a "compass" at position 1 using `inventory.insert(1, "compass")`
+4. Print the total number of items
+:::
+
+## 👨‍💻 Code Example: List Operations
+
+Lists have many useful methods and operations:
+
+```{pyodide-python}
+# Battle scores
+scores = [85, 92, 78, 95, 88]
+
+print("=== SCORE TRACKER ===")
+print(f"All scores: {scores}")
+print()
+
+# Statistics
+print(f"Highest score: {max(scores)}")
+print(f"Lowest score: {min(scores)}")
+print(f"Total points: {sum(scores)}")
+print(f"Average: {sum(scores) / len(scores):.2f}")
+print()
+
+# Sorting
+scores_sorted = sorted(scores)  # Returns new sorted list
+print(f"Sorted (ascending): {scores_sorted}")
+print(f"Sorted (descending): {sorted(scores, reverse=True)}")
+print()
+
+# Check if item exists
+if 95 in scores:
+    print("✅ Perfect score achieved!")
+
+if 100 in scores:
+    print("✅ Master score achieved!")
+else:
+    print("❌ Master score not yet achieved")
+
+# Count occurrences
+scores_with_repeats = [85, 92, 85, 95, 85, 88]
+print(f"\nScore 85 appears {scores_with_repeats.count(85)} times")
+```
+
+::: {.tip-box}
+**💡 Common List Methods**:
+
+- `list.append(item)` - Add item to end
+- `list.remove(item)` - Remove first occurrence
+- `list.pop()` - Remove and return last item
+- `list.insert(index, item)` - Insert at position
+- `list.sort()` - Sort the list in place
+- `list.reverse()` - Reverse the list in place
+- `len(list)` - Get number of items
+:::
+
+## 🧩 Puzzle Time!
+
+What will this code produce? Think through it, then run:
+
+```{pyodide-python}
+# The Mystery List
+mystery = [10, 20, 30, 40, 50]
+
+mystery.append(60)
+mystery.insert(0, 5)
+mystery.remove(30)
+mystery.pop()
+
+print(mystery)
+
+# Can you trace through each operation?
+# What's in the final list?
+```
+
+::: {.solution-box}
+**🔑 Solution Explained**:
+
+The final list is: `[5, 10, 20, 40, 50]`
+
+**Step-by-step trace**:
+
+1. **Start**: `[10, 20, 30, 40, 50]`
+
+2. **After `append(60)`**: `[10, 20, 30, 40, 50, 60]`
+   - Adds 60 to the end
+
+3. **After `insert(0, 5)`**: `[5, 10, 20, 30, 40, 50, 60]`
+   - Inserts 5 at position 0 (beginning)
+
+4. **After `remove(30)`**: `[5, 10, 20, 40, 50, 60]`
+   - Removes the first occurrence of 30
+
+5. **After `pop()`**: `[5, 10, 20, 40, 50]`
+   - Removes the last item (60)
+
+**Key insight**: Each method modifies the list in place. The order of operations matters!
+:::
+
+## 🎮 Bonus: Slicing Lists
+
+You can extract portions of a list using slicing:
+
+```{pyodide-python}
+# List slicing
+items = ["helmet", "armor", "sword", "shield", "boots", "gloves"]
+
+print("Full inventory:", items)
+print()
+
+# Slicing: list[start:end] (end is exclusive!)
+print("First 3 items:", items[0:3])    # or items[:3]
+print("Last 3 items:", items[3:6])     # or items[3:]
+print("Middle items:", items[2:4])
+print()
+
+# Advanced slicing
+print("Every other item:", items[::2])
+print("Reverse order:", items[::-1])
+print()
+
+# Copying a list
+inventory_copy = items[:]  # or items.copy()
+inventory_copy.append("ring")
+print("Original:", items)
+print("Copy:", inventory_copy)
+
+# Notice the original didn't change!
+```
+
+## 🎯 Key Takeaways
+
+::: {.quest-complete}
+### ✨ Quest 5 Complete! ✨
+
+You've learned:
+
+✅ Lists store multiple items in order  
+✅ Lists are indexed starting from 0  
+✅ Use methods like append(), remove(), pop(), insert()  
+✅ Access items with bracket notation: `list[index]`  
+✅ Lists can be sliced, sorted, and reversed  
+✅ Use `len()`, `max()`, `min()`, `sum()` for analysis
+
+**Next Quest**: Ready to create reusable code? Try [Quest 6: Functions](06-functions.qmd)!
+:::
+
+## 🚀 Try This at Home!
+
+Create a to-do list manager:
+
+```python
+# Simple to-do list
+tasks = ["Learn Python", "Build a game", "Read a book"]
+
+print("MY TO-DO LIST")
+for i, task in enumerate(tasks, 1):
+    print(f"{i}. {task}")
+
+# Add new task
+tasks.append("Practice coding")
+
+# Mark a task as done (remove it)
+completed = tasks.pop(0)
+print(f"\nCompleted: {completed}")
+print(f"Remaining: {tasks}")
+```
+
+Or make a high score tracker:
+
+```python
+high_scores = [1500, 1200, 1000, 950, 800]
+new_score = 1100
+
+high_scores.append(new_score)
+high_scores.sort(reverse=True)
+high_scores = high_scores[:5]  # Keep only top 5
+
+print("Top 5 High Scores:")
+for rank, score in enumerate(high_scores, 1):
+    print(f"{rank}. {score} points")
+```
+
+---
+
+::: {.tip-box}
+**📱 Excellent Progress!** Lists are essential in almost every program. Master them! 📋
+:::

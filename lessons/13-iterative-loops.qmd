@@ -1,0 +1,213 @@
+---
+title: "Quest 13: Iterative Loops - The Journey vs The Destination"
+subtitle: "Understanding For Loops vs While Loops"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+🔄 QUEST 13 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=13-iterative-loops.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/13-iterative-loops.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: Two Paths Up the Mountain
+
+Imagine you're climbing a mountain. You can take two approaches:
+
+**Path 1 (The Map)**: You know there are 10 checkpoints. You hike to each one in order: checkpoint 1, 2, 3... checkpoint 10. Done. (**For Loop**)
+
+**Path 2 (The Rule)**: You hike until the sky clears (checking every step). Once you see clear skies, you stop. (**While Loop**)
+
+Both get you up the mountain, but:
+- **For loops**: You know in advance how many iterations
+- **While loops**: You iterate **until** a condition becomes false
+
+::: {.story-box}
+**🏔️ Story Time**: You're leading adventurers up a treacherous mountain. Some paths have markers at each section (for loops). Others just have a rule: "Keep climbing until the path is clear" (while loops). A skilled adventurer knows which tool suits the situation!
+:::
+
+## 💡 Comparison: For vs While
+
+### **For Loop: When You KNOW The Count**
+
+```python
+# Example: Exactly 5 doors to check
+for i in range(5):
+    print(f"Checking door {i}")
+```
+
+**Use `for` when:**
+- ✅ Iterating through a known collection (list, string, range)
+- ✅ You know exactly how many iterations you need
+- ✅ Processing each item in a sequence
+
+### **While Loop: When You DON'T Know When to Stop**
+
+```python
+# Example: Keep searching until you find the magic door
+magic_door_found = False
+door_number = 0
+
+while not magic_door_found:
+    print(f"Checking door {door_number}")
+    if door_number == 42:
+        magic_door_found = True
+    door_number += 1
+```
+
+**Use `while` when:**
+- ✅ You don't know how many iterations in advance
+- ✅ You're responding to a condition being true/false
+- ✅ You need to ask "should I continue?" at each step
+
+::: {.concept-box}
+**🎯 The Key Difference**
+
+| Feature | For Loop | While Loop |
+|---------|----------|-----------|
+| **When to use** | Count known | Count unknown |
+| **Iteration count** | Set in advance | Determined by condition |
+| **Best for** | Collections, sequences | Conditions, searches |
+| **Danger** | None (bounds are fixed) | Infinite loops if condition never becomes false! |
+:::
+
+## 🎮 Activity: Search Patterns
+
+Let's see both approaches solving the same problem:
+
+```{pyodide-python}
+# PROBLEM: Find a specific treasure in a list
+
+treasures = ["Coal", "Copper", "Gold", "Diamond", "Emerald"]
+target = "Diamond"
+
+print("=" * 50)
+print("METHOD 1: FOR LOOP (We know the list size)")
+print("=" * 50)
+
+for i in range(len(treasures)):
+    print(f"Checking position {i}: {treasures[i]}")
+    if treasures[i] == target:
+        print(f"🎉 Found {target} at position {i}!")
+        break  # Stop searching
+    else:
+        print("  Not this one...")
+
+print()
+print("=" * 50)
+print("METHOD 2: WHILE LOOP (Keep searching until found)")
+print("=" * 50)
+
+position = 0
+found = False
+
+while not found and position < len(treasures):
+    print(f"Checking position {position}: {treasures[position]}")
+    if treasures[position] == target:
+        print(f"🎉 Found {target} at position {position}!")
+        found = True
+    else:
+        print("  Not this one...")
+    position += 1
+```
+
+## 🧩 Challenge: The Treasure Chest
+
+Write code that:
+1. Uses a **while loop** to generate random treasure values between 1-100
+2. Stops when you find a piece of treasure worth 80 or more
+3. Count how many treasures you had to check before finding a valuable one
+
+```{pyodide-python}
+import random
+
+# Challenge: Hunt for treasure using a while loop
+# Keep checking treasures until you find one worth 80+ gold
+
+treasures_checked = 0
+valuable_treasure_found = False
+
+# YOUR CODE HERE: Write a while loop that:
+# - Generates random values (hint: random.randint(1, 100))
+# - Checks if value >= 80
+# - Stops when found
+# - Counts how many you checked
+
+# Uncomment when ready to test:
+# print(f"Checked {treasures_checked} treasures")
+# print(f"Found valuable treasure: {valuable_treasure_found}")
+```
+
+## ✅ Solution
+
+```{pyodide-python}
+import random
+
+treasures_checked = 0
+valuable_treasure_found = False
+
+# Solution: Hunt for valuable treasure
+while not valuable_treasure_found:
+    treasure_value = random.randint(1, 100)
+    treasures_checked += 1
+    
+    print(f"Treasure #{treasures_checked}: {treasure_value} gold", end=" ")
+    
+    if treasure_value >= 80:
+        print("💎 JACKPOT!")
+        valuable_treasure_found = True
+    else:
+        print("(not valuable enough)")
+
+print()
+print(f"💰 Took {treasures_checked} checks to find valuable treasure!")
+```
+
+## 🔄 Bonus: When to Use `break` and `continue`
+
+Two special loop control keywords:
+
+```{pyodide-python}
+print("=" * 50)
+print("BREAK: Stop the loop immediately")
+print("=" * 50)
+
+for i in range(10):
+    if i == 5:
+        print("  Found the target! Stopping...")
+        break  # Exit the loop
+    else:
+        print(f"  Checking {i}...")
+
+print()
+print("=" * 50)
+print("CONTINUE: Skip to next iteration")
+print("=" * 50)
+
+for i in range(5):
+    if i == 2:
+        print(f"  Skipping {i}")
+        continue  # Jump to next iteration
+    else:
+        print(f"  Processing {i}...")
+```
+
+## 🎓 What You Learned
+
+✨ **For loops** are for counting through sequences
+✨ **While loops** are for repeating until a condition changes
+✨ **break** exits a loop immediately
+✨ **continue** skips to the next iteration
+✨ Both can solve the same problem—pick based on your knowledge!
+
+## 🚀 What's Next?
+
+Ready to write smarter code? Check out **Quest 14: Functions Part 2 - Non-Returning Functions** to learn about functions that do things without returning values!

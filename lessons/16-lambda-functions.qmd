@@ -1,0 +1,290 @@
+---
+title: "Quest 16: Lambda Functions - Quick Incantations"
+subtitle: "Writing One-Line Anonymous Functions"
+format:
+  html:
+    code-tools: true
+---
+
+::: {.quest-badge}
+⚡ QUEST 16 | Difficulty: Intermediate | Time: 5 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=16-lambda-functions.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../jupyterlite/content/16-lambda-functions.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Shortcut Spell
+
+A **lambda function** is a tiny anonymous function—a shortcut when you need a simple function for just a moment.
+
+**The Analogy**: 
+- **Regular function**: A formal spell you memorize and use many times
+- **Lambda function**: A quick gesture or whisper you use once, right when you need it
+
+```python
+# Regular function - reusable
+def add(a, b):
+    return a + b
+
+result = add(3, 4)  # 7
+
+# Lambda function - one-time use
+add_lambda = lambda a, b: a + b
+result = add_lambda(3, 4)  # 7 (same result, one line!)
+```
+
+::: {.story-box}
+**⚡ Story Time**: The senior mages carry spell books (regular functions) for spells they use often. But for quick tricks, they use a single incantation phrase (lambda) without needing the full ceremony. You're learning the quick incantations!
+:::
+
+## 💡 Explanation: Lambda Syntax
+
+```python
+lambda parameters: expression
+```
+
+**Anatomy**:
+- `lambda` - keyword that marks it as a lambda
+- `parameters` - inputs (can be multiple)
+- `:` - separator
+- `expression` - single expression to evaluate and return
+
+::: {.concept-box}
+**🎯 Lambda vs Regular Functions**
+
+```python
+# REGULAR FUNCTION
+def multiply(x, y):
+    return x * y
+
+# EQUIVALENT LAMBDA
+multiply = lambda x, y: x * y
+
+# Both work identically
+print(multiply(3, 4))  # 12
+```
+
+**Key Point**: Lambdas can **only** contain a single expression (no loops, no multiple statements). They automatically return the result!
+:::
+
+## 🎮 Activity 1: Simple Lambda Functions
+
+Using lambdas for quick calculations:
+
+```{pyodide-python}
+# Create simple lambdas
+
+square = lambda x: x ** 2
+double = lambda x: x * 2
+greet = lambda name: f"Greetings, {name}!"
+
+# Use them like regular functions
+print(f"5 squared: {square(5)}")
+print(f"7 doubled: {double(7)}")
+print(greet("Hero"))
+
+# Lambdas with multiple parameters
+distance = lambda x1, y1, x2, y2: ((x2-x1)**2 + (y2-y1)**2) ** 0.5
+midpoint = lambda x1, y1, x2, y2: ((x1+x2)/2, (y1+y2)/2)
+
+print()
+print("📍 DISTANCE AND MIDPOINT")
+d = distance(0, 0, 3, 4)
+print(f"Distance from (0,0) to (3,4): {d:.2f}")
+
+mid = midpoint(0, 0, 10, 10)
+print(f"Midpoint of (0,0) and (10,10): {mid}")
+```
+
+## 🎮 Activity 2: Lambda with map()
+
+**`map(function, list)`** applies a function to every item:
+
+```{pyodide-python}
+# Apply a function to a whole list
+
+numbers = [1, 2, 3, 4, 5]
+
+# Double all numbers
+doubled = list(map(lambda x: x * 2, numbers))
+print(f"Original: {numbers}")
+print(f"Doubled: {doubled}")
+
+# Convert to power of 2
+squared = list(map(lambda x: x**2, numbers))
+print(f"Squared: {squared}")
+
+# Apply damage calculation to attacks
+attacks = [50, 30, 45, 60]
+armor = 10
+reduced_damage = list(map(lambda dmg: max(0, dmg - armor), attacks))
+
+print()
+print(f"Attacks: {attacks}")
+print(f"After 10 armor: {reduced_damage}")
+```
+
+## 🎮 Activity 3: Lambda with filter()
+
+**`filter(function, list)`** keeps only items where function returns True:
+
+```{pyodide-python}
+# Keep only items matching a condition
+
+numbers = [10, 25, 3, 42, 17, 31, 5]
+
+# Keep only numbers >= 20
+high_numbers = list(filter(lambda x: x >= 20, numbers))
+print(f"All numbers: {numbers}")
+print(f"Numbers >= 20: {high_numbers}")
+
+# Game inventory - keep valuable items
+items = [
+    ("Copper Coin", 1),
+    ("Silver Coin", 5),
+    ("Gold Coin", 10),
+    ("Broken Glass", 0),
+    ("Diamond", 100)
+]
+
+valuable = list(filter(lambda item: item[1] >= 5, items))
+
+print()
+print("📦 ALL ITEMS:")
+for name, value in items:
+    print(f"  {name}: {value} gold")
+
+print("\n💰 VALUABLE ITEMS (5+ gold):")
+for name, value in valuable:
+    print(f"  {name}: {value} gold")
+```
+
+## 🎮 Activity 4: Lambda with sort()
+
+**`sorted(list, key=function)`** sorts using a function to extract sorting keys:
+
+```{pyodide-python}
+# Sort using a lambda function
+
+# Characters with stats
+characters = [
+    ("Warrior", 100, 50),  # (name, health, mana)
+    ("Mage", 40, 150),
+    ("Rogue", 60, 40),
+    ("Paladin", 120, 80)
+]
+
+# Sort by health (index 1)
+by_health = sorted(characters, key=lambda c: c[1], reverse=True)
+
+print("🗡️  CHARACTERS SORTED BY HEALTH:")
+for name, health, mana in by_health:
+    print(f"  {name}: {health} HP")
+
+# Sort by mana (index 2)
+by_mana = sorted(characters, key=lambda c: c[2], reverse=True)
+
+print("\n✨ CHARACTERS SORTED BY MANA:")
+for name, health, mana in by_mana:
+    print(f"  {name}: {mana} Mana")
+
+# Sort a list of words by length
+words = ["dragon", "spell", "a", "incantation", "magic"]
+by_length = sorted(words, key=lambda w: len(w))
+
+print(f"\n📝 Words sorted by length: {by_length}")
+```
+
+## 🎮 Bonus: Lambda in Real Game Scenarios
+
+```{pyodide-python}
+# SCENARIO: Filter and rank treasures
+
+treasures = [
+    {"name": "Gold", "rarity": 1, "value": 10},
+    {"name": "Diamond", "rarity": 4, "value": 100},
+    {"name": "Ruby", "rarity": 3, "value": 50},
+    {"name": "Copper", "rarity": 1, "value": 1},
+    {"name": "Emerald", "rarity": 3, "value": 75},
+]
+
+# Find rare treasures
+rare = list(filter(lambda t: t["rarity"] >= 3, treasures))
+
+# Sort by value
+ranked = sorted(rare, key=lambda t: t["value"], reverse=True)
+
+print("💎 RARE TREASURES (Rarity 3+), ranked by value:")
+for treasure in ranked:
+    print(f"  {treasure['name']}: {treasure['value']} gold (rarity {treasure['rarity']})")
+```
+
+## 🧩 Challenge: Use Lambda with a List
+
+Given a list of player scores, use lambda with:
+1. **map()** to multiply each score by 2
+2. **filter()** to keep only scores >= 150
+3. **sorted()** to sort from highest to lowest
+
+```{pyodide-python}
+scores = [75, 100, 90, 200, 50, 180, 120]
+
+# Challenge: Use lambdas with map, filter, and sort
+# 1. Double all scores using map
+# doubled = list(map(...)
+#
+# 2. Keep only scores >= 150 using filter
+# high_scores = list(filter(...)
+#
+# 3. Sort from highest to lowest using sorted
+# ranked = sorted(...)
+
+# Uncomment when ready:
+# print(f"Doubled: {doubled}")
+# print(f"High scores (150+): {high_scores}")
+# print(f"Ranked: {ranked}")
+```
+
+## ✅ Solution
+
+```{pyodide-python}
+scores = [75, 100, 90, 200, 50, 180, 120]
+
+# Solution
+doubled = list(map(lambda x: x * 2, scores))
+high_scores = list(filter(lambda x: x >= 150, doubled))
+ranked = sorted(high_scores, reverse=True)
+
+print(f"Original scores: {scores}")
+print(f"Doubled scores: {doubled}")
+print(f"High scores (150+): {high_scores}")
+print(f"Ranked from highest: {ranked}")
+```
+
+## 🎓 When to Use Lambda
+
+✨ Use lambda for:
+- ✅ Quick one-line functions
+- ✅ Sorting with custom rules
+- ✅ Filtering lists
+- ✅ Transforming data with map()
+
+❌ Don't use lambda for:
+- ❌ Complex multi-line logic
+- ❌ Functions you'll use many times (use `def` instead)
+- ❌ When readability suffers
+
+## 🚀 You've Mastered Functions!
+
+You now know:
+- ✨ Regular functions (`def`)
+- ✨ Functions without return values
+- ✨ Functions that return values
+- ✨ Lambda functions (quick one-liners)
+
+You're ready to write sophisticated, elegant Python code! 🎉
