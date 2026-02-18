@@ -66,7 +66,7 @@ website:
             file: lessons/16-lambda-functions.qmd
 
 format:
-  html:
+  live-html:
     theme: 
       - cosmo
       - custom.scss
@@ -79,6 +79,11 @@ format:
     fontsize: 1.1em
     linestretch: 1.7
     fig-cap-location: bottom
+    pyodide:
+      cell-options:
+        edit: true
+        runbutton: true
+        startover: true
     
 execute:
   freeze: auto

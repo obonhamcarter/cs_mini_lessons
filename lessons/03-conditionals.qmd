@@ -2,8 +2,8 @@
 title: "Quest 3: Conditionals - Choose Your Path"
 subtitle: "Make Decisions in Your Code with If/Else"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

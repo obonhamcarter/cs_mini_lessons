@@ -2,8 +2,8 @@
 title: "Quest 5: Lists - Collecting Treasures"
 subtitle: "Learn to Organize Multiple Items in Python"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

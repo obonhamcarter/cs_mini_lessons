@@ -2,8 +2,8 @@
 title: "Quest 12: Big O - Speed Matters"
 subtitle: "Learn Why Some Code is Faster Than Others"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

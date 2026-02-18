@@ -2,8 +2,8 @@
 title: "Quest 13: Iterative Loops - The Journey vs The Destination"
 subtitle: "Understanding For Loops vs While Loops"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

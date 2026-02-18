@@ -2,8 +2,8 @@
 title: "Quest 10: Number Game - Can You Guess It?"
 subtitle: "Build Your First Interactive Game"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

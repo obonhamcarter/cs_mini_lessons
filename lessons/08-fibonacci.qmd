@@ -2,8 +2,8 @@
 title: "Quest 8: Fibonacci - The Golden Sequence"
 subtitle: "Explore Nature's Most Beautiful Mathematical Pattern"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

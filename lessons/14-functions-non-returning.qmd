@@ -2,8 +2,8 @@
 title: "Quest 14: Functions Part 2 - Side Effects & Procedures"
 subtitle: "Functions That Do Things Without Returning Values"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

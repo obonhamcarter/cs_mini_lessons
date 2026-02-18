@@ -2,7 +2,7 @@
 title: "Quest 2: Data Types - Shapes of Information"
 subtitle: "Discover the Different Kinds of Data in Python"
 format:
-  html:
+  live-html:
     code-tools: true
 ---
 

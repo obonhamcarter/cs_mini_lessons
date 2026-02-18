@@ -2,8 +2,8 @@
 title: "Quest 9: Sorting - Organizing Chaos"
 subtitle: "Learn How Computers Put Things in Order"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

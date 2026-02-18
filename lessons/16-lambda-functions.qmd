@@ -2,8 +2,8 @@
 title: "Quest 16: Lambda Functions - Quick Incantations"
 subtitle: "Writing One-Line Anonymous Functions"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

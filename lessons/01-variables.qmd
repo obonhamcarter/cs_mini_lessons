@@ -2,7 +2,7 @@
 title: "Quest 1: Variables - Your Coding Backpack"
 subtitle: "Learn to Store and Use Information in Python"
 format:
-  html:
+  live-html:
     code-tools: true
 ---
 

@@ -2,8 +2,8 @@
 title: "Quest 6: Functions - Magic Spells"
 subtitle: "Create Reusable Code with Functions"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

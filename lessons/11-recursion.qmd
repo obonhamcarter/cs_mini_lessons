@@ -2,8 +2,8 @@
 title: "Quest 11: Recursion - The Echo Chamber"
 subtitle: "Discover Functions That Call Themselves"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

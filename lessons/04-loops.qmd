@@ -2,8 +2,8 @@
 title: "Quest 4: Loops - The Power of Repetition"
 subtitle: "Master the Art of Repeating Actions in Python"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

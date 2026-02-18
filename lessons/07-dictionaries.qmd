@@ -2,8 +2,8 @@
 title: "Quest 7: Dictionaries - The Key Keeper"
 subtitle: "Store Data in Key-Value Pairs"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}

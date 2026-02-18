@@ -2,8 +2,8 @@
 title: "Quest 15: Functions Part 3 - Pure Functions & Return Values"
 subtitle: "Writing Functions That Compute and Return Results"
 format:
-  html:
-    code-tools: true
+    live-html:
+        code-tools: true
 ---
 
 ::: {.quest-badge}
