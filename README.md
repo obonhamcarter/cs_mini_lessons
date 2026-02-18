@@ -160,7 +160,7 @@ This project includes a GitHub Actions workflow (`.github/workflows/deploy.yml`)
 The workflow:
 - ✅ Installs Quarto
 - ✅ Installs Python 3.11
-- ✅ Installs JupyterLite (`jupyterlite-core` and `jupyterlite-pyodide-kernel`)
+- ✅ Installs JupyterLite (`jupyterlite-core`, `jupyterlite-pyodide-kernel`, and `jupyter-server`)
 - ✅ Renders all 16 lessons as HTML
 - ✅ Builds JupyterLite lab environment
 - ✅ Deploys combined `_site` folder to GitHub Pages
