@@ -77,6 +77,8 @@ format:
       - cosmo
       - custom.scss
     css: styles.css
+    include-in-header:
+      - theme-toggle.js
     toc: true
     toc-depth: 2
     code-copy: true
