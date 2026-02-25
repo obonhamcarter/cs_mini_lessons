@@ -2,7 +2,7 @@
 title: "CS Quest - Coding Adventures"
 subtitle: "Interactive Computer Science Mini-Lessons for Beginners"
 format:
-  html:
+  live-html:
     toc: false
 ---
 

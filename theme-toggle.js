@@ -31,8 +31,7 @@
   }
 
   function createToggle() {
-    const rightNav = document.querySelector("#quarto-header .navbar-nav.ms-auto") ||
-      document.querySelector("#quarto-header .navbar-nav");
+    const rightNav = document.querySelector("#quarto-header .navbar-nav.ms-auto");
 
     if (!rightNav || document.getElementById("theme-switch-wrapper")) {
       return;
@@ -68,7 +67,13 @@
     control.appendChild(checkbox);
     control.appendChild(label);
     wrapper.appendChild(control);
-    rightNav.appendChild(wrapper);
+
+    const firstRightNavItem = rightNav.querySelector(":scope > .nav-item");
+    if (firstRightNavItem) {
+      rightNav.insertBefore(wrapper, firstRightNavItem);
+    } else {
+      rightNav.appendChild(wrapper);
+    }
 
     applyTheme(getStoredTheme());
   }
