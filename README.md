@@ -18,6 +18,12 @@ The website includes 12 complete interactive lessons:
 10. **Number Game - Can You Guess It?** - Build an interactive game
 11. **Recursion - The Echo Chamber** - Functions calling themselves
 12. **Big O - Speed Matters** - Algorithm complexity and efficiency
+13. **Iterative Loops** - The Journey vs The Destination
+14. **Functions Part 2** - Side Effects & Procedures
+15. **Functions Part 3** - Pure Functions & Return Values
+16. **Lambda Functions** - Quick Incantations
+
+
 
 ## 🎯 Features
 
