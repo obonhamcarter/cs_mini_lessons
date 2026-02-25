@@ -1,0 +1,343 @@
+---
+title: "Quest 18: Function Decorators - Enchanting Your Spells"
+subtitle: "Add Superpowers to Any Function Without Rewriting It"
+format:
+    live-html:
+        code-tools: true
+---
+
+::: {.quest-badge}
+✨ QUEST 18 | Difficulty: Intermediate | Time: 7 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=18-decorators.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../files/lessons/18-decorators.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: Enchanting Your Spells
+
+Imagine you have a perfectly good fireball spell. It works great! But now your wizard guild wants you to **log every spell cast**, **time how long each spell takes**, and **check that the caster has enough mana** — all *without* changing any of the spells themselves.
+
+That's exactly what **decorators** do in Python! A decorator is a special function that **wraps around another function**, adding extra behaviour before and/or after it runs — all without touching the original code.
+
+::: {.story-box}
+**⚗️ Story Time**: Think of a decorator like an enchanted ring. You put the ring on your finger (your function), and suddenly you shoot *fire* from your fingertips whenever you cast any spell. The ring added a superpower — but your original spell didn't change at all!
+:::
+
+## 💡 Explanation: Building a Decorator Step by Step
+
+Before we use the fancy `@` symbol, let's understand what's happening underneath. A decorator is **just a function that takes a function and returns a new (wrapped) function**.
+
+```python
+def my_decorator(func):
+    def wrapper():
+        print("Before the function runs!")
+        func()
+        print("After the function runs!")
+    return wrapper
+
+def say_hi():
+    print("Hi!")
+
+# Wrap say_hi with my_decorator
+say_hi = my_decorator(say_hi)
+say_hi()
+```
+
+::: {.concept-box}
+**🎯 What Just Happened?**
+
+1. We defined `my_decorator` — it accepts a function and returns a wrapped version
+2. We wrapped `say_hi` by writing `say_hi = my_decorator(say_hi)`
+3. Now calling `say_hi()` runs the *wrapper*, which adds extra behaviour around the original
+
+Python has a shorthand for step 2 — the `@` symbol:
+
+```python
+@my_decorator       # ← This is exactly the same as: say_hi = my_decorator(say_hi)
+def say_hi():
+    print("Hi!")
+```
+
+The `@` syntax is just *syntactic sugar* — a sweeter way to write the same thing!
+:::
+
+## 🎮 Activity 1: Your First Decorator
+
+Let's write a decorator that announces when a spell is cast:
+
+```{pyodide-python}
+# A simple announcement decorator
+
+def announce(func):
+    """Wraps a function to announce its name before running."""
+    def wrapper():
+        print(f"📣 Casting spell: {func.__name__}...")
+        func()
+        print(f"✅ Spell {func.__name__} complete!\n")
+    return wrapper
+
+@announce
+def fireball():
+    print("   🔥 BOOM! Fireball hits the enemy!")
+
+@announce
+def ice_shield():
+    print("   ❄️  Ice shield surrounds you!")
+
+@announce
+def heal():
+    print("   💚 Healing light restores 30 HP!")
+
+# Cast some spells!
+fireball()
+ice_shield()
+heal()
+```
+
+See how all three functions get the same announcement behaviour — even though you only wrote that logic *once* in `announce`?
+
+## 🎮 Activity 2: Decorators with Arguments (Using *args and **kwargs)
+
+Real functions take arguments! Let's make our decorator pass arguments through properly:
+
+```{pyodide-python}
+# Decorators that handle arguments
+
+def shout_result(func):
+    """Wraps a function to shout (uppercase) its return value."""
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)     # Call the original with its arguments
+        if isinstance(result, str):
+            return result.upper() + "!!!"
+        return result
+    return wrapper
+
+@shout_result
+def greet(name):
+    return f"Hello, {name}"
+
+@shout_result
+def combine(word1, word2):
+    return f"{word1} and {word2}"
+
+print(greet("adventurer"))
+print(combine("sword", "shield"))
+
+# Without the decorator, they'd return lowercase:
+# greet("adventurer") → "Hello, adventurer"
+# With the decorator: → "HELLO, ADVENTURER!!!"
+```
+
+::: {.tip-box}
+**💡 What is `*args` and `**kwargs`?**
+
+- `*args` catches any number of positional arguments as a tuple: `func(1, 2, 3)`
+- `**kwargs` catches any keyword arguments as a dict: `func(name="Ali", level=5)`
+- Using both in your wrapper means it works with *any* function, no matter what arguments it takes!
+:::
+
+## 🎮 Activity 3: A Timer Decorator
+
+One of the most common real-world uses of decorators is measuring how long a function takes to run:
+
+```{pyodide-python}
+import time
+
+def timer(func):
+    """Measures and prints how long a function takes to run."""
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        elapsed = end - start
+        print(f"⏱️  {func.__name__} took {elapsed:.4f} seconds")
+        return result
+    return wrapper
+
+@timer
+def slow_calculation(n):
+    """Add up numbers from 0 to n — the slow, loopy way."""
+    total = 0
+    for i in range(n):
+        total += i
+    return total
+
+@timer
+def fast_calculation(n):
+    """Add up numbers using the math formula — instant!"""
+    return n * (n - 1) // 2
+
+result1 = slow_calculation(1_000_000)
+result2 = fast_calculation(1_000_000)
+
+print(f"\nSlow answer:  {result1}")
+print(f"Fast answer:  {result2}")
+print(f"Same result?  {result1 == result2}")
+```
+
+## 🎮 Activity 4: Stacking Decorators
+
+You can stack multiple decorators on a single function! They apply from **bottom to top** (the decorator closest to `def` runs first):
+
+```{pyodide-python}
+# Stacking decorators
+
+def bold(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return f"**{result}**"
+    return wrapper
+
+def exclaim(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result + "!!!"
+    return wrapper
+
+def uppercase(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result.upper()
+    return wrapper
+
+@bold
+@exclaim
+@uppercase
+def announcement(text):
+    return text
+
+# The order of wrapping: uppercase first, then exclaim, then bold
+msg = announcement("quest complete")
+print(msg)
+# uppercase("quest complete") → "QUEST COMPLETE"
+# exclaim  (...)              → "QUEST COMPLETE!!!"
+# bold     (...)              → "**QUEST COMPLETE!!!**"
+
+# Try reordering the decorators and see what changes!
+```
+
+## 🎮 Activity 5: A Practical Decorator — Mana Check
+
+Let's build something that feels like a real game feature — a decorator that checks whether the caster has enough mana before running a spell:
+
+```{pyodide-python}
+# A mana-check decorator factory
+
+def requires_mana(cost):
+    """A decorator FACTORY — returns a decorator that checks mana."""
+    def decorator(func):
+        def wrapper(player, *args, **kwargs):
+            if player["mana"] >= cost:
+                player["mana"] -= cost
+                print(f"💙 Used {cost} mana. Remaining: {player['mana']}")
+                return func(player, *args, **kwargs)
+            else:
+                print(f"❌ Not enough mana! Need {cost}, have {player['mana']}")
+        return wrapper
+    return decorator
+
+@requires_mana(cost=30)
+def fireball(player, target):
+    print(f"🔥 {player['name']} blasts {target} with Fireball!")
+
+@requires_mana(cost=10)
+def magic_missile(player, target):
+    print(f"✨ {player['name']} fires a Magic Missile at {target}!")
+
+@requires_mana(cost=50)
+def blizzard(player, target):
+    print(f"❄️  {player['name']} unleashes Blizzard on {target}!")
+
+# Our hero
+hero = {"name": "Elara", "mana": 70}
+
+print("=== BATTLE BEGIN ===")
+fireball(hero, "Goblin King")     # costs 30 mana
+magic_missile(hero, "Goblin King") # costs 10 mana
+blizzard(hero, "Goblin King")      # costs 50 mana — not enough!
+magic_missile(hero, "Goblin King") # costs 10 mana
+print(f"\nHero mana remaining: {hero['mana']}")
+```
+
+## 🧩 Challenge: Write a Logger Decorator
+
+Write a decorator called `log_call` that prints the function name and its arguments every time it's called.
+
+```{pyodide-python}
+# CHALLENGE: Write a log_call decorator
+
+def log_call(func):
+    def wrapper(*args, **kwargs):
+        # Print something like: "Calling add with args=(3, 4), kwargs={}"
+        # Your code here!
+        pass
+    return wrapper
+
+# Test it like this when ready:
+# @log_call
+# def add(a, b):
+#     return a + b
+#
+# @log_call
+# def greet(name, greeting="Hello"):
+#     return f"{greeting}, {name}!"
+#
+# add(3, 4)
+# greet("adventurer")
+# greet("wizard", greeting="Greetings")
+```
+
+## ✅ Challenge Solution
+
+```{pyodide-python}
+def log_call(func):
+    def wrapper(*args, **kwargs):
+        args_str   = ", ".join(repr(a) for a in args)
+        kwargs_str = ", ".join(f"{k}={v!r}" for k, v in kwargs.items())
+        all_args   = ", ".join(filter(None, [args_str, kwargs_str]))
+        print(f"📋 Calling {func.__name__}({all_args})")
+        result = func(*args, **kwargs)
+        print(f"   ↩ returned: {result!r}")
+        return result
+    return wrapper
+
+@log_call
+def add(a, b):
+    return a + b
+
+@log_call
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+add(3, 4)
+print()
+greet("adventurer")
+print()
+greet("wizard", greeting="Greetings")
+```
+
+## 🎓 Summary
+
+| Decorator Pattern | When to Use |
+|---|---|
+| Simple `@decorator` | Add behaviour to any no-arg function |
+| `wrapper(*args, **kwargs)` | Wrap any function, regardless of arguments |
+| Decorator factory `decorator(arg)` | Customise decorator behaviour with a parameter |
+| Stacking `@d1 @d2 @d3` | Apply multiple behaviours in layers |
+
+::: {.tip-box}
+**🌍 Decorators in the Real World**
+
+Decorators are used everywhere in Python:
+- **Web frameworks** (like Flask): `@app.route("/home")` marks a function as a web page
+- **Testing**: `@pytest.mark.skip` skips a test function
+- **Caching**: `@functools.lru_cache` stores results to avoid re-computing
+- **Class methods**: `@staticmethod` and `@classmethod` change how methods behave
+:::
+
+You've just learned one of Python's most elegant features — the decorator. Now those `@` symbols you see in real code will feel like old friends! 🎉

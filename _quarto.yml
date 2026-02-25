@@ -64,6 +64,12 @@ website:
             file: lessons/15-functions-returning.qmd
           - text: "Quest 16: Lambda Functions - Quick Incantations"
             file: lessons/16-lambda-functions.qmd
+          - text: "Quest 17: Higher-Order Functions - Functions That Know Functions"
+            file: lessons/17-higher-order-functions.qmd
+          - text: "Quest 18: Decorators - Enchanting Your Spells"
+            file: lessons/18-decorators.qmd
+          - text: "Quest 19: Classes - Building Your Own Blueprints"
+            file: lessons/19-classes.qmd
 
 format:
   live-html:

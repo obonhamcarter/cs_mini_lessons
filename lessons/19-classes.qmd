@@ -1,0 +1,449 @@
+---
+title: "Quest 19: Classes - Building Your Own Blueprints"
+subtitle: "Create Custom Objects with Data and Behaviour"
+format:
+    live-html:
+        code-tools: true
+---
+
+::: {.quest-badge}
+🏗️ QUEST 19 | Difficulty: Intermediate | Time: 10 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=19-classes.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../files/lessons/19-classes.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: The Blueprint Idea
+
+Imagine you're designing a video game with many different characters — warriors, mages, rogues. Each character has the same *kinds* of information: a name, a health level, an attack power. Each character can do the same *kinds* of things: take damage, heal, attack.
+
+Would you write separate code for every single character? No way! You'd write one **blueprint** (called a **class**) and then stamp out as many characters (called **objects** or **instances**) as you need, each with their own values.
+
+That's exactly what Python **classes** are — blueprints for creating objects.
+
+::: {.story-box}
+**🏰 Story Time**: Think of a class as the *mould* used to make sword replicas in a castle armoury. Every sword from that mould has the same shape, but you can stamp a different name on each one, paint it a different colour, and nick the blade differently from battles. The *mould* is the class; each *sword* is an object (an instance of the class).
+:::
+
+## 💡 Explanation: Anatomy of a Class
+
+```python
+class Character:               # Class definition — capitalise the name!
+    
+    def __init__(self, name, health):   # Constructor — runs when you create an object
+        self.name   = name              # Instance attribute
+        self.health = health            # Instance attribute
+    
+    def greet(self):                    # Method (a function inside a class)
+        print(f"Hi, I'm {self.name}!")
+
+# Create objects (instances) from the class
+hero   = Character("Luna", 100)
+goblin = Character("Grak", 40)
+
+hero.greet()    # Hi, I'm Luna!
+goblin.greet()  # Hi, I'm Grak!
+```
+
+::: {.concept-box}
+**🎯 Key Terms**
+
+| Term | Meaning | Example |
+|---|---|---|
+| **class** | The blueprint | `class Character:` |
+| **object / instance** | One thing made from the blueprint | `hero = Character("Luna", 100)` |
+| **attribute** | Data stored on an object | `hero.name`, `hero.health` |
+| **method** | A function that belongs to a class | `hero.greet()` |
+| **`__init__`** | Special method called when creating an object | `def __init__(self, name):` |
+| **`self`** | The object itself (Python passes it automatically) | First parameter in every method |
+:::
+
+## 🎮 Activity 1: Creating Your First Class
+
+Let's build a simple `Hero` class step by step:
+
+```{pyodide-python}
+# Your first class!
+
+class Hero:
+    
+    def __init__(self, name, health, attack_power):
+        """Set up a new hero with the given stats."""
+        self.name         = name
+        self.health       = health
+        self.max_health   = health      # Remember the maximum
+        self.attack_power = attack_power
+        self.level        = 1
+        self.experience   = 0
+    
+    def describe(self):
+        """Print a summary of this hero."""
+        print(f"⚔️  Hero: {self.name}")
+        print(f"   Level:  {self.level}")
+        print(f"   HP:     {self.health} / {self.max_health}")
+        print(f"   Attack: {self.attack_power}")
+    
+    def gain_xp(self, amount):
+        """Earn experience points."""
+        self.experience += amount
+        print(f"✨ {self.name} gained {amount} XP! (Total: {self.experience})")
+        if self.experience >= self.level * 100:
+            self.level_up()
+    
+    def level_up(self):
+        """Level up the hero!"""
+        self.level       += 1
+        self.max_health  += 20
+        self.health       = self.max_health  # Full heal on level up
+        self.attack_power += 5
+        print(f"⭐ {self.name} reached level {self.level}!")
+
+# Create two heroes
+luna  = Hero("Luna",  100, 25)
+storm = Hero("Storm",  80, 35)
+
+print("=== HERO ROSTER ===")
+luna.describe()
+print()
+storm.describe()
+
+print()
+print("=== XP TIME ===")
+luna.gain_xp(60)
+luna.gain_xp(60)   # This should trigger a level up!
+print()
+luna.describe()
+```
+
+## 🎮 Activity 2: Methods That Interact with Other Objects
+
+One of the coolest things about classes is that objects can interact with *each other*:
+
+```{pyodide-python}
+# Objects interacting with each other
+
+class Fighter:
+    
+    def __init__(self, name, health, attack):
+        self.name   = name
+        self.health = health
+        self.attack = attack
+        self.alive  = True
+    
+    def take_damage(self, amount):
+        """Receive damage and check if defeated."""
+        self.health = max(0, self.health - amount)
+        print(f"  💥 {self.name} takes {amount} damage! ({self.health} HP left)")
+        if self.health == 0:
+            self.alive = False
+            print(f"  💀 {self.name} has been defeated!")
+    
+    def attack_opponent(self, opponent):
+        """Attack another Fighter object."""
+        if not self.alive:
+            print(f"{self.name} can't attack — they're defeated!")
+            return
+        print(f"⚔️  {self.name} attacks {opponent.name}!")
+        opponent.take_damage(self.attack)
+    
+    def heal(self, amount):
+        """Restore some health."""
+        self.health += amount
+        print(f"💚 {self.name} heals for {amount}! ({self.health} HP)")
+
+# Set up a battle
+knight  = Fighter("Sir Cedric",  120,  30)
+dragon  = Fighter("Ember",       200,  45)
+
+print("=== BATTLE: SIR CEDRIC vs EMBER THE DRAGON ===\n")
+
+knight.attack_opponent(dragon)
+dragon.attack_opponent(knight)
+knight.heal(25)
+knight.attack_opponent(dragon)
+dragon.attack_opponent(knight)
+dragon.attack_opponent(knight)
+
+print(f"\n--- BATTLE SUMMARY ---")
+print(f"{knight.name}: {knight.health} HP  |  Alive: {knight.alive}")
+print(f"{dragon.name}: {dragon.health} HP  |  Alive: {dragon.alive}")
+```
+
+## 🎮 Activity 3: Class Attributes vs Instance Attributes
+
+So far all our attributes belong to *individual objects*. But you can also attach data to the *class itself* — shared by everyone:
+
+```{pyodide-python}
+# Class attributes — shared across all instances
+
+class Adventurer:
+    
+    guild_name    = "The Wanderers"   # Class attribute — same for everyone!
+    member_count  = 0                 # Tracks how many adventurers exist
+    
+    def __init__(self, name, role):
+        self.name  = name      # Instance attribute — unique to each object
+        self.role  = role
+        Adventurer.member_count += 1   # Update the shared counter
+    
+    def introduce(self):
+        print(f"I'm {self.name}, a {self.role} of {Adventurer.guild_name}.")
+
+# Create some adventurers
+a1 = Adventurer("Iris",   "Ranger")
+a2 = Adventurer("Finn",   "Bard")
+a3 = Adventurer("Cyra",   "Alchemist")
+
+a1.introduce()
+a2.introduce()
+a3.introduce()
+
+print(f"\n🏰 Guild: {Adventurer.guild_name}")
+print(f"👥 Total members: {Adventurer.member_count}")
+
+# Change the class attribute — affects ALL instances instantly!
+Adventurer.guild_name = "The Silver Flame"
+print(f"\nAfter renaming the guild:")
+a1.introduce()
+a2.introduce()
+```
+
+## 🎮 Activity 4: Special Methods ( `__str__` and `__repr__` )
+
+Python has many **dunder** (double-underscore) methods that let your class work with built-in Python behaviour like `print()` and `len()`:
+
+```{pyodide-python}
+# Making your class feel like a natural Python object
+
+class Potion:
+    
+    def __init__(self, name, effect, power):
+        self.name   = name
+        self.effect = effect
+        self.power  = power
+        self.used   = False
+    
+    def __str__(self):
+        """Called when you print() the object."""
+        status = "USED" if self.used else "fresh"
+        return f"🧪 {self.name} [{self.effect} +{self.power}] ({status})"
+    
+    def __repr__(self):
+        """Called in the Python shell or in lists."""
+        return f"Potion({self.name!r}, {self.effect!r}, {self.power})"
+    
+    def use(self, target_name):
+        if self.used:
+            print(f"⚠️  This potion is already used up!")
+            return 0
+        self.used = True
+        print(f"✨ {target_name} drinks the {self.name}! Restored {self.power} {self.effect}.")
+        return self.power
+
+# Create potions
+hp_small  = Potion("Minor Healing",   "HP",   30)
+hp_large  = Potion("Major Healing",   "HP",   80)
+mana_pot  = Potion("Mana Draught",    "Mana", 50)
+
+# print() uses __str__
+print(hp_small)
+print(hp_large)
+print(mana_pot)
+
+# Lists show __repr__
+inventory = [hp_small, hp_large, mana_pot]
+print(f"\nInventory: {inventory}")
+
+print()
+hp_small.use("Elara")
+hp_small.use("Elara")  # Try to use it again!
+print()
+print(hp_small)        # Status will now show "USED"
+```
+
+## 🎮 Activity 5: Building a Mini RPG Inventory System
+
+Let's put everything together and build a small but complete class system:
+
+```{pyodide-python}
+# A mini inventory and character system
+
+class Item:
+    def __init__(self, name, item_type, value):
+        self.name      = name
+        self.item_type = item_type   # "weapon", "armour", "consumable"
+        self.value     = value
+
+    def __str__(self):
+        return f"{self.name} ({self.item_type}, {self.value}g)"
+
+
+class Inventory:
+    def __init__(self, capacity=10):
+        self.items    = []
+        self.capacity = capacity
+        self.gold     = 0
+
+    def add_item(self, item):
+        if len(self.items) >= self.capacity:
+            print(f"🎒 Inventory full! Can't add {item.name}.")
+            return False
+        self.items.append(item)
+        print(f"+ Added: {item}")
+        return True
+
+    def remove_item(self, item_name):
+        for item in self.items:
+            if item.name == item_name:
+                self.items.remove(item)
+                print(f"- Removed: {item.name}")
+                return item
+        print(f"⚠️  {item_name} not found in inventory.")
+        return None
+
+    def show(self):
+        print(f"🎒 INVENTORY ({len(self.items)}/{self.capacity} slots | {self.gold}g)")
+        if not self.items:
+            print("  (empty)")
+        for i, item in enumerate(self.items, 1):
+            print(f"  {i}. {item}")
+
+    def total_value(self):
+        return sum(item.value for item in self.items)
+
+
+# Build our hero's inventory
+bag = Inventory(capacity=5)
+
+bag.add_item(Item("Iron Sword",      "weapon",     40))
+bag.add_item(Item("Leather Armour",  "armour",     30))
+bag.add_item(Item("Health Potion",   "consumable", 15))
+bag.add_item(Item("Mana Potion",     "consumable", 15))
+bag.add_item(Item("Lucky Coin",      "misc",        5))
+bag.add_item(Item("Dragon Scale",    "material",  100))  # Full!
+
+bag.gold = 120
+
+print()
+bag.show()
+print(f"\n💰 Total item value: {bag.total_value()}g")
+
+print()
+bag.remove_item("Lucky Coin")
+bag.add_item(Item("Dragon Scale", "material", 100))
+
+print()
+bag.show()
+```
+
+## 🧩 Challenge: Design a Bank Account Class
+
+Write a `BankAccount` class with:
+- Attributes: `owner`, `balance`
+- Method `deposit(amount)` — adds money, prints confirmation
+- Method `withdraw(amount)` — removes money if balance allows, otherwise prints an error
+- Method `__str__` — returns a nice summary string
+
+```{pyodide-python}
+# CHALLENGE: Build a BankAccount class
+
+class BankAccount:
+    
+    def __init__(self, owner, starting_balance=0):
+        # Your code here!
+        pass
+    
+    def deposit(self, amount):
+        # Your code here!
+        pass
+    
+    def withdraw(self, amount):
+        # Your code here — check there's enough balance!
+        pass
+    
+    def __str__(self):
+        # Return a friendly summary
+        pass
+
+# Test your class:
+# acc = BankAccount("Hero", 100)
+# print(acc)
+# acc.deposit(50)
+# acc.withdraw(30)
+# acc.withdraw(200)  # Should fail gracefully
+# print(acc)
+```
+
+## ✅ Challenge Solution
+
+```{pyodide-python}
+class BankAccount:
+    
+    def __init__(self, owner, starting_balance=0):
+        self.owner   = owner
+        self.balance = starting_balance
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            print("❌ Deposit amount must be positive.")
+            return
+        self.balance += amount
+        print(f"✅ Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
+    
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("❌ Withdrawal amount must be positive.")
+        elif amount > self.balance:
+            print(f"❌ Insufficient funds! Balance: ${self.balance:.2f}, tried: ${amount:.2f}")
+        else:
+            self.balance -= amount
+            print(f"✅ Withdrew ${amount:.2f}. New balance: ${self.balance:.2f}")
+    
+    def __str__(self):
+        return f"🏦 {self.owner}'s Account — Balance: ${self.balance:.2f}"
+
+# Test drive
+acc = BankAccount("Hero", 100)
+print(acc)
+acc.deposit(50)
+acc.withdraw(30)
+acc.withdraw(200)  # Should fail!
+acc.deposit(-10)   # Should fail!
+print(acc)
+```
+
+## 🎓 Summary: Classes at a Glance
+
+```python
+class MyClass:               # Blueprint definition
+    shared = "class attr"    # Class attribute (shared)
+
+    def __init__(self, x):   # Constructor
+        self.x = x           # Instance attribute (unique)
+
+    def do_thing(self):      # Method
+        return self.x * 2
+
+    def __str__(self):       # Friendly string representation
+        return f"MyClass({self.x})"
+
+obj = MyClass(5)             # Create an instance
+obj.do_thing()               # Call a method → 10
+print(obj)                   # Uses __str__  → MyClass(5)
+```
+
+::: {.tip-box}
+**🌍 Why Classes Matter**
+
+Classes are the foundation of **Object-Oriented Programming (OOP)** — one of the most widely used approaches in software development. Once you understand classes, you'll find them everywhere:
+- Python's built-in types (`list`, `dict`, `str`) are all classes
+- Web frameworks, game engines, data science libraries — all built with classes
+- You now have the skills to read and write professional Python code!
+:::
+
+Congratulations — you've built your own custom blueprints! The world of Python has opened up significantly. What will you create? 🏗️🎉

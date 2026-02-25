@@ -34,6 +34,9 @@ Here's your complete collection of CS Quest adventures! Each quest is designed t
 14. **[Functions Part 2 - Non-Returning](lessons/14-functions-non-returning.qmd)** - Functions with side effects
 15. **[Functions Part 3 - Returning](lessons/15-functions-returning.qmd)** - Pure functions and results
 16. **[Lambda Functions - Quick Incantations](lessons/16-lambda-functions.qmd)** - One-line anonymous functions
+17. **[Higher-Order Functions - Functions That Know Functions](lessons/17-higher-order-functions.qmd)** - Pass and return functions
+18. **[Decorators - Enchanting Your Spells](lessons/18-decorators.qmd)** - Add powers to functions with @decorator
+19. **[Classes - Building Your Own Blueprints](lessons/19-classes.qmd)** - Create custom objects with data and behaviour
 
 ---
 
@@ -55,7 +58,10 @@ Here's your complete collection of CS Quest adventures! Each quest is designed t
 - [ ] Quest 14: Functions Part 2
 - [ ] Quest 15: Functions Part 3
 - [ ] Quest 16: Lambda Functions
+- [ ] Quest 17: Higher-Order Functions
+- [ ] Quest 18: Decorators
+- [ ] Quest 19: Classes
 
 ::: {.tip-box}
-**🎯 Challenge**: Can you complete all 16 quests? Each one adds a new tool to your coding toolkit!
+**🎯 Challenge**: Can you complete all 19 quests? Each one adds a new tool to your coding toolkit!
 :::

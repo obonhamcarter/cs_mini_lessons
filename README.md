@@ -1,10 +1,10 @@
 # CS Quest - Coding Adventures 🚀
 
-An interactive Quarto website featuring 12 engaging computer science mini-lessons for beginning students. Each quest is a 5-minute adventure designed to teach fundamental programming concepts through interactive Python demonstrations.
+An interactive Quarto website featuring 19 engaging computer science mini-lessons for beginning students. Each quest is a 5-minute adventure designed to teach fundamental programming concepts through interactive Python demonstrations.
 
 ## 📚 Quest Collection
 
-The website includes 12 complete interactive lessons:
+The website includes 19 complete interactive lessons:
 
 1. **Variables - Your Coding Backpack** - Store and use data
 2. **Data Types - Shapes of Information** - Integers, strings, booleans, floats
@@ -22,6 +22,9 @@ The website includes 12 complete interactive lessons:
 14. **Functions Part 2** - Side Effects & Procedures
 15. **Functions Part 3** - Pure Functions & Return Values
 16. **Lambda Functions** - Quick Incantations
+17. **Higher-Order Functions** - Functions That Know Functions
+18. **Decorators** - Enchanting Your Spells with @decorator
+19. **Classes** - Building Your Own Blueprints
 
 
 
@@ -167,7 +170,7 @@ The workflow:
 - ✅ Installs Quarto
 - ✅ Installs Python 3.11
 - ✅ Installs JupyterLite (`jupyterlite-core`, `jupyterlite-pyodide-kernel`, and `jupyter-server`)
-- ✅ Renders all 16 lessons as HTML
+- ✅ Renders all 19 lessons as HTML
 - ✅ Builds JupyterLite lab environment
 - ✅ Deploys combined `_site` folder to GitHub Pages
 
@@ -278,6 +281,13 @@ quests = [
     ("10-number-game", "Quest 10: Number Game"),
     ("11-recursion", "Quest 11: Recursion"),
     ("12-complexity", "Quest 12: Big O Complexity"),
+    ("13-iterative-loops", "Quest 13: Iterative Loops"),
+    ("14-functions-non-returning", "Quest 14: Functions Part 2"),
+    ("15-functions-returning", "Quest 15: Functions Part 3"),
+    ("16-lambda-functions", "Quest 16: Lambda Functions"),
+    ("17-higher-order-functions", "Quest 17: Higher-Order Functions"),
+    ("18-decorators", "Quest 18: Decorators"),
+    ("19-classes", "Quest 19: Classes"),
 ]
 
 # Create QR codes directory
@@ -357,6 +367,13 @@ def create_qr_sheet(output_filename="CS_Quest_QR_Codes.pdf"):
         ("10-number-game", "Quest 10: Number Game"),
         ("11-recursion", "Quest 11: Recursion"),
         ("12-complexity", "Quest 12: Big O"),
+        ("13-iterative-loops", "Quest 13: Iterative Loops"),
+        ("14-functions-non-returning", "Quest 14: Functions Part 2"),
+        ("15-functions-returning", "Quest 15: Functions Part 3"),
+        ("16-lambda-functions", "Quest 16: Lambda Functions"),
+        ("17-higher-order-functions", "Quest 17: Higher-Order Functions"),
+        ("18-decorators", "Quest 18: Decorators"),
+        ("19-classes", "Quest 19: Classes"),
     ]
     
     # Title
@@ -454,7 +471,7 @@ $secondary: #ec4899; // Change secondary color
 
 ### Add More Lessons
 
-1. Create new lesson file in `lessons/` directory (e.g., `13-new-quest.qmd`)
+1. Create new lesson file in `lessons/` directory (e.g., `20-new-quest.qmd`)
 2. Add entry to `_quarto.yml` under sidebar contents
 3. Add to index.qmd and all-quests.qmd
 

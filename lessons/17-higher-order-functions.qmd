@@ -1,0 +1,293 @@
+---
+title: "Quest 17: Higher-Order Functions - Functions That Know Functions"
+subtitle: "Passing Functions Around Like Superpowers"
+format:
+    live-html:
+        code-tools: true
+---
+
+::: {.quest-badge}
+🧠 QUEST 17 | Difficulty: Intermediate | Time: 7 minutes
+:::
+
+::: {.tip-box}
+**💻 Interactive Options:**
+
+- 📓 **[Open in JupyterLite](../jupyterlite/lab/index.html?path=17-higher-order-functions.ipynb)** - Full Jupyter environment in your browser
+- ▶️ **Run code directly below** - All code cells on this page are editable and runnable
+- 📥 **[Download Notebook](../files/lessons/17-higher-order-functions.ipynb)** - For use in local Jupyter or Google Colab
+:::
+
+## 📖 Introduction: Functions That Use Other Functions
+
+So far you've learned that functions are like magic spells — you write them once and cast them whenever you need them. But here's where things get *really* exciting: **in Python, functions are first-class citizens**. That means you can treat a function just like any other value — store it in a variable, put it in a list, or pass it to another function!
+
+A **higher-order function** is simply a function that:
+- **Accepts** another function as an argument, OR
+- **Returns** a function as its result
+
+This sounds fancy, but you've already seen this idea! Remember `map()`, `filter()`, and `sorted(key=...)` from the Lambda lesson? Those are all higher-order functions built right into Python!
+
+::: {.story-box}
+**🧙 Story Time**: Imagine a wizard school where some spells *modify* other spells. A "Power Boost" spell doesn't do anything on its own — but when you hand it your Fireball spell, it makes Fireball twice as strong. The Power Boost spell is like a higher-order function: it takes your spell (function) and does something powerful with it!
+:::
+
+## 💡 Explanation: Functions Are Values
+
+In Python, a function is just another kind of value. You can store it in a variable without calling it — just leave off the parentheses `()`.
+
+```python
+def say_hello():
+    print("Hello!")
+
+# Store the function in a variable (no parentheses!)
+my_func = say_hello
+
+# Now my_func IS the function
+my_func()   # Output: Hello!
+```
+
+::: {.concept-box}
+**🎯 The Key Idea**
+
+```python
+# This CALLS the function and stores the result
+result = say_hello()    # result = None (what say_hello returns)
+
+# This STORES the function itself
+action = say_hello      # action = <the function object>
+action()                # NOW we call it — prints "Hello!"
+```
+
+The difference is the parentheses `()`. No parentheses means you're talking *about* the function; parentheses means you're *using* it.
+:::
+
+## 🎮 Activity 1: Passing Functions as Arguments
+
+Let's pass a function into another function!
+
+```{pyodide-python}
+# Functions as arguments — gear up!
+
+def shout(text):
+    return text.upper() + "!!!"
+
+def whisper(text):
+    return text.lower() + "..."
+
+def greet_player(name, style_function):
+    """Greet a player using any style we choose!"""
+    message = f"Welcome, {name}"
+    return style_function(message)
+
+# Pass different functions to get different results
+loud_greeting = greet_player("Hero", shout)
+quiet_greeting = greet_player("Hero", whisper)
+
+print(loud_greeting)
+print(quiet_greeting)
+
+# Try changing "Hero" to your own name and see what happens!
+```
+
+Notice how `greet_player` doesn't care *which* greeting style you use — you decide at the moment you call it. That flexibility is the superpower of higher-order functions!
+
+## 🎮 Activity 2: Writing Your Own Higher-Order Function
+
+Let's write a function that applies any transformation to a list of numbers:
+
+```{pyodide-python}
+# A higher-order function that works on a list
+
+def apply_to_all(numbers, operation):
+    """Apply any operation to every number in a list."""
+    result = []
+    for num in numbers:
+        result.append(operation(num))
+    return result
+
+# Define some operations
+def square(n):
+    return n ** 2
+
+def cube(n):
+    return n ** 3
+
+def negate(n):
+    return -n
+
+scores = [3, 5, 2, 8, 6]
+
+print(f"Original scores:   {scores}")
+print(f"Squared scores:    {apply_to_all(scores, square)}")
+print(f"Cubed scores:      {apply_to_all(scores, cube)}")
+print(f"Negated scores:    {apply_to_all(scores, negate)}")
+
+# You can even pass a lambda!
+print(f"Plus 100 (bonus!): {apply_to_all(scores, lambda x: x + 100)}")
+```
+
+## 🎮 Activity 3: Functions Returning Functions
+
+A higher-order function can also *return* a brand-new function! This is how you can build customized tools on the fly.
+
+```{pyodide-python}
+# Build a custom "multiplier" function
+
+def make_multiplier(factor):
+    """Returns a new function that multiplies by factor."""
+    def multiplier(number):
+        return number * factor
+    return multiplier   # <-- returns the inner function!
+
+# Create specialized multipliers
+double   = make_multiplier(2)
+triple   = make_multiplier(3)
+ten_x    = make_multiplier(10)
+
+print(f"Double 5:  {double(5)}")
+print(f"Triple 5:  {triple(5)}")
+print(f"10x 5:     {ten_x(5)}")
+
+# What just happened?
+# make_multiplier(2) returned a function, and we stored that in `double`
+# make_multiplier(3) returned a DIFFERENT function, stored in `triple`
+
+# They're independent — change one and the other stays the same
+coins = 7
+print(f"\n{coins} coins doubled:  {double(coins)} coins")
+print(f"{coins} coins tripled:  {triple(coins)} coins")
+print(f"{coins} coins x10:      {ten_x(coins)} coins")
+```
+
+## 🎮 Activity 4: Built-in Higher-Order Functions
+
+Python's built-in higher-order functions — `map()`, `filter()`, and `sorted()` — are powerful tools. Let's see them in action together:
+
+```{pyodide-python}
+# Using map, filter, and sorted like a pro
+
+quest_scores = [42, 91, 55, 78, 100, 33, 88, 61]
+
+# map() — transform every score
+bonus_scores = list(map(lambda s: s + 10, quest_scores))
+print(f"Original:     {quest_scores}")
+print(f"With +10 bonus: {bonus_scores}")
+
+# filter() — keep only passing scores (>= 60)
+passing = list(filter(lambda s: s >= 60, quest_scores))
+print(f"\nPassing scores (60+): {passing}")
+
+# sorted() with a key — sort alphabetically by last letter (just for fun!)
+words = ["dragon", "knight", "wizard", "elf", "paladin"]
+sorted_by_last = sorted(words, key=lambda w: w[-1])
+print(f"\nWords sorted by last letter: {sorted_by_last}")
+
+# Chain them! Bonus scores, only those >= 100, sorted descending
+high_achievers = sorted(
+    filter(lambda s: s >= 100, bonus_scores),
+    reverse=True
+)
+print(f"\nHigh achievers (100+ after bonus): {list(high_achievers)}")
+```
+
+## 🎮 Activity 5: A Practical Example — A Mini Pipeline
+
+Higher-order functions shine when you build *pipelines* that process data step by step:
+
+```{pyodide-python}
+# Build a data pipeline using higher-order functions
+
+def pipeline(data, *steps):
+    """Apply a series of transformation steps in order."""
+    result = data
+    for step in steps:
+        result = step(result)
+    return result
+
+# Our transformation steps
+def remove_negatives(numbers):
+    return list(filter(lambda x: x >= 0, numbers))
+
+def square_all(numbers):
+    return list(map(lambda x: x ** 2, numbers))
+
+def sort_descending(numbers):
+    return sorted(numbers, reverse=True)
+
+# Raw data from a game battle log
+battle_data = [5, -3, 12, -1, 8, 0, 7, -5, 3]
+
+print(f"Raw battle data:  {battle_data}")
+
+processed = pipeline(
+    battle_data,
+    remove_negatives,
+    square_all,
+    sort_descending
+)
+
+print(f"Processed scores: {processed}")
+# Step 1: remove negatives → [5, 12, 8, 0, 7, 3]
+# Step 2: square all       → [25, 144, 64, 0, 49, 9]
+# Step 3: sort descending  → [144, 64, 49, 25, 9, 0]
+```
+
+## 🧩 Challenge: Build Your Own apply_twice
+
+Write a higher-order function called `apply_twice` that takes a function and a value, applies the function to the value **twice**, and returns the result.
+
+```{pyodide-python}
+# CHALLENGE: Write apply_twice
+
+def apply_twice(func, value):
+    # Your code here!
+    # Hint: Apply func to value, then apply func to THAT result
+    pass
+
+# Test cases (uncomment after you write apply_twice):
+
+# def add_three(x):
+#     return x + 3
+#
+# print(apply_twice(add_three, 10))   # Should print 16 (10+3+3)
+# print(apply_twice(double, 5))        # Should print 20 (5*2*2)
+# print(apply_twice(str.upper, "hello"))  # Hmm, what happens?
+```
+
+## ✅ Challenge Solution
+
+```{pyodide-python}
+def apply_twice(func, value):
+    return func(func(value))
+
+def add_three(x):
+    return x + 3
+
+def double(x):
+    return x * 2
+
+print(apply_twice(add_three, 10))   # 16
+print(apply_twice(double, 5))       # 20
+print(apply_twice(lambda s: s + "!", "Wow"))  # "Wow!!"
+```
+
+## 🎓 Summary: What Makes a Higher-Order Function?
+
+| Feature | Example |
+|---|---|
+| Accepts a function as argument | `apply_to_all(scores, square)` |
+| Returns a new function | `make_multiplier(3)` |
+| Built-in Python HOFs | `map()`, `filter()`, `sorted()` |
+| Combine for pipelines | `pipeline(data, step1, step2)` |
+
+::: {.tip-box}
+**💡 Why Does This Matter?**
+
+Higher-order functions let you write code that is:
+- **Reusable** — one function works with many strategies
+- **Readable** — the intent is clear (filter the list, transform the data)
+- **Flexible** — change the behavior without rewriting the function
+:::
+
+You've unlocked one of Python's most elegant features — now onto the next adventure! 🚀
